@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 // mui imports
@@ -7,31 +7,26 @@ import { Box, Toolbar } from '@mui/material';
 // components
 import Header from './components/Header';
 import Nav from './components/Nav';
-import ToDoList from './components/ToDoList';
-import ToDoItem from './components/ToDoItem';
 
 // pages
 import Home from './pages/Home';
 
-// dummy data
-import { defaultList } from './data';
+// store
+import { useStoreContext } from './store/context';
+import { TOGGLE_NAV } from './store/actions';
 
 const App = () => {
-  const [list, setList] = useState(defaultList);
-  const [mobileOpen, setMobileOpen] = useState(false);
+  const { list, trash, navOpen, dispatch } = useStoreContext();
 
-  const handleDrawerToggle = () => {
-    setMobileOpen((prev) => !prev);
+  const toggleNav = () => {
+    dispatch({ type: TOGGLE_NAV });
   };
 
   return (
     <Router>
       <Box sx={{ display: 'flex' }}>
-        <Header
-          handleDrawerToggle={handleDrawerToggle}
-          mobileOpen={mobileOpen}
-        />
-        <Nav handleDrawerToggle={handleDrawerToggle} mobileOpen={mobileOpen} />
+        <Header toggleNav={toggleNav} navOpen={navOpen} />
+        <Nav toggleNav={toggleNav} navOpen={navOpen} />
         <Box component="main">
           {/* Toolbar provides spacing under Header */}
           <Toolbar />
