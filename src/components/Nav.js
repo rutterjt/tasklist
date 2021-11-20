@@ -19,7 +19,7 @@ import { navItems } from '../data';
 
 const drawerWidth = 240;
 
-const Nav = ({ window, mobileOpen, handleDrawerToggle }) => {
+const Nav = ({ window, toggleNav, navOpen }) => {
   const [activeList, setActiveList] = useState(0);
 
   const handleClick = (value) => {
@@ -75,8 +75,8 @@ const Nav = ({ window, mobileOpen, handleDrawerToggle }) => {
       <Drawer
         container={container}
         variant="temporary"
-        open={mobileOpen}
-        onClose={handleDrawerToggle}
+        open={navOpen}
+        onClose={toggleNav}
         ModalProps={{ keepMounted: true }}
         sx={{
           display: { xs: 'block', md: 'none' },

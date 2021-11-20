@@ -3,7 +3,7 @@ import { AppBar, Toolbar, IconButton, Typography } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import CloseIcon from '@mui/icons-material/Close';
 
-const Header = ({ handleDrawerToggle, mobileOpen }) => {
+const Header = ({ toggleNav, navOpen }) => {
   return (
     <>
       <AppBar
@@ -18,10 +18,10 @@ const Header = ({ handleDrawerToggle, mobileOpen }) => {
             aria-label="Toggle menu"
             sx={{ mr: 2 }}
             focusRipple
-            onClick={handleDrawerToggle}
+            onClick={toggleNav}
             sx={{ display: { md: 'none' } }}
           >
-            {mobileOpen ? (
+            {navOpen ? (
               <CloseIcon sx={{ display: { xs: 'block', md: 'none' } }} />
             ) : (
               <MenuIcon sx={{ display: { xs: 'block', md: 'none' } }} />
