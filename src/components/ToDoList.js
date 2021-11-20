@@ -1,9 +1,18 @@
 import React from 'react';
-import { List } from '@mui/material';
+import { List, Typography, Box } from '@mui/material';
 
 import ToDoItem from './ToDoItem';
 
 const ToDoList = ({ list }) => {
+  if (!list || !list.length) {
+    return (
+      <Box sx={{ mt: '2rem' }}>
+        <Typography variant="h6" component="h2">
+          Your list is empty.
+        </Typography>
+      </Box>
+    );
+  }
   return (
     <div>
       <List
