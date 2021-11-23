@@ -16,10 +16,9 @@ const Header = ({ toggleNav, navOpen }) => {
             edge="start"
             color="inherit"
             aria-label="Toggle menu"
-            sx={{ mr: 2 }}
+            sx={{ mr: 2, display: { md: 'none' } }}
             focusRipple
             onClick={toggleNav}
-            sx={{ display: { md: 'none' } }}
           >
             {navOpen ? (
               <CloseIcon sx={{ display: { xs: 'block', md: 'none' } }} />
