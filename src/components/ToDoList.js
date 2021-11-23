@@ -1,9 +1,10 @@
 import React from 'react';
-import { List, Typography, Box } from '@mui/material';
+import { List, Typography, Box, Collapse } from '@mui/material';
+import { TransitionGroup } from 'react-transition-group';
 
 import ToDoItem from './ToDoItem';
 
-const ToDoList = ({ list }) => {
+const ToDoList = ({ type, list }) => {
   if (!list || !list.length) {
     return (
       <Box sx={{ mt: '2rem' }}>
@@ -14,7 +15,7 @@ const ToDoList = ({ list }) => {
     );
   }
   return (
-    <div>
+    <Box sx={{ mt: '2rem' }}>
       <List
         sx={{
           width: '100%',
@@ -22,11 +23,15 @@ const ToDoList = ({ list }) => {
           margin: 'auto',
         }}
       >
-        {list.map((item) => (
-          <ToDoItem key={item.id} {...item} />
-        ))}
+        <TransitionGroup>
+          {list.map((item) => (
+            <Collapse key={item.id}>
+              <ToDoItem {...item} />
+            </Collapse>
+          ))}
+        </TransitionGroup>
       </List>
-    </div>
+    </Box>
   );
 };
 
