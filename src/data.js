@@ -43,8 +43,28 @@ export const defaultList = [
 ];
 
 export const navItems = [
-  { title: 'Inbox', list: '11', icon: <InboxIcon fontSize="small" /> },
-  { title: 'Today', list: '', icon: <TodayIcon fontSize="small" /> },
-  { title: 'Upcoming', list: '11', icon: <EventNoteIcon fontSize="small" /> },
-  { title: 'Past Due', list: '111', icon: <ScheduleIcon fontSize="small" /> },
+  {
+    title: 'Inbox',
+    to: '/',
+    list: () => true,
+    icon: <InboxIcon fontSize="small" />,
+  },
+  {
+    title: 'Today',
+    to: '/today',
+    list: '',
+    icon: <TodayIcon fontSize="small" />,
+  },
+  {
+    title: 'Upcoming',
+    to: '/upcoming',
+    list: '',
+    icon: <EventNoteIcon fontSize="small" />,
+  },
+  {
+    title: 'Past Due',
+    to: '/due',
+    list: '',
+    icon: <ScheduleIcon fontSize="small" />,
+  },
 ];
