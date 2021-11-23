@@ -6,6 +6,7 @@ import {
   DELETE_ITEM,
   EMPTY_TRASH,
   TOGGLE_NAV,
+  RESTORE_ITEM,
 } from './actions';
 
 // export const defaultState = {
@@ -20,7 +21,7 @@ export const defaultState = {
   navOpen: false,
 };
 
-export const reducer = (action, state) => {
+export const reducer = (state, action) => {
   const { type, payload } = action;
   switch (type) {
     case ADD_ITEM: {
@@ -30,6 +31,8 @@ export const reducer = (action, state) => {
         description: description || '',
         due: due || '',
         label: label || '',
+        deleted: false,
+        date: Date.now(), // automatically get date of creation
         id: uuidv4(), // automatically generate a unique id
       };
       return { ...state, list: [...state.list, newItem] }; // add item to end of list
@@ -49,13 +52,23 @@ export const reducer = (action, state) => {
     }
     case DELETE_ITEM: {
       // getting the index of the item to delete
-      const index = state.list.findIndex((item) => item.id === payload.id);
+      const index = state.list.findIndex((item) => item.id === payload);
       if (index < 0) return state; // don't delete if item doesn't exist
-      const item = state.list[index];
+      const item = { ...state.list[index], deleted: true };
       const newTrash = [item, ...state.trash].slice(0, 10); // push deleted item to the trash, slicing trash to 10 items
       const newList = state.list
         .slice(0, index)
         .concat(state.list.slice(index + 1)); // slice list to remove deleted item
+      return { ...state, list: newList, trash: newTrash };
+    }
+    case RESTORE_ITEM: {
+      const index = state.trash.findIndex((item) => item.id === payload);
+      if (index < 0) return state;
+      const item = { ...state.trash[index], deleted: false };
+      const newTrash = state.trash
+        .slice(0, index)
+        .concat(state.trash.slice(index + 1)); // slice list to remove deleted item
+      const newList = [...state.list, item];
       return { ...state, list: newList, trash: newTrash };
     }
     case EMPTY_TRASH: {

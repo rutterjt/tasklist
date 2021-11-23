@@ -13,6 +13,6 @@ export const StoreProvider = ({ children }) => {
   );
 };
 
-export const useStoreContext = () => {
+export const useStore = () => {
   return useContext(StoreContext);
 };
