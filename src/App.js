@@ -10,13 +10,15 @@ import Nav from './components/Nav';
 
 // pages
 import Home from './pages/Home';
+import Completed from './pages/Completed';
 
 // store
-import { useStoreContext } from './store/context';
+import { useStore } from './store/context';
 import { TOGGLE_NAV } from './store/actions';
 
 const App = () => {
-  const { list, trash, navOpen, dispatch } = useStoreContext();
+  const { list, trash, navOpen, dispatch } = useStore();
+  console.log(list);
 
   const toggleNav = () => {
     dispatch({ type: TOGGLE_NAV });
@@ -26,7 +28,7 @@ const App = () => {
     <Router>
       <Box sx={{ display: 'flex' }}>
         <Header toggleNav={toggleNav} navOpen={navOpen} />
-        <Nav toggleNav={toggleNav} navOpen={navOpen} />
+        <Nav toggleNav={toggleNav} navOpen={navOpen} list={list} />
         <Box component="main">
           {/* Toolbar provides spacing under Header */}
           <Toolbar />
@@ -35,7 +37,7 @@ const App = () => {
             <Route path="/today" element={<Home />} />
             <Route path="/upcoming" element={<Home />} />
             <Route path="/due" element={<Home />} />
-            <Route path="/completed" element={<Home />} />
+            <Route path="/completed" element={<Completed list={trash} />} />
           </Routes>
         </Box>
       </Box>
