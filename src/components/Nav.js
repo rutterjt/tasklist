@@ -1,54 +1,24 @@
-import React, { useState } from 'react';
-import {
-  Box,
-  Drawer,
-  List,
-  ListItem,
-  ListItemIcon,
-  ListItemText,
-  Toolbar,
-  Badge,
-  ListItemButton,
-  Divider,
-} from '@mui/material';
+import React from 'react';
+import { Box, Drawer, List, Toolbar, Divider } from '@mui/material';
 
 import DeleteIcon from '@mui/icons-material/Delete';
 
 // data
 import { navItems } from '../data';
 
+// components
+import NavItem from './NavItem';
+
 const drawerWidth = 240;
 
-const Nav = ({ window, toggleNav, navOpen }) => {
-  const [activeList, setActiveList] = useState(0);
-
-  const handleClick = (value) => {
-    setActiveList(value);
-  };
-
-  const NavItem = ({ title, list, icon, index }) => (
-    <ListItem selected={activeList === index}>
-      <ListItemButton onClick={() => handleClick(index)} disableRipple>
-        <ListItemIcon>
-          <Badge
-            badgeContent={list.length}
-            color={title === 'Past Due' ? 'error' : 'secondary'}
-          >
-            {icon}
-          </Badge>
-        </ListItemIcon>
-        <ListItemText primary={title} />
-      </ListItemButton>
-    </ListItem>
-  );
-
-  const NavList = (
+const Nav = ({ window, toggleNav, navOpen, list }) => {
+  const NavList = () => (
     <Box>
       <Toolbar />
       <List>
         {navItems.map((item, index) => {
           if (item.title === 'Past Due' && !item.list.length) return null;
-          return <NavItem key={index} {...item} index={index} />;
+          return <NavItem key={index} {...item} />;
         })}
       </List>
       <Divider />
@@ -56,8 +26,8 @@ const Nav = ({ window, toggleNav, navOpen }) => {
         <NavItem
           title="Completed"
           list={[]}
+          to="/completed"
           icon={<DeleteIcon fontSize="small" />}
-          index={navItems.length + 1}
         />
       </List>
     </Box>
@@ -83,7 +53,7 @@ const Nav = ({ window, toggleNav, navOpen }) => {
           '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth },
         }}
       >
-        {NavList}
+        <NavList />
       </Drawer>
       <Drawer
         variant="permanent"
@@ -93,7 +63,7 @@ const Nav = ({ window, toggleNav, navOpen }) => {
         }}
         open
       >
-        {NavList}
+        <NavList />
       </Drawer>
       <Toolbar />
     </Box>
