@@ -9,7 +9,14 @@ import AddItemForm from '../components/AddItemForm';
 
 const Home = ({ list }) => {
   return (
-    <Box sx={{ ml: { md: '2rem' } }}>
+    <Box
+      sx={{
+        width: '100%',
+        maxWidth: 400,
+        pl: { md: '2rem' },
+        pr: '2rem',
+      }}
+    >
       <ToDoList list={list} />
       <AddItemForm />
     </Box>
