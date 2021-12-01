@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 // mui
-import { Box, Button } from '@mui/material';
+import { Box, Button, Paper, TextField } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 
 // store
@@ -10,28 +10,75 @@ import { ADD_ITEM } from '../store/actions';
 
 const AddItemForm = () => {
   const { list, dispatch } = useStore();
-  const [formData, setFormData] = useState({});
+  const [formOpen, setFormOpen] = useState(false);
+  const [name, setName] = useState('');
+  const [description, setDescription] = useState('');
 
-  const testItemCreator = () => {
+  // store
+  const itemCreator = (data) => {
     return {
       type: ADD_ITEM,
-      payload: { name: 'Test Item', description: 'Test Description' },
+      payload: { ...data },
     };
   };
 
-  const newTestItem = () => dispatch(testItemCreator());
+  const newItem = (data) => dispatch(itemCreator(data));
+
+  // child components
+  const AddButton = () => (
+    <Button
+      variant="text"
+      onClick={() => setFormOpen(true)}
+      startIcon={<AddIcon />}
+      disableRipple
+    >
+      Add item
+    </Button>
+  );
+
+  const CustomForm = () => (
+    <Box component="form">
+      <Paper sx={{ padding: '1rem', mb: '1rem' }}>
+        <TextField
+          id="name"
+          label="Name"
+          fullWidth
+          variant="standard"
+          sx={{ mb: '1rem' }}
+        />
+        <TextField
+          id="description"
+          label="Description"
+          multiline
+          fullWidth
+          minRows={2}
+          variant="standard"
+        />
+      </Paper>
+      <Box>
+        <Button
+          variant="contained"
+          sx={{ mr: '1rem' }}
+          disableRipple
+          disableElevation
+          disabled={!name}
+        >
+          Add Item
+        </Button>
+        <Button
+          variant="outlined"
+          color="error"
+          onClick={() => setFormOpen(false)}
+          disableRipple
+        >
+          Cancel
+        </Button>
+      </Box>
+    </Box>
+  );
 
   return (
-    <Box sx={{ mt: '0.5rem' }}>
-      <Button
-        variant="text"
-        onClick={newTestItem}
-        startIcon={<AddIcon />}
-        sx={{ ml: '4rem' }}
-      >
-        Add item
-      </Button>
-    </Box>
+    <Box sx={{ mt: '0.5rem' }}>{formOpen ? <CustomForm /> : <AddButton />}</Box>
   );
 };
 
