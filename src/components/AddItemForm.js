@@ -9,18 +9,18 @@ import {
   IconButton,
   Popover,
   Typography,
+  List,
+  ListItem,
+  ListItemButton,
+  ListItemIcon,
+  ListItemText,
 } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
-// import FlagOutlinedIcon from '@mui/icons-material/FlagOutlined';
-// import FlagIcon from '@mui/icons-material/Flag';
-// import { indigo, purple, red } from '@mui/material/colors';
+import PriorityIcon from './PriorityIcon';
 
 // store
 import { useStore } from '../store/context';
 import { ADD_ITEM } from '../store/actions';
-
-// priority flag colors mapping
-// const flagColors = [null, red[500], purple[500], indigo[500]];
 
 // child components
 const AddButton = ({ setFormOpen }) => (
@@ -34,9 +34,58 @@ const AddButton = ({ setFormOpen }) => (
   </Button>
 );
 
+const PriorityControl = ({ priority, setPriority }) => {
+  const [priorityPopup, setPriorityPopup] = useState(false);
+  const [anchor, setAnchor] = useState(null);
+
+  const handleClick = (e) => {
+    setAnchor(e.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchor(null);
+  };
+
+  const handleListClick = (num) => {
+    setPriority(num);
+    handleClose();
+  };
+
+  const open = !!anchor;
+  const id = open ? 'priority-popup' : undefined;
+  return (
+    <Box>
+      <IconButton aria-label="Set Priority" onClick={handleClick}>
+        <PriorityIcon priority={priority} />
+      </IconButton>
+      <Popover
+        id={id}
+        open={open}
+        anchorEl={anchor}
+        onClose={handleClose}
+        anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
+      >
+        <List>
+          {[1, 2, 3, 4].map((num) => (
+            <ListItem>
+              <ListItemButton onClick={() => handleListClick(num)}>
+                <ListItemIcon>
+                  <PriorityIcon priority={num} />
+                </ListItemIcon>
+                <ListItemText>Priority {num}</ListItemText>
+              </ListItemButton>
+            </ListItem>
+          ))}
+        </List>
+      </Popover>
+    </Box>
+  );
+};
+
 const CustomForm = ({ createItem, closeForm }) => {
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
+  const [priority, setPriority] = useState(4);
 
   const update = (setter) => (e) => setter(e.target.value);
   const resetForm = () => {
@@ -47,7 +96,7 @@ const CustomForm = ({ createItem, closeForm }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    createItem({ name, description });
+    createItem({ name, description, priority });
     resetForm();
   };
 
@@ -79,15 +128,7 @@ const CustomForm = ({ createItem, closeForm }) => {
           variant="outlined"
           sx={{ mb: '1rem' }}
         />
-        {/* <Box>
-          <IconButton aria-label="Set Priority">
-            {priority >= 4 ? (
-              <FlagOutlinedIcon />
-            ) : (
-              <FlagIcon sx={{ color: flagColors[priority] }} />
-            )}
-          </IconButton>
-        </Box> */}
+        <PriorityControl priority={priority} setPriority={setPriority} />
       </Paper>
       <Box>
         <Button
@@ -116,8 +157,6 @@ const CustomForm = ({ createItem, closeForm }) => {
 const AddItemForm = () => {
   const { dispatch } = useStore();
   const [formOpen, setFormOpen] = useState(false);
-  // const [priority, setPriority] = useState(4);
-  // const [priorityPopup, setPriorityPopup] = useState(false);
 
   // store
   const itemCreator = (data) => {
@@ -126,6 +165,7 @@ const AddItemForm = () => {
       payload: { ...data },
     };
   };
+
   const newItem = (data) => dispatch(itemCreator(data));
 
   return (
