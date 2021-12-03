@@ -30,10 +30,10 @@ export const reducer = (state, action) => {
         name: name || '', // for each property, fallback to empty string if value not in payload
         description: description || '',
         priority: priority || 4,
-        due: due || '',
+        due: due || null,
         label: label || '',
         deleted: false,
-        date: Date.now(), // automatically get date of creation
+        date: new Date(), // automatically get date of creation
         id: uuidv4(), // automatically generate a unique id
       };
       return { ...state, list: [...state.list, newItem] }; // add item to end of list
