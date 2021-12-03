@@ -111,7 +111,6 @@ const DateListItem = ({ title, icon, onClick }) => (
 // renders the controls for the task's due date
 const DateControl = ({ date, setDate }) => {
   const [anchor, setAnchor] = useState(null);
-  console.log(new Date());
 
   const handleClick = (e) => {
     setAnchor(e.currentTarget);
@@ -195,21 +194,39 @@ const TextControl = ({
   required,
   autoFocus,
   lines = 1,
-}) => (
-  <TextField
-    id={name}
-    label={name}
-    value={value}
-    onChange={onChange}
-    required={required}
-    autoFocus={autoFocus}
-    fullWidth
-    variant="outlined"
-    multiline={lines > 1}
-    minRows={lines > 1 ? lines : false}
-    sx={{ mb: '1rem' }}
-  />
-);
+}) => {
+  if (lines > 1) {
+    return (
+      <TextField
+        id={name}
+        label={name}
+        value={value}
+        onChange={onChange}
+        required={required}
+        autoFocus={autoFocus}
+        fullWidth
+        variant="outlined"
+        multiline
+        minRows={lines}
+        sx={{ mb: '1rem' }}
+      />
+    );
+  } else {
+    return (
+      <TextField
+        id={name}
+        label={name}
+        value={value}
+        onChange={onChange}
+        required={required}
+        autoFocus={autoFocus}
+        fullWidth
+        variant="outlined"
+        sx={{ mb: '1rem' }}
+      />
+    );
+  }
+};
 
 // renders the task creation form's ui
 const FormDisplay = ({
@@ -293,7 +310,7 @@ const FormWrapper = ({ createItem, closeForm }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    createItem({ name, description, priority });
+    createItem({ name, description, priority, due: date });
     resetForm();
   };
   return (

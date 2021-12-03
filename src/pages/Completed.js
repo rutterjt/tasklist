@@ -1,7 +1,7 @@
 import React from 'react';
 
 // mui
-import { Box, Button, List, ListItem } from '@mui/material';
+import { Box, Button } from '@mui/material';
 import { Delete } from '@mui/icons-material';
 
 // components
