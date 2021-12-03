@@ -44,7 +44,7 @@ export const defaultList = [
 
 export const navItems = [
   {
-    title: 'Inbox',
+    title: 'All Tasks',
     to: '/',
     list: () => true,
     icon: <InboxIcon fontSize="small" />,
