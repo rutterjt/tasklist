@@ -15,6 +15,7 @@ const Home = ({ list }) => {
         maxWidth: 400,
         pl: { md: '2rem' },
         pr: '2rem',
+        pb: '2rem',
       }}
     >
       <ToDoList list={list} />
