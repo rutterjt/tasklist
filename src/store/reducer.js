@@ -25,10 +25,11 @@ export const reducer = (state, action) => {
   const { type, payload } = action;
   switch (type) {
     case ADD_ITEM: {
-      const { name, description, due, label } = payload;
+      const { name, description, priority, due, label } = payload;
       const newItem = {
         name: name || '', // for each property, fallback to empty string if value not in payload
         description: description || '',
+        priority: priority || 4,
         due: due || '',
         label: label || '',
         deleted: false,
