@@ -10,11 +10,13 @@ import {
   Checkbox,
 } from '@mui/material';
 
+import PriorityIcon from './PriorityIcon';
+
 // store
 import { useStore } from '../store/context';
 import { DELETE_ITEM } from '../store/actions';
 
-const ToDoItem = ({ name, description, due, label, id }) => {
+const ToDoItem = ({ name, description, priority, due, label, id }) => {
   const { dispatch } = useStore();
   // state to control checkbox
   const [checked, setChecked] = useState(false);
@@ -66,6 +68,7 @@ const ToDoItem = ({ name, description, due, label, id }) => {
 
         <ListItemButton disableRipple>
           <ListItemText primary={name} secondary={displayDescription} />
+          <PriorityIcon priority={priority} />
         </ListItemButton>
       </ListItem>
       <Divider variant="inset" component="li" />

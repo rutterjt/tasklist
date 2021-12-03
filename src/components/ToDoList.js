@@ -16,13 +16,7 @@ const ToDoList = ({ type, list }) => {
   }
   return (
     <Box sx={{ mt: '2rem' }}>
-      <List
-        sx={{
-          width: '100%',
-          maxWidth: 400,
-          margin: 'auto',
-        }}
-      >
+      <List>
         <TransitionGroup>
           {list.map((item) => (
             <Collapse key={item.id}>

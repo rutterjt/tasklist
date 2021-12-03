@@ -29,7 +29,7 @@ const App = () => {
       <Box sx={{ display: 'flex' }}>
         <Header toggleNav={toggleNav} navOpen={navOpen} />
         <Nav toggleNav={toggleNav} navOpen={navOpen} list={list} />
-        <Box component="main">
+        <Box component="main" sx={{ width: '100%', maxWidth: '500px' }}>
           {/* Toolbar provides spacing under Header */}
           <Toolbar />
           <Routes>

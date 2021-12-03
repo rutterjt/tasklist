@@ -11,8 +11,6 @@ const Home = ({ list }) => {
   return (
     <Box
       sx={{
-        width: '100%',
-        maxWidth: 400,
         pl: { md: '2rem' },
         pr: '2rem',
         pb: '2rem',
