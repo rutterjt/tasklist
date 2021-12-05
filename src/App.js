@@ -12,12 +12,15 @@ import Nav from './components/Nav';
 import Home from './pages/Home';
 import Completed from './pages/Completed';
 
+// util components
+import SaveToStorage from './components/SaveToStorage';
+
 // store
 import { useStore } from './store/context';
 import { TOGGLE_NAV } from './store/actions';
 
 const App = () => {
-  const { list, trash, navOpen, dispatch } = useStore();
+  const { list, deleted, navOpen, dispatch } = useStore();
   console.log(list);
 
   const toggleNav = () => {
@@ -27,6 +30,7 @@ const App = () => {
   return (
     <Router>
       <Box sx={{ display: 'flex' }}>
+        <SaveToStorage />
         <Header toggleNav={toggleNav} navOpen={navOpen} />
         <Nav toggleNav={toggleNav} navOpen={navOpen} list={list} />
         <Box component="main" sx={{ width: '100%', maxWidth: '500px' }}>
@@ -37,7 +41,7 @@ const App = () => {
             <Route path="/today" element={<Home />} />
             <Route path="/upcoming" element={<Home />} />
             <Route path="/due" element={<Home />} />
-            <Route path="/completed" element={<Completed list={trash} />} />
+            <Route path="/completed" element={<Completed list={deleted} />} />
           </Routes>
         </Box>
       </Box>

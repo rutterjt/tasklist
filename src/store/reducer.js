@@ -9,15 +9,12 @@ import {
   RESTORE_ITEM,
 } from './actions';
 
-// export const defaultState = {
-//   list: JSON.parse(localStorage.getItem('list')) || [],
-//   deleted: JSON.parse(localStorage.getItem('deleted')) || [],
-//   navOpen: false,
-// };
+const getItem = (name) => JSON.parse(localStorage.getItem(name)) || null;
 
 export const defaultState = {
-  list: [],
-  trash: [],
+  list: getItem('list') || [],
+  labels: getItem('labels') || [],
+  deleted: getItem('deleted') || [],
   navOpen: false,
 };
 
@@ -36,7 +33,8 @@ export const reducer = (state, action) => {
         date: new Date(), // automatically get date of creation
         id: uuidv4(), // automatically generate a unique id
       };
-      return { ...state, list: [...state.list, newItem] }; // add item to end of list
+      const newList = [...state.list, newItem];
+      return { ...state, list: newList }; // add item to end of list
     }
     case UPDATE_ITEM: {
       const { id, data } = payload;
@@ -56,24 +54,24 @@ export const reducer = (state, action) => {
       const index = state.list.findIndex((item) => item.id === payload);
       if (index < 0) return state; // don't delete if item doesn't exist
       const item = { ...state.list[index], deleted: true };
-      const newTrash = [item, ...state.trash].slice(0, 10); // push deleted item to the trash, slicing trash to 10 items
+      const newDeleted = [item, ...state.deleted].slice(0, 10); // push deleted item to the trash, slicing trash to 10 items
       const newList = state.list
         .slice(0, index)
         .concat(state.list.slice(index + 1)); // slice list to remove deleted item
-      return { ...state, list: newList, trash: newTrash };
+      return { ...state, list: newList, deleted: newDeleted };
     }
     case RESTORE_ITEM: {
-      const index = state.trash.findIndex((item) => item.id === payload);
+      const index = state.deleted.findIndex((item) => item.id === payload);
       if (index < 0) return state;
-      const item = { ...state.trash[index], deleted: false };
-      const newTrash = state.trash
+      const item = { ...state.deleted[index], deleted: false };
+      const newDeleted = state.deleted
         .slice(0, index)
-        .concat(state.trash.slice(index + 1)); // slice list to remove deleted item
+        .concat(state.deleted.slice(index + 1)); // slice list to remove deleted item
       const newList = [...state.list, item];
-      return { ...state, list: newList, trash: newTrash };
+      return { ...state, list: newList, deleted: newDeleted };
     }
     case EMPTY_TRASH: {
-      return { ...state, trash: [] };
+      return { ...state, deleted: [] };
     }
     case TOGGLE_NAV: {
       return { ...state, navOpen: !state.navOpen };
