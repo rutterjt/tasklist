@@ -9,7 +9,7 @@ import Header from './components/Header';
 import Nav from './components/Nav';
 
 // pages
-import Home from './pages/Home';
+import ListPage from './pages/ListPage';
 import Completed from './pages/Completed';
 
 // util components
@@ -37,10 +37,21 @@ const App = () => {
           {/* Toolbar provides spacing under Header */}
           <Toolbar />
           <Routes>
-            <Route path="/" element={<Home list={list} />} />
-            <Route path="/today" element={<Home />} />
-            <Route path="/upcoming" element={<Home />} />
-            <Route path="/due" element={<Home />} />
+            <Route
+              path="/"
+              element={<ListPage label="All tasks" list={list} />}
+            />
+            <Route
+              path="/today"
+              element={
+                <ListPage
+                  label="Due Today"
+                  list={list.filter((item) => item)}
+                />
+              }
+            />
+            <Route path="/upcoming" element={<ListPage />} />
+            <Route path="/due" element={<ListPage />} />
             <Route path="/completed" element={<Completed list={deleted} />} />
           </Routes>
         </Box>
