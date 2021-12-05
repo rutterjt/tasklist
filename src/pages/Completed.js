@@ -5,6 +5,7 @@ import { Box, Button } from '@mui/material';
 import { Delete } from '@mui/icons-material';
 
 // components
+import Layout from '../components/Layout';
 import ToDoList from '../components/ToDoList';
 
 // store
@@ -17,7 +18,7 @@ const Completed = ({ list }) => {
   const deleteAll = () => dispatch(deleteCreator());
 
   return (
-    <Box sx={{ ml: { md: '2rem' } }}>
+    <Layout>
       <ToDoList list={list} noCheckbox />
       <Button
         onClick={deleteAll}
@@ -27,7 +28,7 @@ const Completed = ({ list }) => {
       >
         Delete All
       </Button>
-    </Box>
+    </Layout>
   );
 };
 
