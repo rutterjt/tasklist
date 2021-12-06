@@ -19,6 +19,12 @@ import SaveToStorage from './components/SaveToStorage';
 import { useStore } from './store/context';
 import { TOGGLE_NAV } from './store/actions';
 
+// date and time utils
+import { isPastDue } from './utils/time';
+import { isDueToday } from './utils/time';
+import { isDueTomorrow } from './utils/time';
+import { isDueInFuture } from './utils/time';
+
 const App = () => {
   const { list, deleted, navOpen, dispatch } = useStore();
   console.log(list);
@@ -39,19 +45,32 @@ const App = () => {
           <Routes>
             <Route
               path="/"
-              element={<ListPage label="All tasks" list={list} />}
+              element={<ListPage label="All Tasks" list={list} />}
             />
             <Route
               path="/today"
               element={
-                <ListPage
-                  label="Due Today"
-                  list={list.filter((item) => item)}
-                />
+                <ListPage label="Today" list={list.filter(isDueToday)} />
               }
             />
-            <Route path="/upcoming" element={<ListPage />} />
-            <Route path="/due" element={<ListPage />} />
+            <Route
+              path="/tomorrow"
+              element={
+                <ListPage label="Tomorrow" list={list.filter(isDueTomorrow)} />
+              }
+            />
+            <Route
+              path="/upcoming"
+              element={
+                <ListPage label="Upcoming" list={list.filter(isDueInFuture)} />
+              }
+            />
+            <Route
+              path="/due"
+              element={
+                <ListPage label="Past Due" list={list.filter(isPastDue)} />
+              }
+            />
             <Route path="/completed" element={<Completed list={deleted} />} />
           </Routes>
         </Box>
