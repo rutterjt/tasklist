@@ -51,8 +51,11 @@ const ToDoItem = ({ name, description, priority, due, label, id }) => {
   };
 
   // renders only the beginning of the item's description if over 100 characters
-  const displayDescription =
-    description.length > 100 ? description.slice(0, 98) + '...' : description;
+  const displayDescription = description
+    ? description.length > 100
+      ? description.slice(0, 98) + '...'
+      : description
+    : '';
 
   return (
     <>
