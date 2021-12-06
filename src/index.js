@@ -10,6 +10,9 @@ import { StoreProvider } from './store/context';
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
 
+// react helmet
+import { HelmetProvider } from 'react-helmet-async';
+
 // fonts
 import '@fontsource/roboto/300.css';
 import '@fontsource/roboto/400.css';
@@ -18,12 +21,14 @@ import '@fontsource/roboto/700.css';
 
 ReactDOM.render(
   <React.StrictMode>
-    <LocalizationProvider dateAdapter={AdapterDateFns}>
-      <StoreProvider>
-        <CssBaseline />
-        <App />
-      </StoreProvider>
-    </LocalizationProvider>
+    <HelmetProvider>
+      <LocalizationProvider dateAdapter={AdapterDateFns}>
+        <StoreProvider>
+          <CssBaseline />
+          <App />
+        </StoreProvider>
+      </LocalizationProvider>
+    </HelmetProvider>
   </React.StrictMode>,
   document.getElementById('root')
 );
