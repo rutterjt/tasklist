@@ -24,13 +24,13 @@ export const reducer = (state, action) => {
     case ADD_ITEM: {
       const { name, description, priority, due, label } = payload;
       const newItem = {
-        name: name || '', // for each property, fallback to empty string if value not in payload
-        description: description || '',
-        priority: priority || 4,
-        due: due || null,
-        label: label || '',
+        name: name,
+        description: description,
+        priority: priority || 4, // fallback to priority 4 if none specified
+        due: due ? due.getTime() : undefined,
+        label: label,
         deleted: false,
-        date: new Date(), // automatically get date of creation
+        date: Date.now(), // automatically get date of creation
         id: uuidv4(), // automatically generate a unique id
       };
       const newList = [...state.list, newItem];
