@@ -11,14 +11,24 @@ import NavItem from './NavItem';
 
 const drawerWidth = 240;
 
-const Nav = ({ window, toggleNav, navOpen, list }) => {
+const Nav = ({ window, toggleNav, navOpen, list = [] }) => {
   const NavList = () => (
     <Box>
       <Toolbar />
       <List>
         {navItems.map((item, index) => {
-          if (item.title === 'Past Due' && !item.list.length) return null;
-          return <NavItem key={index} {...item} />;
+          const { title, to, listCallback, icon } = item;
+          if (title === 'Past Due' && !list.filter(listCallback).length)
+            return null;
+          return (
+            <NavItem
+              key={index}
+              title={title}
+              to={to}
+              list={list.filter(listCallback)}
+              icon={icon}
+            />
+          );
         })}
       </List>
       <Divider />
