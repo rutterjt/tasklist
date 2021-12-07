@@ -16,10 +16,15 @@ import PriorityIcon from './PriorityIcon';
 import { useStore } from '../store/context';
 import { DELETE_ITEM } from '../store/actions';
 
+// components
+import TaskDetails from './TaskDetails';
+
 const ToDoItem = ({ name, description, priority, due, label, id }) => {
+  const item = { name, description, priority, due, label, id };
   const { dispatch } = useStore();
   // state to control checkbox
-  const [checked, setChecked] = useState(false);
+  const [checked, setChecked] = useState(false); // state to control checkbox
+  const [detailsOpen, setDetailsOpen] = useState(false); // state to control modal dialogue to display task details
 
   // action creator
   const deleteCreator = (id) => {
@@ -50,6 +55,11 @@ const ToDoItem = ({ name, description, priority, due, label, id }) => {
     setChecked((prev) => !prev);
   };
 
+  // handle clicks to main button
+
+  const closeDetails = () => setDetailsOpen(false);
+  const openDetails = () => setDetailsOpen(true);
+
   // renders only the beginning of the item's description if over 100 characters
   const displayDescription = description
     ? description.length > 100
@@ -69,12 +79,13 @@ const ToDoItem = ({ name, description, priority, due, label, id }) => {
           />
         </ListItemIcon>
 
-        <ListItemButton disableRipple>
+        <ListItemButton disableRipple onClick={openDetails}>
           <ListItemText primary={name} secondary={displayDescription} />
           <PriorityIcon priority={priority} />
         </ListItemButton>
       </ListItem>
       <Divider variant="inset" component="li" />
+      <TaskDetails open={detailsOpen} onClose={closeDetails} {...item} />
     </>
   );
 };
