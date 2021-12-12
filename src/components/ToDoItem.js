@@ -8,6 +8,8 @@ import {
   ListItemButton,
   Divider,
   Checkbox,
+  Typography,
+  Grid,
 } from '@mui/material';
 
 import PriorityIcon from './PriorityIcon';
@@ -18,6 +20,7 @@ import { DELETE_ITEM } from '../store/actions';
 
 // components
 import TaskDetails from './TaskDetails';
+import DateChip from './DateChip';
 
 const ToDoItem = ({ name, description, priority, due, label, id }) => {
   const item = { name, description, priority, due, label, id };
@@ -56,7 +59,6 @@ const ToDoItem = ({ name, description, priority, due, label, id }) => {
   };
 
   // handle clicks to main button
-
   const closeDetails = () => setDetailsOpen(false);
   const openDetails = () => setDetailsOpen(true);
 
@@ -80,12 +82,39 @@ const ToDoItem = ({ name, description, priority, due, label, id }) => {
         </ListItemIcon>
 
         <ListItemButton disableRipple onClick={openDetails}>
-          <ListItemText primary={name} secondary={displayDescription} />
-          <PriorityIcon priority={priority} />
+          <ListItemText
+            disableTypography
+            primary={
+              <Typography gutterBottom variant="body1" component="h3">
+                {name}
+              </Typography>
+            }
+            secondary={
+              <>
+                <Typography gutterBottom variant="body2">
+                  {displayDescription}
+                </Typography>
+                {(due || priority < 4) && (
+                  <Grid container spacing={1}>
+                    {due && (
+                      <Grid item>
+                        <DateChip date={due} />
+                      </Grid>
+                    )}
+                    {priority < 4 && (
+                      <Grid item>
+                        <PriorityIcon priority={priority} />
+                      </Grid>
+                    )}
+                  </Grid>
+                )}
+              </>
+            }
+          />
         </ListItemButton>
       </ListItem>
-      <Divider variant="inset" component="li" />
       <TaskDetails open={detailsOpen} onClose={closeDetails} {...item} />
+      <Divider variant="inset" component="li" />
     </>
   );
 };
