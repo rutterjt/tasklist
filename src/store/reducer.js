@@ -1,13 +1,16 @@
 import { v4 as uuidv4 } from 'uuid';
 
 import {
-  ADD_ITEM,
-  UPDATE_ITEM,
-  DELETE_ITEM,
+  ADD_TASK,
+  UPDATE_TASK,
+  DELETE_TASK,
   EMPTY_TRASH,
   TOGGLE_NAV,
-  RESTORE_ITEM,
+  RESTORE_TASK,
 } from './actions';
+
+// date-fns
+import isDate from 'date-fns/isDate';
 
 const getItem = (name) => JSON.parse(localStorage.getItem(name)) || null;
 
@@ -19,15 +22,24 @@ export const defaultState = {
 };
 
 export const reducer = (state, action) => {
+  let newDate;
+  console.log(isDate(newDate));
+
   const { type, payload } = action;
   switch (type) {
-    case ADD_ITEM: {
+    case ADD_TASK: {
       const { name, description, priority, due, label } = payload;
+      // correctly format due as date represented as number of miliseconds unix time, or undefined
+      let dueFormatted = isDate(due)
+        ? due.getTime()
+        : typeof due === 'number'
+        ? due
+        : undefined;
       const newItem = {
         name: name,
         description: description,
         priority: priority || 4, // fallback to priority 4 if none specified
-        due: due ? due.getTime() : undefined,
+        due: dueFormatted,
         label: label,
         deleted: false,
         date: Date.now(), // automatically get date of creation
@@ -36,7 +48,7 @@ export const reducer = (state, action) => {
       const newList = [...state.list, newItem];
       return { ...state, list: newList }; // add item to end of list
     }
-    case UPDATE_ITEM: {
+    case UPDATE_TASK: {
       const { id, data } = payload;
       // getting the index of the item in the current list
       const index = state.list.findIndex((item) => item.id === id);
@@ -49,7 +61,7 @@ export const reducer = (state, action) => {
         .concat(state.list.slice(index + 1)); // construct new list by inserting the updated item in the original index slot
       return { ...state, list: newList };
     }
-    case DELETE_ITEM: {
+    case DELETE_TASK: {
       // getting the index of the item to delete
       const index = state.list.findIndex((item) => item.id === payload);
       if (index < 0) return state; // don't delete if item doesn't exist
@@ -60,7 +72,7 @@ export const reducer = (state, action) => {
         .concat(state.list.slice(index + 1)); // slice list to remove deleted item
       return { ...state, list: newList, deleted: newDeleted };
     }
-    case RESTORE_ITEM: {
+    case RESTORE_TASK: {
       const index = state.deleted.findIndex((item) => item.id === payload);
       if (index < 0) return state;
       const item = { ...state.deleted[index], deleted: false };

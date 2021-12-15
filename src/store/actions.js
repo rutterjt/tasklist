@@ -1,6 +1,6 @@
-export const ADD_ITEM = 'ADD_ITEM';
-export const UPDATE_ITEM = 'UPDATE_ITEM';
-export const DELETE_ITEM = 'DELETE_ITEM';
+export const ADD_TASK = 'ADD_TASK';
+export const UPDATE_TASK = 'UPDATE_TASK';
+export const DELETE_TASK = 'DELETE_TASK';
 export const EMPTY_TRASH = 'EMPTY_TRASH';
 export const TOGGLE_NAV = 'TOGGLE_NAV';
-export const RESTORE_ITEM = 'RESTORE_ITEM';
+export const RESTORE_TASK = 'RESTORE_TASK';
