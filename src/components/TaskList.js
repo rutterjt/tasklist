@@ -1,0 +1,75 @@
+import React, { useState } from 'react';
+
+// mui
+import { List, Typography, Box, Collapse, Divider, Grid } from '@mui/material';
+
+// transition group
+import { TransitionGroup } from 'react-transition-group';
+
+// components
+import TaskListItem from './TaskListItem';
+import TaskListSettings from './TaskListSettings';
+
+const notDeleted = (item) => !item.deleted;
+
+const TaskList = ({ list = [], label = 'To do' }) => {
+  const [sortBy, setSortBy] = useState('default');
+  const listEmpty = !list.filter(notDeleted).length;
+
+  // sorting
+  let sortCallback = (a, b) => 0;
+  switch (sortBy) {
+    case 'alphabetically':
+      sortCallback = (a, b) => {
+        return a.name < b.name ? -1 : 1;
+      };
+      break;
+    case 'due date':
+      sortCallback = (a, b) => {
+        if (!b.due) return -1;
+        if (!a.due) return 1;
+        return a.due - b.due;
+      };
+      break;
+    case 'priority':
+      sortCallback = (a, b) => a.priority - b.priority;
+      break;
+    case 'date added':
+    case 'default':
+    default:
+      sortCallback = (a, b) => 0;
+  }
+
+  let sortedList = [...list];
+
+  if (sortBy !== 'default') sortedList.sort(sortCallback);
+
+  return (
+    <Box sx={{ mt: '2rem' }}>
+      <Grid container spacing={1} justifyContent="space-between">
+        <Grid item>
+          <Typography variant="h6" component="h2">
+            {listEmpty ? 'Your list is empty' : label}
+          </Typography>
+        </Grid>
+        <Grid item>
+          <TaskListSettings sortBy={sortBy} setSortBy={setSortBy} />
+        </Grid>
+      </Grid>
+      {!listEmpty && (
+        <List>
+          <TransitionGroup>
+            {sortedList.map((task) => (
+              <Collapse key={task.id}>
+                <TaskListItem task={task} />
+                <Divider variant="inset" component="li" />
+              </Collapse>
+            ))}
+          </TransitionGroup>
+        </List>
+      )}
+    </Box>
+  );
+};
+
+export default TaskList;

@@ -1,8 +1,10 @@
 import React from 'react';
-import { List, Typography, Box, Collapse } from '@mui/material';
+import { List, Typography, Box, Collapse, Divider } from '@mui/material';
 import { TransitionGroup } from 'react-transition-group';
 
-import ToDoItem from './ToDoItem';
+// import ToDoItem from './ToDoItem';
+import TaskListItem from './TaskListItem';
+import TaskDetails from './TaskDetails';
 
 const notDeleted = (item) => !item.deleted;
 
@@ -17,9 +19,10 @@ const ToDoList = ({ list = [], label = 'To do' }) => {
       {!listEmpty && (
         <List>
           <TransitionGroup>
-            {list.map((item) => (
-              <Collapse key={item.id}>
-                <ToDoItem {...item} />
+            {list.map((task) => (
+              <Collapse key={task.id}>
+                <TaskListItem task={task} />
+                <Divider variant="inset" component="li" />
               </Collapse>
             ))}
           </TransitionGroup>
