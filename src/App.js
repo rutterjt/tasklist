@@ -31,7 +31,6 @@ import { isDueInFuture } from './utils/time';
 
 const App = () => {
   const { list, deleted, navOpen, dispatch } = useStore();
-  console.log(list);
 
   const toggleNav = () => {
     dispatch({ type: TOGGLE_NAV });

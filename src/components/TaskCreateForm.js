@@ -109,8 +109,6 @@ const TaskCreateForm = ({ defaultItem }) => {
     defaultItem ? { ...defaultItem } : {}
   );
 
-  console.log(formData);
-
   // store
   const itemCreator = (data) => {
     return {
