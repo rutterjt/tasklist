@@ -8,6 +8,7 @@ import {
   TOGGLE_NAV,
   RESTORE_TASK,
   CLOSE_NAV,
+  CHANGE_SORT_ORDER,
 } from './actions';
 
 // date-fns
@@ -20,6 +21,7 @@ export const defaultState = {
   labels: getItem('labels') || [],
   deleted: getItem('deleted') || [],
   navOpen: false,
+  sortBy: getItem('sortBy') || 'default',
 };
 
 export const reducer = (state, action) => {
@@ -82,6 +84,9 @@ export const reducer = (state, action) => {
     }
     case EMPTY_TRASH: {
       return { ...state, deleted: [] };
+    }
+    case CHANGE_SORT_ORDER: {
+      return { ...state, sortBy: payload };
     }
     case TOGGLE_NAV: {
       return { ...state, navOpen: !state.navOpen };

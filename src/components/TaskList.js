@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 // mui
 import { List, Typography, Box, Collapse, Divider, Grid } from '@mui/material';
@@ -10,10 +10,13 @@ import { TransitionGroup } from 'react-transition-group';
 import TaskListItem from './TaskListItem';
 import TaskListSettings from './TaskListSettings';
 
+// store
+import { useStore } from '../store/context';
+
 const notDeleted = (item) => !item.deleted;
 
 const TaskList = ({ list = [], label = 'To do' }) => {
-  const [sortBy, setSortBy] = useState('default');
+  const { sortBy } = useStore();
   const listEmpty = !list.filter(notDeleted).length;
 
   // sorting
@@ -53,7 +56,7 @@ const TaskList = ({ list = [], label = 'To do' }) => {
           </Typography>
         </Grid>
         <Grid item>
-          <TaskListSettings sortBy={sortBy} setSortBy={setSortBy} />
+          <TaskListSettings />
         </Grid>
       </Grid>
       {!listEmpty && (

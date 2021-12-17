@@ -15,6 +15,10 @@ import {
 import SettingsIcon from '@mui/icons-material/Settings';
 import CheckIcon from '@mui/icons-material/Check';
 
+// store
+import { useStore } from '../store/context';
+import { CHANGE_SORT_ORDER } from '../store/actions';
+
 const capitalize = (str) => str[0].toUpperCase() + str.slice(1).toLowerCase();
 
 const SettingsListItem = ({ value, sortBy, handleClick }) => (
@@ -31,9 +35,16 @@ const SettingsListItem = ({ value, sortBy, handleClick }) => (
 );
 
 // Renders controls for the task's priority
-const TaskListSettings = ({ sortBy, setSortBy }) => {
+const TaskListSettings = () => {
+  const { dispatch, sortBy } = useStore();
   const [anchor, setAnchor] = useState(null);
 
+  // store
+  const sortCreator = (order) => ({ type: CHANGE_SORT_ORDER, payload: order });
+
+  const setSortBy = (order) => dispatch(sortCreator(order));
+
+  // event handlers
   const handleClick = (e) => {
     setAnchor(e.currentTarget);
   };
