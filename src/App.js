@@ -17,6 +17,7 @@ import Completed from './pages/Completed';
 
 // util components
 import SaveToStorage from './components/SaveToStorage';
+import PageChange from './components/PageChange';
 
 // store
 import { useStore } from './store/context';
@@ -40,6 +41,7 @@ const App = () => {
     <Router>
       <Box sx={{ display: 'flex' }}>
         <SaveToStorage />
+        <PageChange />
         <Header toggleNav={toggleNav} navOpen={navOpen} />
         <Nav toggleNav={toggleNav} navOpen={navOpen} list={list} />
         <Box component="main" sx={{ width: '100%', maxWidth: '500px' }}>

@@ -7,6 +7,7 @@ import {
   EMPTY_TRASH,
   TOGGLE_NAV,
   RESTORE_TASK,
+  CLOSE_NAV,
 } from './actions';
 
 // date-fns
@@ -84,6 +85,9 @@ export const reducer = (state, action) => {
     }
     case TOGGLE_NAV: {
       return { ...state, navOpen: !state.navOpen };
+    }
+    case CLOSE_NAV: {
+      return { ...state, navOpen: false };
     }
     default: {
       console.warn('Unknown action type');
