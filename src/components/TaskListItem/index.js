@@ -60,6 +60,8 @@ const TaskListItem = ({ task }) => {
   const closeDetails = () => setDetailsOpen(false);
   const openDetails = () => setDetailsOpen(true);
 
+  if (!task) return null;
+
   return (
     <>
       <ListItem disablePadding>
@@ -80,7 +82,11 @@ const TaskListItem = ({ task }) => {
           />
         </ListItemButton>
       </ListItem>
-      <TaskDetails open={detailsOpen} onClose={closeDetails} {...task} />
+      <TaskDetails
+        open={task && detailsOpen}
+        onClose={closeDetails}
+        {...task}
+      />
     </>
   );
 };
