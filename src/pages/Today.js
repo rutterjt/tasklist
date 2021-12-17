@@ -5,7 +5,7 @@ import { Helmet } from 'react-helmet-async';
 
 // components
 import Layout from '../components/Layout';
-import ToDoList from '../components/ToDoList';
+import TaskList from '../components/TaskList';
 import TaskCreateForm from '../components/TaskCreateForm';
 
 const Today = ({ list = [] }) => {
@@ -14,7 +14,7 @@ const Today = ({ list = [] }) => {
       <Helmet>
         <title>Today | To Do List</title>
       </Helmet>
-      <ToDoList label={'Today'} list={list} />
+      <TaskList label={'Today'} list={list} />
       <TaskCreateForm defaultItem={{ due: new Date().getTime() }} />
     </Layout>
   );

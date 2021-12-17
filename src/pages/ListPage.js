@@ -5,17 +5,17 @@ import { Helmet } from 'react-helmet-async';
 
 // components
 import Layout from '../components/Layout';
-import ToDoList from '../components/ToDoList';
-import AddItemForm from '../components/AddItemForm';
+import TaskList from '../components/TaskList';
+import TaskCreateForm from '../components/TaskCreateForm';
 
-const ListPage = ({ list = [], label = 'To do' }) => {
+const ListPage = ({ list = [], label = 'To do', defaultItem = {} }) => {
   return (
     <Layout>
       <Helmet>
         <title>{`${label} | `}To Do List</title>
       </Helmet>
-      <ToDoList label={label} list={list} />
-      <AddItemForm />
+      <TaskList label={label} list={list} />
+      <TaskCreateForm defaultItem={defaultItem} />
     </Layout>
   );
 };

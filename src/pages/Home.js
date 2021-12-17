@@ -5,7 +5,7 @@ import { Helmet } from 'react-helmet-async';
 
 // components
 import Layout from '../components/Layout';
-import ToDoList from '../components/ToDoList';
+import TaskList from '../components/TaskList';
 import TaskCreateForm from '../components/TaskCreateForm';
 
 const Home = ({ list = [], label = 'To do', defaultItem = {} }) => {
@@ -14,7 +14,7 @@ const Home = ({ list = [], label = 'To do', defaultItem = {} }) => {
       <Helmet>
         <title>All Tasks | To Do List</title>
       </Helmet>
-      <ToDoList label={'All Tasks'} list={list} />
+      <TaskList label={'All Tasks'} list={list} />
       <TaskCreateForm defaultItem={{}} />
     </Layout>
   );
