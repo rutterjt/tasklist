@@ -14,6 +14,7 @@ import Today from './pages/Today';
 import Tomorrow from './pages/Tomorrow';
 import ListPage from './pages/ListPage';
 import Completed from './pages/Completed';
+import PastDue from './pages/PastDue';
 
 // util components
 import SaveToStorage from './components/SaveToStorage';
@@ -69,7 +70,7 @@ const App = () => {
             <Route
               path="/due"
               element={
-                <ListPage
+                <PastDue
                   label="Past Due"
                   list={list.filter(isPastDue)}
                   defaultItem={{}}
