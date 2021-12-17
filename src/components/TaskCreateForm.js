@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 
 // mui
 import { Box, Button, Paper, Typography, Grid } from '@mui/material';
@@ -30,7 +30,7 @@ const AddButton = ({ openForm }) => (
 );
 
 // renders the task creation form's ui
-const Form = ({ createItem, closeForm, updateData, clearForm, formData }) => {
+const Form = ({ createItem, closeForm, updateData, formData, onSubmit }) => {
   // extract values from state
   const { name, description, priority, due } = formData;
 
@@ -43,7 +43,7 @@ const Form = ({ createItem, closeForm, updateData, clearForm, formData }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     createItem();
-    clearForm();
+    onSubmit();
   };
 
   const update = (setter) => (e) => setter(e.target.value);
@@ -150,11 +150,6 @@ const TaskCreateForm = ({ defaultItem }) => {
     else setWarningOpen(true);
   };
 
-  // TEMP: for monitoring state change
-  useEffect(() => {
-    console.log(formData);
-  }, [formData]);
-
   return (
     <Box sx={{ mt: '1rem' }}>
       {formOpen ? (
@@ -162,8 +157,8 @@ const TaskCreateForm = ({ defaultItem }) => {
           createItem={newItem}
           closeForm={closeForm}
           updateData={updateData}
-          clearForm={clearForm}
           formData={formData}
+          onSubmit={confirmCloseForm}
         />
       ) : (
         <AddButton openForm={() => setFormOpen(true)} />
