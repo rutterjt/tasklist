@@ -22,9 +22,6 @@ export const defaultState = {
 };
 
 export const reducer = (state, action) => {
-  let newDate;
-  console.log(isDate(newDate));
-
   const { type, payload } = action;
   switch (type) {
     case ADD_TASK: {
@@ -65,7 +62,7 @@ export const reducer = (state, action) => {
       // getting the index of the item to delete
       const index = state.list.findIndex((item) => item.id === payload);
       if (index < 0) return state; // don't delete if item doesn't exist
-      const item = { ...state.list[index], deleted: true };
+      const item = { ...state.list[index] };
       const newDeleted = [item, ...state.deleted].slice(0, 10); // push deleted item to the trash, slicing trash to 10 items
       const newList = state.list
         .slice(0, index)
@@ -75,7 +72,7 @@ export const reducer = (state, action) => {
     case RESTORE_TASK: {
       const index = state.deleted.findIndex((item) => item.id === payload);
       if (index < 0) return state;
-      const item = { ...state.deleted[index], deleted: false };
+      const item = { ...state.deleted[index] };
       const newDeleted = state.deleted
         .slice(0, index)
         .concat(state.deleted.slice(index + 1)); // slice list to remove deleted item
