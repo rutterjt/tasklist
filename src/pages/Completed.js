@@ -6,7 +6,7 @@ import { Delete } from '@mui/icons-material';
 
 // components
 import Layout from '../components/Layout';
-import ToDoList from '../components/ToDoList';
+import CompletedTaskList from '../components/CompletedTaskList';
 
 // store
 import { useStore } from '../store/context';
@@ -19,12 +19,12 @@ const Completed = ({ list }) => {
 
   return (
     <Layout>
-      <ToDoList list={list} noCheckbox />
+      <CompletedTaskList list={list} noCheckbox />
       <Button
         onClick={deleteAll}
         color="error"
         startIcon={<Delete />}
-        sx={{ mt: '0.5rem', ml: '4rem' }}
+        sx={{ mt: '0.5rem' }}
       >
         Delete All
       </Button>
