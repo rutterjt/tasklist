@@ -25,6 +25,7 @@ const TextControl = ({
         variant="outlined"
         multiline
         minRows={lines}
+        maxRows={lines}
         sx={{ mb: '1rem' }}
       />
     );
