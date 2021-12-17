@@ -17,13 +17,14 @@ import PriorityControl from './PriorityControl';
 import DueDateControl from './DueDateControl';
 import TextControl from './TextControl';
 import PriorityIcon from './PriorityIcon';
+import DateChip from './DateChip';
 
 // utils
 import { displayDate } from '../utils/date';
 
 // store
 import { useStore } from '../store/context';
-import { UPDATE_ITEM } from '../store/actions';
+import { UPDATE_TASK } from '../store/actions';
 
 const WarningDialog = ({ open, handleCancel, handleDiscard }) => (
   <Dialog open={open}>
@@ -59,12 +60,14 @@ const ButtonGrid = ({ children }) => (
 const TaskDetails = ({ open, onClose, id }) => {
   const { list, dispatch } = useStore();
 
-  const task = list.find((task) => task.id === id);
+  const task = list.find((task) => task.id === id) || {};
+
   const { name, description, due, priority, label } = task;
 
   const [data, setData] = useState({ ...task });
 
   const [changeWarning, setChangeWarning] = useState(false);
+
   const [editing, setEditing] = useState(false);
 
   const [newName, setNewName] = useState(name);
@@ -143,10 +146,8 @@ const TaskDetails = ({ open, onClose, id }) => {
   };
 
   const saveData = () => {
-    dispatch({ type: UPDATE_ITEM, payload: data });
+    dispatch({ type: UPDATE_TASK, payload: data });
   };
-
-  const date = due ? new Date(due) : undefined;
 
   return (
     <Dialog
@@ -156,7 +157,7 @@ const TaskDetails = ({ open, onClose, id }) => {
       maxWidth="xs"
     >
       {editing ? (
-        <Box sx={{ p: '1.5rem', minWidth: '300px' }}>
+        <Box sx={{ p: '1.5rem' }}>
           <Typography variant="h6" component="h3" sx={{ mb: '1.5rem' }}>
             Editing: {name}
           </Typography>
@@ -209,7 +210,7 @@ const TaskDetails = ({ open, onClose, id }) => {
           </ButtonGrid>
         </Box>
       ) : (
-        <Box sx={{ p: '1.5rem', minWidth: '300px' }}>
+        <Box sx={{ p: '1.5rem' }}>
           <Typography variant="h6" component="h3" sx={{ mb: '1.5rem' }}>
             {name}
           </Typography>
@@ -220,7 +221,7 @@ const TaskDetails = ({ open, onClose, id }) => {
           )}
           <DetailsGrid>
             <Grid item>
-              <Chip variant="outlined" label={displayDate(date)} />
+              <DateChip date={due} />
             </Grid>
             <Grid item>
               <PriorityIcon priority={priority} />
