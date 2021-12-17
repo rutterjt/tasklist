@@ -49,7 +49,12 @@ const DueDateControl = ({ date, setDate }) => {
   };
 
   const handleDateChange = (newDate) => {
-    setDate(newDate);
+    newDate === null ? setDate(null) : setDate(newDate.getTime());
+  };
+
+  const handleButtonClick = (newDate) => {
+    handleDateChange(newDate);
+    handleClose();
   };
 
   const open = !!anchor;
@@ -73,6 +78,7 @@ const DueDateControl = ({ date, setDate }) => {
             onChange={(newValue) => {
               handleDateChange(newValue);
             }}
+            onAccept={handleClose}
             renderInput={(params) => (
               <TextField size="small" sx={{ m: '1rem' }} {...params} />
             )}
@@ -83,23 +89,23 @@ const DueDateControl = ({ date, setDate }) => {
             <DateListItem
               title="Today"
               icon={<TodayIcon color="success" />}
-              onClick={() => handleDateChange(new Date())}
+              onClick={() => handleButtonClick(new Date())}
             />
             <DateListItem
               title="Tomorrow"
               icon={<UpcomingIcon color="warning" />}
-              onClick={() => handleDateChange(add(new Date(), { days: 1 }))}
+              onClick={() => handleButtonClick(add(new Date(), { days: 1 }))}
             />
             <DateListItem
               title="Next Week"
               icon={<InsertInvitationIcon color="secondary" />}
-              onClick={() => handleDateChange(add(new Date(), { weeks: 1 }))}
+              onClick={() => handleButtonClick(add(new Date(), { weeks: 1 }))}
             />
             <Divider />
             <DateListItem
               title="No Date"
               icon={<DoNotDisturbAltIcon />}
-              onClick={() => handleDateChange(null)}
+              onClick={() => handleButtonClick(null)}
             />
           </List>
         </Box>
