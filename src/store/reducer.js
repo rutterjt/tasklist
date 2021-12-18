@@ -9,6 +9,9 @@ import {
   RESTORE_TASK,
   CLOSE_NAV,
   CHANGE_SORT_ORDER,
+  ADD_LABEL,
+  UPDATE_LABEL,
+  DELETE_LABEL,
 } from './actions';
 
 // date-fns
@@ -93,6 +96,28 @@ export const reducer = (state, action) => {
     }
     case CLOSE_NAV: {
       return { ...state, navOpen: false };
+    }
+    case ADD_LABEL: {
+      const newLabels = [...state.labels, payload];
+      return { ...state, labels: newLabels };
+    }
+    case UPDATE_LABEL: {
+      let { old, update } = payload;
+      const index = state.labels.indexOf(old);
+      if (index < 0) return state;
+      const newLabels = state.labels
+        .slice(0, index)
+        .concat(update)
+        .concat(state.labels.slice(index + 1));
+      return { ...state, labels: newLabels };
+    }
+    case DELETE_LABEL: {
+      const index = state.labels.indexOf(payload);
+      if (index < 0) return state;
+      const newLabels = state.labels
+        .slice(0, index)
+        .concat(state.labels.slice(index + 1));
+      return { ...state, labels: newLabels };
     }
     default: {
       console.warn('Unknown action type');
