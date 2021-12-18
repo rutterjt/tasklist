@@ -16,6 +16,7 @@ import WarningPopup from './WarningPopup';
 
 // helpers
 import isEmpty from 'lodash/isEmpty';
+import isEqual from 'lodash/isEqual';
 
 // Add task button: controls whether the form is visible
 const AddButton = ({ openForm }) => (
@@ -102,6 +103,7 @@ const Form = ({ createItem, closeForm, updateData, formData, onSubmit }) => {
 
 // main component control: maintains form state, handles dispatch to store
 const TaskCreateForm = ({ defaultItem }) => {
+  console.log(defaultItem);
   const { dispatch } = useStore();
   const [formOpen, setFormOpen] = useState(false);
   const [warningOpen, setWarningOpen] = useState(false);
@@ -131,7 +133,7 @@ const TaskCreateForm = ({ defaultItem }) => {
   };
 
   // clears the entire form
-  const clearForm = () => setFormData({});
+  const clearForm = () => setFormData({ ...defaultItem });
 
   // closes the form, closes the warning dialog, clears out all form data
   const confirmCloseForm = () => {
@@ -144,7 +146,8 @@ const TaskCreateForm = ({ defaultItem }) => {
   // if form data is not empty: opens a warning dialog
   // if form data is empty: discards changes and closes form
   const closeForm = () => {
-    if (isEmpty(formData)) confirmCloseForm();
+    console.log(formData, defaultItem);
+    if (isEmpty(formData) || isEqual(formData, defaultItem)) confirmCloseForm();
     else setWarningOpen(true);
   };
 
