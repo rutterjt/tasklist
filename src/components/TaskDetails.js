@@ -14,6 +14,7 @@ import PriorityIcon from './PriorityIcon';
 import DateChip from './DateChip';
 import WarningPopup from './WarningPopup';
 import TaskUpdateForm from './TaskUpdateForm';
+import CustomDialog from './CustomDialog';
 
 // utils
 // import { displayDate } from '../utils/date';
@@ -86,12 +87,7 @@ const TaskDetails = ({ open, onClose, id }) => {
   };
 
   return (
-    <Dialog
-      onClose={handleClose}
-      open={open}
-      sx={{ '& .MuiDialog-paper': { width: '80%', maxHeight: 435 } }}
-      maxWidth="xs"
-    >
+    <CustomDialog onClose={handleClose} open={open}>
       {editing ? (
         <TaskUpdateForm
           task={task}
@@ -110,7 +106,7 @@ const TaskDetails = ({ open, onClose, id }) => {
         handleCancel={() => setWarningOpen(false)}
         handleSuccess={close}
       />
-    </Dialog>
+    </CustomDialog>
   );
 };
 
