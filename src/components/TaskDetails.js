@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 
 import {
-  Dialog,
   Button,
   Box,
   Typography,
@@ -15,9 +14,6 @@ import DateChip from './DateChip';
 import WarningPopup from './WarningPopup';
 import TaskUpdateForm from './TaskUpdateForm';
 import CustomDialog from './CustomDialog';
-
-// utils
-// import { displayDate } from '../utils/date';
 
 // store
 import { useStore } from '../store/useStore';

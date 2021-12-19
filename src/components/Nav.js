@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Drawer, List, Toolbar, Divider, ListItem } from '@mui/material';
+import { Box, Drawer, List, Toolbar, Divider } from '@mui/material';
 
 import DeleteIcon from '@mui/icons-material/Delete';
 
