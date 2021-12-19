@@ -7,7 +7,7 @@ import AddIcon from '@mui/icons-material/Add';
 // components
 import CollapseList from './CollapseList';
 import NavLabelItem from './NavLabelItem';
-import LabelCreateForm from 'components/Forms/LabelCreateForm';
+import LabelCreateForm from 'components/forms/LabelCreateForm';
 import CustomDialog from './CustomDialog';
 
 // store

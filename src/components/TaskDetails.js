@@ -12,7 +12,7 @@ import {
 import PriorityIcon from './PriorityIcon';
 import DateChip from './DateChip';
 import WarningPopup from './WarningPopup';
-import TaskUpdateForm from './Forms/TaskUpdateForm';
+import TaskUpdateForm from './forms/TaskUpdateForm';
 import CustomDialog from './CustomDialog';
 
 // store
