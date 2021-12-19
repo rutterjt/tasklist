@@ -12,14 +12,14 @@ import CompletedTaskList from '../components/CompletedTaskList';
 import { useStore } from '../store/useStore';
 import { EMPTY_TRASH } from '../store/actions';
 
-const Completed = ({ list }) => {
-  const { dispatch } = useStore();
+const Completed = () => {
+  const { dispatch, deleted } = useStore();
   const deleteCreator = () => ({ type: EMPTY_TRASH });
   const deleteAll = () => dispatch(deleteCreator());
 
   return (
     <Layout>
-      <CompletedTaskList list={list} noCheckbox />
+      <CompletedTaskList list={deleted} noCheckbox />
       <Button
         onClick={deleteAll}
         color="error"

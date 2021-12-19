@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Drawer, List, Toolbar, Divider } from '@mui/material';
+import { Box, Drawer, List, Toolbar, Divider, ListItem } from '@mui/material';
 
 import DeleteIcon from '@mui/icons-material/Delete';
 
@@ -8,43 +8,52 @@ import { navItems } from '../data';
 
 // components
 import NavItem from './NavItem';
+import NavLabelsList from './NavLabelsList';
+
+// store
+import { useStore } from '../store/useStore';
+import { TOGGLE_NAV } from '../store/actions';
 
 const drawerWidth = 240;
 
-const Nav = ({ window, toggleNav, navOpen, list = [] }) => {
-  const NavList = () => (
-    <Box>
-      <Toolbar />
-      <List>
-        {navItems.map((item, index) => {
-          const { title, to, listCallback, icon } = item;
-          if (title === 'Past Due' && !list.filter(listCallback).length)
-            return null;
-          return (
-            <NavItem
-              key={index}
-              title={title}
-              to={to}
-              list={list.filter(listCallback)}
-              icon={icon}
-            />
-          );
-        })}
-      </List>
-      <Divider />
-      <List>
-        <NavItem
-          title="Completed"
-          list={[]}
-          to="/completed"
-          icon={<DeleteIcon fontSize="small" />}
-        />
-      </List>
-    </Box>
-  );
+const NavList = ({ list }) => (
+  <Box component="nav">
+    <Toolbar />
+    <List>
+      {navItems.map((item, index) => {
+        const { title, to, listCallback, icon } = item;
+        if (title === 'Past Due' && !list.filter(listCallback).length)
+          return null;
+        return (
+          <NavItem
+            key={index}
+            title={title}
+            to={to}
+            list={list.filter(listCallback)}
+            icon={icon}
+          />
+        );
+      })}
+    </List>
+    <Divider />
+    <NavLabelsList />
+    <Divider />
+    <List>
+      <NavItem
+        title="Completed"
+        list={[]}
+        to="/completed"
+        icon={<DeleteIcon fontSize="small" />}
+      />
+    </List>
+  </Box>
+);
 
-  const container =
-    window !== undefined ? () => window().document.body : undefined;
+const Nav = () => {
+  const { dispatch, navOpen, list } = useStore();
+  const toggleNav = () => dispatch({ type: TOGGLE_NAV });
+
+  const container = window.document.body;
 
   return (
     <Box
@@ -63,7 +72,7 @@ const Nav = ({ window, toggleNav, navOpen, list = [] }) => {
           '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth },
         }}
       >
-        <NavList />
+        <NavList list={list} />
       </Drawer>
       <Drawer
         variant="permanent"
@@ -73,7 +82,7 @@ const Nav = ({ window, toggleNav, navOpen, list = [] }) => {
         }}
         open
       >
-        <NavList />
+        <NavList list={list} />
       </Drawer>
       <Toolbar />
     </Box>
