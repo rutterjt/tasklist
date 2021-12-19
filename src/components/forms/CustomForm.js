@@ -18,7 +18,7 @@ const CustomForm = ({
   };
   return (
     <Box component="form" onSubmit={(e) => handleSubmit(e)}>
-      <Paper sx={{ p: 2, mb: 2 }}>
+      <Paper sx={{ p: 2 }}>
         <Typography component="h3" variant="h6" sx={{ mb: 2 }}>
           {title}
         </Typography>

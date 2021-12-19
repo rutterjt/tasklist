@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 // mui
-import { Box, Button, Paper, Typography, Grid } from '@mui/material';
+import { Box, Button, Grid } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 
 // store

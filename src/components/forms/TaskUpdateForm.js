@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
 
 // mui
-import { Box, Typography, Grid, Button } from '@mui/material';
+import { Grid } from '@mui/material';
 
 // components
 import TextControl from './TextControl';
-import { DetailsGrid, ButtonGrid } from 'components/TaskDetails';
+import { DetailsGrid } from 'components/TaskDetails';
 import PriorityControl from './PriorityControl';
 import DueDateControl from './DueDateControl';
+import CustomForm from './CustomForm';
 
 // store
 import { useStore } from 'store/useStore';
@@ -46,10 +47,14 @@ const TaskUpdateForm = ({ task, handleClose, handleSave }) => {
   };
 
   return (
-    <Box sx={{ p: '1.5rem' }}>
-      <Typography variant="h6" component="h3" sx={{ mb: '1.5rem' }}>
-        Editing: {name}
-      </Typography>
+    <CustomForm
+      onSubmit={saveData}
+      title={`Editing: ${name}`}
+      onCancel={handleClose}
+      canSubmit={name}
+      cancelButton="Discard"
+      submitButton="Save"
+    >
       <TextControl
         name="Task"
         value={name || ''}
@@ -71,30 +76,7 @@ const TaskUpdateForm = ({ task, handleClose, handleSave }) => {
           <PriorityControl priority={priority} setPriority={setPriority} />
         </Grid>
       </DetailsGrid>
-      <ButtonGrid>
-        <Grid item>
-          <Button
-            variant="outlined"
-            color="error"
-            onClick={handleClose}
-            disableRipple
-          >
-            Discard
-          </Button>
-        </Grid>
-        <Grid item>
-          <Button
-            disableRipple
-            variant="contained"
-            color="success"
-            disableElevation
-            onClick={saveData}
-          >
-            Save
-          </Button>
-        </Grid>
-      </ButtonGrid>
-    </Box>
+    </CustomForm>
   );
 };
 
