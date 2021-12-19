@@ -21,12 +21,7 @@ import isEqual from 'lodash/isEqual';
 
 // Add task button: controls whether the form is visible
 const AddButton = ({ openForm }) => (
-  <Button
-    variant="text"
-    onClick={openForm}
-    startIcon={<AddIcon />}
-    disableRipple
-  >
+  <Button variant="text" onClick={openForm} startIcon={<AddIcon />}>
     Add task
   </Button>
 );

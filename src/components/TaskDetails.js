@@ -50,7 +50,7 @@ const TaskDetailsBox = ({ name, description, due, priority, openEditor }) => (
     </DetailsGrid>
     <ButtonGrid>
       <Grid item>
-        <Button disableRipple variant="outlined" onClick={openEditor}>
+        <Button variant="outlined" onClick={openEditor}>
           Update
         </Button>
       </Grid>

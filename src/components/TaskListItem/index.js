@@ -68,7 +68,7 @@ const TaskListItem = ({ task }) => {
         <ListItemIcon>
           <TaskDeleteControl checked={checked} handleCheck={handleCheck} />
         </ListItemIcon>
-        <ListItemButton disableRipple onClick={openDetails}>
+        <ListItemButton onClick={openDetails}>
           <ListItemText
             disableTypography
             primary={<TaskPrimaryInfo name={name} />}
