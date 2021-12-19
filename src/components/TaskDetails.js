@@ -20,7 +20,7 @@ import CustomDialog from './CustomDialog';
 // import { displayDate } from '../utils/date';
 
 // store
-import { useStore } from '../store/context';
+import { useStore } from '../store/useStore';
 
 export const DetailsGrid = ({ children }) => (
   <Grid container justifyContent="space-between">

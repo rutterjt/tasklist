@@ -9,7 +9,7 @@ import Layout from '../components/Layout';
 import CompletedTaskList from '../components/CompletedTaskList';
 
 // store
-import { useStore } from '../store/context';
+import { useStore } from '../store/useStore';
 import { EMPTY_TRASH } from '../store/actions';
 
 const Completed = ({ list }) => {

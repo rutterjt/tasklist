@@ -5,7 +5,7 @@ import { Box, Button, Paper, Typography, Grid } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 
 // store
-import { useStore } from '../store/context';
+import { useStore } from '../store/useStore';
 import { ADD_TASK } from '../store/actions';
 
 // components

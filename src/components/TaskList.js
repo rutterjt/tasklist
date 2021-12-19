@@ -11,7 +11,7 @@ import TaskListItem from './TaskListItem';
 import TaskListSettings from './TaskListSettings';
 
 // store
-import { useStore } from '../store/context';
+import { useStore } from '../store/useStore';
 
 const notDeleted = (item) => !item.deleted;
 
