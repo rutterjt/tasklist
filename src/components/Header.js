@@ -6,8 +6,8 @@ import MenuIcon from '@mui/icons-material/Menu';
 import CloseIcon from '@mui/icons-material/Close';
 
 // store
-import { useStore } from '../store/useStore';
-import { TOGGLE_NAV } from '../store/actions';
+import { useStore } from 'store/useStore';
+import { TOGGLE_NAV } from 'store/actions';
 
 const Header = () => {
   const { dispatch, navOpen } = useStore();

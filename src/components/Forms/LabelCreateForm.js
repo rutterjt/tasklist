@@ -7,8 +7,8 @@ import { Box, Paper, Typography, Button } from '@mui/material';
 import TextControl from './TextControl';
 
 // store
-import { useStore } from '../../store/useStore';
-import { ADD_LABEL } from '../../store/actions';
+import { useStore } from 'store/useStore';
+import { ADD_LABEL } from 'store/actions';
 
 // renders the task creation form's ui
 const Form = ({ formData, onSubmit, updateData, closeForm }) => {

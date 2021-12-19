@@ -4,15 +4,15 @@ import { Box, Drawer, List, Toolbar, Divider } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 
 // data
-import { navItems } from '../data';
+import { navItems } from 'data';
 
 // components
 import NavItem from './NavItem';
 import NavLabelsList from './NavLabelsList';
 
 // store
-import { useStore } from '../store/useStore';
-import { TOGGLE_NAV } from '../store/actions';
+import { useStore } from 'store/useStore';
+import { TOGGLE_NAV } from 'store/actions';
 
 const drawerWidth = 240;
 

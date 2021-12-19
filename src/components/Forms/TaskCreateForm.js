@@ -5,14 +5,14 @@ import { Box, Button, Paper, Typography, Grid } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 
 // store
-import { useStore } from '../../store/useStore';
-import { ADD_TASK } from '../../store/actions';
+import { useStore } from 'store/useStore';
+import { ADD_TASK } from 'store/actions';
 
 // components
 import PriorityControl from './PriorityControl';
 import DueDateControl from './DueDateControl';
 import TextControl from './TextControl';
-import WarningPopup from '../WarningPopup';
+import WarningPopup from 'components/WarningPopup';
 import CustomForm from './CustomForm';
 
 // helpers

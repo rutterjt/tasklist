@@ -12,11 +12,11 @@ import {
 import TaskDeleteControl from './TaskDeleteControl';
 import TaskPrimaryInfo from './TaskPrimaryInfo';
 import TaskSecondaryInfo from './TaskSecondaryInfo';
-import TaskDetails from '../TaskDetails';
+import TaskDetails from 'components/TaskDetails';
 
 // store
-import { useStore } from '../../store/useStore';
-import { DELETE_TASK } from '../../store/actions';
+import { useStore } from 'store/useStore';
+import { DELETE_TASK } from 'store/actions';
 
 const TaskListItem = ({ task }) => {
   const { dispatch } = useStore();

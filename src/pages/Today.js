@@ -4,15 +4,15 @@ import React, { useRef } from 'react';
 import { Helmet } from 'react-helmet-async';
 
 // components
-import Layout from '../components/Layout';
-import TaskList from '../components/TaskList';
-import TaskCreateForm from '../components/TaskCreateForm';
+import Layout from 'components/Layout';
+import TaskList from 'components/TaskList';
+import TaskCreateForm from 'components/Forms/TaskCreateForm';
 
 // store
-import { useStore } from '../store/useStore';
+import { useStore } from 'store/useStore';
 
 // utils
-import { isDueToday } from '../utils/time';
+import { isDueToday } from 'utils/time';
 
 const Today = () => {
   const { list } = useStore();
