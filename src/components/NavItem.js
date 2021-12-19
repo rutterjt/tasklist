@@ -11,19 +11,14 @@ const NavItem = ({ title, list, icon, to }) => {
 
   const renderLink = useMemo(
     () =>
-      React.forwardRef(function Link(itemProps, ref) {
-        return <RouterLink to={to} ref={ref} {...itemProps} role={undefined} />;
-      }),
+      React.forwardRef((itemProps, ref) => (
+        <RouterLink to={to} ref={ref} {...itemProps} role={undefined} />
+      )),
     [to]
   );
 
   return (
-    <ListItem
-      selected={pathname === to}
-      button
-      disableRipple
-      component={renderLink}
-    >
+    <ListItem selected={pathname === to} button component={renderLink}>
       <ListItemIcon>
         <Badge
           badgeContent={list.length}
