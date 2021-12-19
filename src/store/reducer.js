@@ -98,7 +98,11 @@ export const reducer = (state, action) => {
       return { ...state, navOpen: false };
     }
     case ADD_LABEL: {
-      const newLabels = [...state.labels, payload];
+      const newLabel = {
+        name: payload.name,
+        id: uuidv4(), // automatically generate a unique id
+      };
+      const newLabels = [...state.labels, newLabel];
       return { ...state, labels: newLabels };
     }
     case UPDATE_LABEL: {
