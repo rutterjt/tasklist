@@ -1,18 +1,19 @@
 import React, { useState } from 'react';
 
 // mui
-import { Box, Button, Paper, Typography, Grid } from '@mui/material';
+import { Box, Button, Grid } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 
 // store
-import { useStore } from '../store/context';
-import { ADD_TASK } from '../store/actions';
+import { useStore } from 'store/useStore';
+import { ADD_TASK } from 'store/actions';
 
 // components
 import PriorityControl from './PriorityControl';
 import DueDateControl from './DueDateControl';
 import TextControl from './TextControl';
-import WarningPopup from './WarningPopup';
+import WarningPopup from 'components/WarningPopup';
+import CustomForm from './CustomForm';
 
 // helpers
 import isEmpty from 'lodash/isEmpty';
@@ -20,12 +21,7 @@ import isEqual from 'lodash/isEqual';
 
 // Add task button: controls whether the form is visible
 const AddButton = ({ openForm }) => (
-  <Button
-    variant="text"
-    onClick={openForm}
-    startIcon={<AddIcon />}
-    disableRipple
-  >
+  <Button variant="text" onClick={openForm} startIcon={<AddIcon />}>
     Add task
   </Button>
 );
@@ -41,8 +37,7 @@ const Form = ({ createItem, closeForm, updateData, formData, onSubmit }) => {
   const setPriority = updateData('priority');
   const setDue = updateData('due');
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const handleSubmit = () => {
     createItem();
     onSubmit();
   };
@@ -50,60 +45,40 @@ const Form = ({ createItem, closeForm, updateData, formData, onSubmit }) => {
   const update = (setter) => (e) => setter(e.target.value);
 
   return (
-    <Box component="form" onSubmit={handleSubmit}>
-      <Paper sx={{ padding: '1rem', mb: '1rem' }}>
-        <Typography component="h3" variant="body1" sx={{ mb: '1rem' }}>
-          Add a Task
-        </Typography>
-        <TextControl
-          name="Task"
-          value={name || ''}
-          onChange={update(setName)}
-          required
-          autoFocus
-        />
-        <TextControl
-          name="Description"
-          value={description || ''}
-          onChange={update(setDescription)}
-          lines={3}
-        />
-        <Grid container justifyContent="space-between" alignItems="center">
-          <Grid item>
-            <DueDateControl date={due} setDate={setDue} />
-          </Grid>
-          <Grid item>
-            <PriorityControl priority={priority} setPriority={setPriority} />
-          </Grid>
+    <CustomForm
+      onSubmit={handleSubmit}
+      title="Add a Task"
+      canSubmit={name}
+      onCancel={closeForm}
+      submitButton="Add Task"
+    >
+      <TextControl
+        name="Task"
+        value={name || ''}
+        onChange={update(setName)}
+        required
+        autoFocus
+      />
+      <TextControl
+        name="Description"
+        value={description || ''}
+        onChange={update(setDescription)}
+        lines={3}
+      />
+      <Grid container justifyContent="space-between" alignItems="center">
+        <Grid item>
+          <DueDateControl date={due} setDate={setDue} />
         </Grid>
-        <Box sx={{ mt: '1rem' }}>
-          <Button
-            variant="contained"
-            sx={{ mr: '1rem' }}
-            disableRipple
-            disableElevation
-            disabled={!name}
-            type="submit"
-          >
-            Add Task
-          </Button>
-          <Button
-            variant="outlined"
-            color="error"
-            onClick={closeForm}
-            disableRipple
-          >
-            Cancel
-          </Button>
-        </Box>
-      </Paper>
-    </Box>
+        <Grid item>
+          <PriorityControl priority={priority} setPriority={setPriority} />
+        </Grid>
+      </Grid>
+    </CustomForm>
   );
 };
 
 // main component control: maintains form state, handles dispatch to store
 const TaskCreateForm = ({ defaultItem }) => {
-  console.log(defaultItem);
   const { dispatch } = useStore();
   const [formOpen, setFormOpen] = useState(false);
   const [warningOpen, setWarningOpen] = useState(false);
@@ -146,13 +121,12 @@ const TaskCreateForm = ({ defaultItem }) => {
   // if form data is not empty: opens a warning dialog
   // if form data is empty: discards changes and closes form
   const closeForm = () => {
-    console.log(formData, defaultItem);
     if (isEmpty(formData) || isEqual(formData, defaultItem)) confirmCloseForm();
     else setWarningOpen(true);
   };
 
   return (
-    <Box sx={{ mt: '1rem' }}>
+    <Box sx={{ mt: 2 }}>
       {formOpen ? (
         <Form
           createItem={newItem}

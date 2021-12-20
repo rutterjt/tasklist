@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 
 import {
-  Dialog,
   Button,
   Box,
   Typography,
@@ -13,14 +12,11 @@ import {
 import PriorityIcon from './PriorityIcon';
 import DateChip from './DateChip';
 import WarningPopup from './WarningPopup';
-import TaskUpdateForm from './TaskUpdateForm';
+import TaskUpdateForm from './forms/TaskUpdateForm';
 import CustomDialog from './CustomDialog';
 
-// utils
-// import { displayDate } from '../utils/date';
-
 // store
-import { useStore } from '../store/context';
+import { useStore } from 'store/useStore';
 
 export const DetailsGrid = ({ children }) => (
   <Grid container justifyContent="space-between">
@@ -29,18 +25,18 @@ export const DetailsGrid = ({ children }) => (
 );
 
 export const ButtonGrid = ({ children }) => (
-  <Grid container sx={{ mt: '1rem' }} justifyContent="flex-end" spacing={2}>
+  <Grid container sx={{ mt: 2 }} justifyContent="flex-end" spacing={2}>
     {children}
   </Grid>
 );
 
 const TaskDetailsBox = ({ name, description, due, priority, openEditor }) => (
-  <Box sx={{ p: '1.5rem' }}>
-    <Typography variant="h6" component="h3" sx={{ mb: '1.5rem' }}>
+  <Box sx={{ p: 3 }}>
+    <Typography variant="h6" component="h3" sx={{ mb: 3 }}>
       {name}
     </Typography>
     {description && (
-      <Typography variant="body1" sx={{ mb: '1rem' }}>
+      <Typography variant="body1" sx={{ mb: 2 }}>
         {description}
       </Typography>
     )}
@@ -54,7 +50,7 @@ const TaskDetailsBox = ({ name, description, due, priority, openEditor }) => (
     </DetailsGrid>
     <ButtonGrid>
       <Grid item>
-        <Button disableRipple variant="outlined" onClick={openEditor}>
+        <Button variant="outlined" onClick={openEditor}>
           Update
         </Button>
       </Grid>

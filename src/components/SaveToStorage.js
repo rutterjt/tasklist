@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { useStore } from '../store/context';
+import { useStore } from 'store/useStore';
 
 const setItem = (name, value) =>
   localStorage.setItem(name, JSON.stringify(value));

@@ -11,18 +11,23 @@ import TaskCreateForm from 'components/forms/TaskCreateForm';
 // store
 import { useStore } from 'store/useStore';
 
-const Home = () => {
+// utils
+import { isDueInFuture } from 'utils/time';
+
+const Upcoming = () => {
   const { list } = useStore();
+
+  const filteredList = list.filter(isDueInFuture);
 
   return (
     <Layout>
       <Helmet>
-        <title>All Tasks | To Do List</title>
+        <title>Upcoming | To Do List</title>
       </Helmet>
-      <TaskList label={'All Tasks'} list={list} />
+      <TaskList label={'Upcoming'} list={filteredList} />
       <TaskCreateForm />
     </Layout>
   );
 };
 
-export default Home;
+export default Upcoming;
