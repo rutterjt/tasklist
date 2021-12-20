@@ -36,7 +36,7 @@ const Header = () => {
               <MenuIcon sx={{ display: { xs: 'block', md: 'none' } }} />
             )}
           </IconButton>
-          <Typography variant="h6" component="h1" noWrap>
+          <Typography variant="h5" component="h1" noWrap>
             To Do List
           </Typography>
         </Toolbar>
