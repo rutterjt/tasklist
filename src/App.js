@@ -4,7 +4,7 @@ import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 // mui imports
-import { Box, Toolbar } from '@mui/material';
+import { Box } from '@mui/material';
 
 // pages
 import Home from './pages/Home';
@@ -29,9 +29,7 @@ const App = () => (
       <PageChange />
       <Header />
       <Nav />
-      <Box component="main" sx={{ width: '100%', maxWidth: '500px' }}>
-        {/* Toolbar provides spacing under Header */}
-        <Toolbar />
+      <Box component="main" sx={{ width: '100%' }}>
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/today" element={<Today />} />

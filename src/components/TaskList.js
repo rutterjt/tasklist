@@ -48,8 +48,8 @@ const TaskList = ({ list = [], label = 'To do' }) => {
   if (sortBy !== 'default') sortedList.sort(sortCallback);
 
   return (
-    <Box sx={{ mt: '2rem' }}>
-      <Grid container spacing={1} justifyContent="space-between">
+    <Box>
+      <Grid container justifyContent="space-between" alignItems="center">
         <Grid item>
           <Typography variant="h6" component="h2">
             {listEmpty ? 'Your list is empty' : label}
@@ -65,7 +65,7 @@ const TaskList = ({ list = [], label = 'To do' }) => {
             {sortedList.map((task) => (
               <Collapse key={task.id}>
                 <TaskListItem task={task} />
-                <Divider variant="inset" component="li" />
+                <Divider component="li" sx={{ ml: 7 }} />
               </Collapse>
             ))}
           </TransitionGroup>

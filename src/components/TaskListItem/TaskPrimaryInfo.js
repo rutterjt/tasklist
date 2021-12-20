@@ -7,7 +7,7 @@ const TaskPrimaryInfo = ({ name }) => {
   return (
     <Typography
       gutterBottom
-      variant="body1"
+      variant="subtitle1"
       component="h3"
       sx={{ wordBreak: 'break-word' }}
     >

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Drawer, List, Toolbar, Divider } from '@mui/material';
+import { Box, Drawer, List, Divider } from '@mui/material';
 
 import DeleteIcon from '@mui/icons-material/Delete';
 
@@ -9,6 +9,7 @@ import { navItems } from 'data';
 // components
 import NavItem from './NavItem';
 import NavLabelsList from './NavLabelsList';
+import Spacebar from './Spacebar';
 
 // store
 import { useStore } from 'store/useStore';
@@ -18,8 +19,9 @@ const drawerWidth = 240;
 
 const NavList = ({ list }) => (
   <Box component="nav">
-    <Toolbar />
-    <List>
+    <Spacebar />
+
+    <List sx={{ pt: 0 }}>
       {navItems.map((item, index) => {
         const { title, to, listCallback, icon } = item;
         if (title === 'Past Due' && !list.filter(listCallback).length)
@@ -84,7 +86,7 @@ const Nav = () => {
       >
         <NavList list={list} />
       </Drawer>
-      <Toolbar />
+      {/* <Toolbar /> */}
     </Box>
   );
 };
