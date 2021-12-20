@@ -23,12 +23,7 @@ const CustomForm = ({
           {title}
         </Typography>
         {children}
-        <Grid
-          container
-          sx={{ mt: '1rem' }}
-          justifyContent="flex-end"
-          spacing={2}
-        >
+        <Grid container sx={{ mt: 2 }} justifyContent="flex-end" spacing={2}>
           <Grid item>
             <Button variant="outlined" color="error" onClick={onCancel}>
               {cancelButton}

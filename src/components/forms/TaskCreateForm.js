@@ -128,7 +128,7 @@ const TaskCreateForm = ({ defaultItem }) => {
   };
 
   return (
-    <Box sx={{ mt: '1rem' }}>
+    <Box sx={{ mt: 2 }}>
       {formOpen ? (
         <Form
           createItem={newItem}

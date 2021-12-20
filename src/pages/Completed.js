@@ -24,7 +24,7 @@ const Completed = () => {
         onClick={deleteAll}
         color="error"
         startIcon={<Delete />}
-        sx={{ mt: '0.5rem' }}
+        sx={{ mt: 1 }}
       >
         Delete All
       </Button>

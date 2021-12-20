@@ -26,7 +26,7 @@ const TextControl = ({
         multiline
         minRows={lines}
         maxRows={lines}
-        sx={{ mb: '1rem' }}
+        sx={{ mb: 2 }}
       />
     );
   } else {
@@ -40,7 +40,7 @@ const TextControl = ({
         autoFocus={autoFocus}
         fullWidth
         variant="outlined"
-        sx={{ mb: '1rem' }}
+        sx={{ mb: 2 }}
       />
     );
   }

@@ -71,7 +71,7 @@ const DueDateControl = ({ date, setDate }) => {
         onClose={handleClose}
         anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
       >
-        <Box sx={{ pt: '1rem', pb: '1rem' }}>
+        <Box sx={{ py: 2 }}>
           <DatePicker
             label="Due Date"
             value={date}
@@ -80,7 +80,7 @@ const DueDateControl = ({ date, setDate }) => {
             }}
             onAccept={handleClose}
             renderInput={(params) => (
-              <TextField size="small" sx={{ m: '1rem' }} {...params} />
+              <TextField size="small" sx={{ m: 2 }} {...params} />
             )}
             minDate={Date.now()}
           />

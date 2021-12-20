@@ -25,18 +25,18 @@ export const DetailsGrid = ({ children }) => (
 );
 
 export const ButtonGrid = ({ children }) => (
-  <Grid container sx={{ mt: '1rem' }} justifyContent="flex-end" spacing={2}>
+  <Grid container sx={{ mt: 2 }} justifyContent="flex-end" spacing={2}>
     {children}
   </Grid>
 );
 
 const TaskDetailsBox = ({ name, description, due, priority, openEditor }) => (
-  <Box sx={{ p: '1.5rem' }}>
-    <Typography variant="h6" component="h3" sx={{ mb: '1.5rem' }}>
+  <Box sx={{ p: 3 }}>
+    <Typography variant="h6" component="h3" sx={{ mb: 3 }}>
       {name}
     </Typography>
     {description && (
-      <Typography variant="body1" sx={{ mb: '1rem' }}>
+      <Typography variant="body1" sx={{ mb: 2 }}>
         {description}
       </Typography>
     )}
