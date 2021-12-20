@@ -79,7 +79,6 @@ const Form = ({ createItem, closeForm, updateData, formData, onSubmit }) => {
 
 // main component control: maintains form state, handles dispatch to store
 const TaskCreateForm = ({ defaultItem }) => {
-  console.log(defaultItem);
   const { dispatch } = useStore();
   const [formOpen, setFormOpen] = useState(false);
   const [warningOpen, setWarningOpen] = useState(false);
@@ -122,7 +121,6 @@ const TaskCreateForm = ({ defaultItem }) => {
   // if form data is not empty: opens a warning dialog
   // if form data is empty: discards changes and closes form
   const closeForm = () => {
-    console.log(formData, defaultItem);
     if (isEmpty(formData) || isEqual(formData, defaultItem)) confirmCloseForm();
     else setWarningOpen(true);
   };

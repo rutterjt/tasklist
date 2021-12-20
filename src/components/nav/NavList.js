@@ -6,10 +6,15 @@ import { List } from '@mui/material';
 // components
 import NavItem from './NavItem';
 
-const NavList = ({ list }) => {
+// store
+import { useStore } from 'store/useStore';
+
+const NavList = ({ navList }) => {
+  const { list } = useStore();
+
   return (
     <List sx={{ pt: 0 }}>
-      {list.map((item, index) => {
+      {navList.map((item, index) => {
         const { title, to, listCallback, icon } = item;
         if (title === 'Past Due' && !list.filter(listCallback).length)
           return null;

@@ -57,11 +57,11 @@ const Nav = () => {
     <NavDrawer>
       <Box>
         <Spacebar />
-        <NavList list={navItems} />
+        <NavList navList={navItems} />
         <Divider />
         <NavLabelsList />
         <Divider />
-        <NavList list={completed} />
+        <NavList navList={completed} />
       </Box>
     </NavDrawer>
   );
