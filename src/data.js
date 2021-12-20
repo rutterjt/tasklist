@@ -3,6 +3,7 @@ import TodayIcon from '@mui/icons-material/Today';
 import EventNoteIcon from '@mui/icons-material/EventNote';
 import ScheduleIcon from '@mui/icons-material/Schedule';
 import UpcomingIcon from '@mui/icons-material/Upcoming';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 import {
   isDueToday,
@@ -11,11 +12,14 @@ import {
   isPastDue,
 } from './utils/time';
 
+const none = () => false;
+const all = () => true;
+
 export const navItems = [
   {
     title: 'All Tasks',
     to: '/',
-    listCallback: () => true,
+    listCallback: all,
     icon: <InboxIcon fontSize="small" />,
   },
   {
@@ -41,5 +45,14 @@ export const navItems = [
     to: '/due',
     listCallback: isPastDue,
     icon: <ScheduleIcon fontSize="small" />,
+  },
+];
+
+export const completed = [
+  {
+    title: 'Completed',
+    to: '/completed',
+    listCallback: none,
+    icon: <DeleteIcon fontSize="small" />,
   },
 ];

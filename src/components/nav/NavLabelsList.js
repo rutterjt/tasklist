@@ -5,10 +5,10 @@ import { ListItem, ListItemText, IconButton } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 
 // components
-import CollapseList from './CollapseList';
+import CollapseList from '../CollapseList';
 import NavLabelItem from './NavLabelItem';
 import LabelCreateForm from 'components/forms/LabelCreateForm';
-import CustomDialog from './CustomDialog';
+import CustomDialog from '../CustomDialog';
 
 // store
 import { useStore } from 'store/useStore';
