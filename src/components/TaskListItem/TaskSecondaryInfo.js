@@ -16,7 +16,7 @@ const DescriptionDisplay = ({ description }) => {
       : description
     : '';
   return (
-    <Typography gutterBottom variant="body2" sx={{ wordBreak: 'break-word' }}>
+    <Typography variant="body2" sx={{ wordBreak: 'break-word', mb: 1 }}>
       {shortDescription}
     </Typography>
   );
@@ -55,7 +55,7 @@ const TaskSecondaryInfo = ({ description, due, priority, label }) => {
       <DescriptionDisplay description={description} />
       {/* Only render bottom panel if there is either a due date or a set priority */}
       {(due || priority < 4 || label) && (
-        <Grid container spacing={2}>
+        <Grid container spacing={2} alignItems="center">
           <DueWrapper due={due} />
           <LabelWrapper label={label} />
           <PriorityWrapper priority={priority} />

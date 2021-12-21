@@ -26,7 +26,7 @@ const TaskListItem = ({ task }) => {
   const [detailsOpen, setDetailsOpen] = useState(false);
 
   // destructuring task properties
-  const { name, description, priority, due, id } = task;
+  const { name, id } = task;
 
   // deleting items
   const deleteCreator = (id) => {

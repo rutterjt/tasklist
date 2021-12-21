@@ -44,25 +44,27 @@ const TaskDetailsBox = ({
       {name}
     </Typography>
     {description && (
-      <Typography variant="body1" sx={{ mb: 2 }}>
+      <Typography variant="body1" sx={{ mb: 4 }}>
         {description}
       </Typography>
     )}
-    <DetailsGrid>
+    <Grid container justifyContent="space-between" spacing={2}>
       <Grid item>
         <DateChip date={due} />
       </Grid>
-      <Grid container alignItems="space-between" spacing={2}>
-        {label && (
+      <Grid item>
+        <Grid container alignItems="center" spacing={2}>
+          {label && (
+            <Grid item>
+              <LabelDisplay label={label} />
+            </Grid>
+          )}
           <Grid item>
-            <LabelDisplay label={label} />
+            <PriorityIcon priority={priority} />
           </Grid>
-        )}
-        <Grid item>
-          <PriorityIcon priority={priority} />
         </Grid>
       </Grid>
-    </DetailsGrid>
+    </Grid>
     <ButtonGrid>
       <Grid item>
         <Button variant="outlined" onClick={openEditor}>
