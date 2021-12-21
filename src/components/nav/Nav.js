@@ -2,7 +2,7 @@ import React from 'react';
 import { Box, Drawer, Divider } from '@mui/material';
 
 // data
-import { navItems, completed } from 'data';
+import { navItems, completed } from 'data/nav';
 
 // components
 import NavLabelsList from './NavLabelsList';
