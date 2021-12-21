@@ -72,13 +72,7 @@ const TaskListItem = ({ task }) => {
           <ListItemText
             disableTypography
             primary={<TaskPrimaryInfo name={name} />}
-            secondary={
-              <TaskSecondaryInfo
-                description={description}
-                due={due}
-                priority={priority}
-              />
-            }
+            secondary={<TaskSecondaryInfo {...task} />}
           />
         </ListItemButton>
       </ListItem>

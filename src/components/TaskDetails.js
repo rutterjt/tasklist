@@ -14,6 +14,7 @@ import DateChip from './DateChip';
 import WarningPopup from './WarningPopup';
 import TaskUpdateForm from './forms/TaskUpdateForm';
 import CustomDialog from './CustomDialog';
+import LabelDisplay from './LabelDisplay';
 
 // store
 import { useStore } from 'store/useStore';
@@ -30,7 +31,14 @@ export const ButtonGrid = ({ children }) => (
   </Grid>
 );
 
-const TaskDetailsBox = ({ name, description, due, priority, openEditor }) => (
+const TaskDetailsBox = ({
+  name,
+  description,
+  due,
+  priority,
+  openEditor,
+  label,
+}) => (
   <Box sx={{ p: 3 }}>
     <Typography variant="h6" component="h3" sx={{ mb: 3 }}>
       {name}
@@ -44,8 +52,15 @@ const TaskDetailsBox = ({ name, description, due, priority, openEditor }) => (
       <Grid item>
         <DateChip date={due} />
       </Grid>
-      <Grid item>
-        <PriorityIcon priority={priority} />
+      <Grid container alignItems="space-between" spacing={2}>
+        {label && (
+          <Grid item>
+            <LabelDisplay label={label} />
+          </Grid>
+        )}
+        <Grid item>
+          <PriorityIcon priority={priority} />
+        </Grid>
       </Grid>
     </DetailsGrid>
     <ButtonGrid>
