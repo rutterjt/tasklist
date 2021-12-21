@@ -10,7 +10,7 @@ import {
   isDueTomorrow,
   isDueInFuture,
   isPastDue,
-} from './utils/time';
+} from 'utils/time';
 
 const none = () => false;
 const all = () => true;
