@@ -9,6 +9,7 @@ import { DetailsGrid } from 'components/TaskDetails';
 import PriorityControl from './PriorityControl';
 import DueDateControl from './DueDateControl';
 import CustomForm from './CustomForm';
+import LabelControl from './LabelControl';
 
 // store
 import { useStore } from 'store/useStore';
@@ -17,7 +18,7 @@ import { UPDATE_TASK } from 'store/actions';
 const TaskUpdateForm = ({ task, handleClose, handleSave }) => {
   const { dispatch } = useStore();
   const [data, setData] = useState({ ...task });
-  const { name, description, due, priority, id } = data;
+  const { name, description, due, priority, id, label } = data;
 
   // updates a given value in the state object
   // accepts a string representing the object key
@@ -30,6 +31,7 @@ const TaskUpdateForm = ({ task, handleClose, handleSave }) => {
   const setDescription = set('description');
   const setDue = set('due');
   const setPriority = set('priority');
+  const setLabel = set('label');
 
   const update = (setter) => (e) => setter(e.target.value);
 
@@ -73,7 +75,14 @@ const TaskUpdateForm = ({ task, handleClose, handleSave }) => {
           <DueDateControl date={due} setDate={setDue} />
         </Grid>
         <Grid item>
-          <PriorityControl priority={priority} setPriority={setPriority} />
+          <Grid container alignItems="center" spacing={2}>
+            <Grid item>
+              <LabelControl label={label} setLabel={setLabel} />
+            </Grid>
+            <Grid item>
+              <PriorityControl priority={priority} setPriority={setPriority} />
+            </Grid>
+          </Grid>
         </Grid>
       </DetailsGrid>
     </CustomForm>
