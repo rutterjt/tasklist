@@ -14,6 +14,7 @@ import DueDateControl from './DueDateControl';
 import TextControl from './TextControl';
 import WarningPopup from 'components/WarningPopup';
 import CustomForm from './CustomForm';
+import LabelControl from './LabelControl';
 
 // helpers
 import isEmpty from 'lodash/isEmpty';
@@ -29,13 +30,14 @@ const AddButton = ({ openForm }) => (
 // renders the task creation form's ui
 const Form = ({ createItem, closeForm, updateData, formData, onSubmit }) => {
   // extract values from state
-  const { name, description, priority, due } = formData;
+  const { name, description, priority, due, label } = formData;
 
   // create setters
   const setName = updateData('name');
   const setDescription = updateData('description');
   const setPriority = updateData('priority');
   const setDue = updateData('due');
+  const setLabel = updateData('label');
 
   const handleSubmit = () => {
     createItem();
@@ -65,12 +67,24 @@ const Form = ({ createItem, closeForm, updateData, formData, onSubmit }) => {
         onChange={update(setDescription)}
         lines={3}
       />
-      <Grid container justifyContent="space-between" alignItems="center">
+      <Grid
+        container
+        justifyContent="space-between"
+        alignItems="center"
+        spacing={2}
+      >
         <Grid item>
           <DueDateControl date={due} setDate={setDue} />
         </Grid>
         <Grid item>
-          <PriorityControl priority={priority} setPriority={setPriority} />
+          <Grid container alignItems="center" spacing={2}>
+            <Grid item>
+              <LabelControl label={label} setLabel={setLabel} />
+            </Grid>
+            <Grid item>
+              <PriorityControl priority={priority} setPriority={setPriority} />
+            </Grid>
+          </Grid>
         </Grid>
       </Grid>
     </CustomForm>
