@@ -7,7 +7,7 @@ const CustomForm = ({
   onSubmit,
   title,
   onCancel,
-  canSubmit = true,
+  canSubmit = false,
   cancelButton = 'Cancel',
   submitButton = 'Submit',
   children,

@@ -100,6 +100,7 @@ export const reducer = (state, action) => {
     case ADD_LABEL: {
       const newLabel = {
         name: payload.name,
+        color: payload.color || '',
         id: uuidv4(), // automatically generate a unique id
       };
       const newLabels = [...state.labels, newLabel];

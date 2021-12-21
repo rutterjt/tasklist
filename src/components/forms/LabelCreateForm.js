@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 // components
 import TextControl from './TextControl';
 import CustomForm from './CustomForm';
+import ColorDropdownControl from './ColorDropdownControl';
 
 // store
 import { useStore } from 'store/useStore';
@@ -11,10 +12,12 @@ import { ADD_LABEL } from 'store/actions';
 // renders the task creation form's ui
 const Form = ({ formData, onSubmit, updateData, closeForm, labels }) => {
   // extract values from state
-  const { name } = formData;
+  const { name, color } = formData;
+  console.log(`Name: ${name}, Color: ${color}`);
 
   // create setters
   const setName = updateData('name');
+  const setColor = updateData('color');
 
   const update = (setter) => (e) => setter(e.target.value);
 
@@ -43,13 +46,14 @@ const Form = ({ formData, onSubmit, updateData, closeForm, labels }) => {
         error={nameInLabels(name)}
         helperText={nameInLabels(name) ? 'Label already exists.' : ''}
       />
+      <ColorDropdownControl color={color} setColor={setColor} />
     </CustomForm>
   );
 };
 
 const LabelCreateForm = ({ closeForm }) => {
   const { dispatch, labels } = useStore();
-  const [formData, setFormData] = useState(false);
+  const [formData, setFormData] = useState({});
 
   // store
   const addLabelCreator = (formData) => ({

@@ -39,7 +39,7 @@ const NavLabelsList = () => {
         {labels.length ? (
           <div>
             {labels.map((label) => (
-              <NavLabelItem label={label.name} key={label.id} />
+              <NavLabelItem label={label} key={label.id} />
             ))}
           </div>
         ) : (
