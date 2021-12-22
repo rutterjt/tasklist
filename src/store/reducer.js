@@ -33,7 +33,7 @@ export const defaultState = {
 };
 
 // helper functions
-const dueFormatted = ({ due }) => {
+const dueFormatted = (due) => {
   // correctly format due as date represented as number of miliseconds unix time, or undefined
   return isDate(due)
     ? due.getTime()
