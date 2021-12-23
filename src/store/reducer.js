@@ -19,6 +19,7 @@ import {
   DELETE_LABEL,
   ADD_TASK_AND_LABEL,
 } from './actions';
+import { get } from 'lodash';
 
 // localstorage
 const getItem = (name) => JSON.parse(localStorage.getItem(name)) || null;
@@ -33,8 +34,13 @@ export const defaultState = {
 };
 
 // helper functions
+
+/**
+ * Converts the given input into the number of seconds unix time, or undefined if the input cannot be converted.
+ * @param {Any} due - The value to format: should ideally be a date object.
+ * @return {Number|undefined} The input value converted to miliseconds unix time, or else undefined.
+ */
 const dueFormatted = (due) => {
-  // correctly format due as date represented as number of miliseconds unix time, or undefined
   return isDate(due)
     ? due.getTime()
     : typeof due === 'number'
@@ -42,13 +48,45 @@ const dueFormatted = (due) => {
     : undefined;
 };
 
+/**
+ * Finds the list item with the specified id, or -1 if not found.
+ * @param {Array} list - An array.
+ * @param {string} id - A unique id.
+ * @return {Number} The index of the array item with the given id, or -1 if not found.
+ *
+ */
 const getIndexFromId = (list, id) => {
-  // returns the index of the list item with given id, or -1 if not found
   return list.findIndex((item) => item.id === id);
 };
 
+// create label typedef
+
+/**
+ * @typedef label
+ * @type {object}
+ * @property {string} name - The label's name.
+ * @property {string} [color] - The label's color, stored as a string descriptor, which is a key in the colors object exported from /src/data/colors.js.
+ * @property {string} [id] - The label's unique id, automatically generated.
+ */
+
+/**
+ * @typedef task
+ * @type {object}
+ * @property {string} name - The task's name.
+ * @property {string} [description] - The task's description.
+ * @property {number} [priority] - The task's priority: accepts 1-4.
+ * @property {number} [due] - The task's due date, in miliseconds unix time.
+ * @property {number} [date] - The task's creation date, in miliseconds unix time.
+ * @property {label} [label] - A label reference.
+ * @property {string} [id] - The task's unique id.
+ */
+
+/**
+ * Returns a new, properly formatted task object.
+ * @param {task} task - A partially complete task object.
+ * @return {task} A complete task object.
+ */
 const createTask = ({ name, description, priority, due, label, date, id }) => {
-  // returns a new task object with the given properties, filling in necessary properties if not supplied
   return {
     name,
     description,
@@ -60,8 +98,12 @@ const createTask = ({ name, description, priority, due, label, date, id }) => {
   };
 };
 
+/**
+ * Returns a new, properly formatted label object.
+ * @param {label} label - A label object, which may be incomplete.
+ * @return {Object} A correctly formatted label object, with a unique id.
+ */
 const createLabel = ({ name, color, id }) => {
-  // returns a new label object with the given properties, filling in an id if not supplied
   return {
     name,
     color,
@@ -69,11 +111,68 @@ const createLabel = ({ name, color, id }) => {
   };
 };
 
+/**
+ * Returns a copy of the given list, with the item at the given index removed, and optionally replaced with a new item.
+ *
+ * Does not mutate the original list.
+ *
+ * @param {Array} list - A list of tasks.
+ * @param {Number} index - A list index.
+ * @param {Object} [item] - (Optional) a new list item.
+ * @return {Array} A copy of list with list[index] removed, and optionally replaced with item.
+ */
 const sliceList = (list, index, item) => {
-  // accepts a list, index, and optional item, returns a new list with the item at the given index removed. If the third argument is provided, it will be added into the list at the given index.
   return item
     ? [...list.slice(0, index), item, ...list.slice(index + 1)]
     : [...list.slice(0, index), ...list.slice(index + 1)];
+};
+
+/**
+ * Returns true or false whether a task has a given label.
+ * @param {Object} label A label object.
+ * @param {Object} task A task object.
+ * @return {Boolean} Whether task.label.id === label.id.
+ */
+const matchLabel = (label, task) => get(task, 'label.id') === label.id;
+
+/**
+ * Updates a task's label.
+ * @param {Object|undefined} newLabel A label object, or undefined
+ * @param {Object} task A task object.
+ * @return {Object} The given task object with its label property set to newLabel.
+ */
+const updateTaskLabel = (newLabel, task) => ({ ...task, label: newLabel });
+
+/**
+ * Clears a task's label.
+ * @param {Object} task A task object.
+ * @return {Object} The task object with label property set to undefined.
+ */
+const clearTaskLabel = (task) => updateTaskLabel(undefined, task);
+
+/**
+ * Updates all references to a label in a task list.
+ * @param {Array} list An array of task objects.
+ * @param {Object} oldLabel The old label.
+ * @param {Object} newLabel The new label.
+ * @return {Array} A new list, with all references to oldLabel replaced with newLabel.
+ */
+const updateLabels = (list, oldLabel, newLabel) => {
+  return list.map((task) =>
+    matchLabel(oldLabel, task) ? updateTaskLabel(newLabel, task) : task
+  );
+};
+
+/**
+ * Returns a copy of a list with all references to the label removed.
+ * @param {Array} list An array of task objects.
+ * @param {Object} label A label object.
+ * @return {Array} An array of task objects with references to the label removed.
+ */
+const purgeLabel = (list, label) => {
+  return list.map((task) =>
+    matchLabel(label, task) ? clearTaskLabel(task) : task
+  );
 };
 
 // reducer
@@ -124,24 +223,35 @@ export const reducer = (state, action) => {
     case CLOSE_NAV: {
       return { ...state, navOpen: false };
     }
+    // creates a new label
+    // payload: { label: {name, color} }
     case ADD_LABEL: {
-      const label = createLabel(payload);
+      const label = createLabel(payload.label);
       const newLabels = [...state.labels, label];
       return { ...state, labels: newLabels };
     }
+    // updates an existing label, and updates the task list with the new label
+    // payload: { old: {name, color, id}, update: {name, color} }
     case UPDATE_LABEL: {
       let { old, update } = payload;
       const index = getIndexFromId(state.labels, old.id);
       if (index < 0) return state;
       const label = { ...old, ...update };
+      // insert new label into labels array
       const newLabels = sliceList(state.labels, index, label);
-      return { ...state, labels: newLabels };
+      // update task list by updating tasks with new label
+      const newList = updateLabels(state.list, state.labels[index], label);
+      return { ...state, labels: newLabels, list: newList };
     }
+    // deletes an existing label, and updates the task list by deleting all references to the old label
+    // payload: { label: name, color, id }
     case DELETE_LABEL: {
-      const index = state.labels.indexOf(payload);
+      const { label } = payload;
+      const index = getIndexFromId(state.labels, label.id);
       if (index < 0) return state;
       const newLabels = sliceList(state.labels, index);
-      return { ...state, labels: newLabels };
+      const newList = purgeLabel(state.list, label);
+      return { ...state, labels: newLabels, list: newList };
     }
     case ADD_TASK_AND_LABEL: {
       const { task, label } = payload;
