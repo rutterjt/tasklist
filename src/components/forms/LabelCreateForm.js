@@ -58,7 +58,7 @@ const LabelCreateForm = ({ closeForm }) => {
   // store
   const addLabelCreator = (formData) => ({
     type: ADD_LABEL,
-    payload: { ...formData },
+    payload: { label: { ...formData } },
   });
 
   const createLabel = () => dispatch(addLabelCreator(formData));
