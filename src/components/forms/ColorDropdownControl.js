@@ -20,7 +20,16 @@ const ColorDropdownControl = ({ color, setColor }) => {
         value={color || ''}
         onChange={handleChange}
         label="Label Color"
-        sx={{ maxHeight: '50px' }}
+        sx={{
+          '& .MuiSelect-select': { display: 'flex' },
+        }}
+        MenuProps={{
+          PaperProps: {
+            style: {
+              maxHeight: '250px',
+            },
+          },
+        }}
       >
         <MenuItem value={undefined}>No color</MenuItem>
         {Object.keys(colors).map((key, index) => (
