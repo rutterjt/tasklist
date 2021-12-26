@@ -157,8 +157,8 @@ const TaskCreateForm = ({ defaultItem }) => {
         title="Discard Changes"
         body="Are you sure you want to discard your work? This cannot be undone."
         handleCancel={() => setWarningOpen(false)}
-        handleSuccess={confirmCloseForm}
-        successLabel={'Discard'}
+        handleConfirm={confirmCloseForm}
+        confirmLabel={'Discard'}
         cancelLabel={'Cancel'}
       />
     </Box>

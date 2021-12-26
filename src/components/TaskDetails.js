@@ -115,9 +115,9 @@ const TaskDetails = ({ open, onClose, id }) => {
         title="Discard changes"
         body="Are you sure you want to discard all your changes? This can't be undone."
         cancelLabel="Keep Editing"
-        successLabel="Discard"
+        confirmLabel="Discard"
         handleCancel={() => setWarningOpen(false)}
-        handleSuccess={close}
+        handleConfirm={close}
       />
     </CustomDialog>
   );

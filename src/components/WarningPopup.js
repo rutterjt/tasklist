@@ -10,14 +10,26 @@ import {
   Button,
 } from '@mui/material';
 
+/**
+ * Opens a WarningPopup modal box component.
+ *
+ * The WarningPopup gives the user a warning message, and presents two options: cancel and confirm.
+ * @param {boolean} open - A boolean to control whether or not the WarningPopup renders.
+ * @param {string} title - The title of the warning.
+ * @param {string} body - The description body text of the warning.
+ * @param {function} handleCancel - Callback function to execute if user clicks the cancel button.
+ * @param {function}  handleConfirm - Callback function to execute if user clicks the confirm button.
+ * @param {string} [cancelLabel] - (Optional) text for the cancel button.
+ * @param {string} [confirmLabel] - (Optional) text for the confirm button.
+ */
 const WarningPopup = ({
   title,
   body,
   open,
   handleCancel,
-  handleSuccess,
+  handleConfirm,
   cancelLabel,
-  successLabel,
+  confirmLabel,
 }) => (
   <Dialog open={open}>
     <DialogTitle>{title}</DialogTitle>
@@ -31,10 +43,10 @@ const WarningPopup = ({
       <Button
         color="error"
         variant="contained"
-        onClick={handleSuccess}
+        onClick={handleConfirm}
         disableElevation
       >
-        {successLabel || 'Confirm'}
+        {confirmLabel || 'Confirm'}
       </Button>
     </DialogActions>
   </Dialog>
