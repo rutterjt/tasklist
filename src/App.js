@@ -13,6 +13,7 @@ import Tomorrow from 'pages/Tomorrow';
 import Completed from 'pages/Completed';
 import PastDue from 'pages/PastDue';
 import Upcoming from 'pages/Upcoming';
+import Label from 'pages/Label';
 
 // components
 import Header from 'components/Header';
@@ -37,6 +38,7 @@ const App = () => (
           <Route path="/upcoming" element={<Upcoming />} />
           <Route path="/due" element={<PastDue />} />
           <Route path="/completed" element={<Completed />} />
+          <Route path="/label/:label" element={<Label />} />
         </Routes>
       </Box>
     </Box>
