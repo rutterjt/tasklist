@@ -56,6 +56,7 @@ const LabelControl = ({ label, setLabel }) => {
             color: theme.palette.text.primary,
             textTransform: 'capitalize',
             fontWeight: 'normal',
+            '&:hover': { backgroundColor: 'rgba(0, 0, 0, 0.04)' },
           })}
           startIcon={<LocalOfferIcon sx={{ color: colors[label.color] }} />}
         >
