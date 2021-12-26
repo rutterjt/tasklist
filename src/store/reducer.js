@@ -17,7 +17,6 @@ import {
   ADD_LABEL,
   UPDATE_LABEL,
   DELETE_LABEL,
-  ADD_TASK_AND_LABEL,
 } from './actions';
 import { get } from 'lodash';
 
@@ -251,14 +250,6 @@ export const reducer = (state, action) => {
       if (index < 0) return state;
       const newLabels = sliceList(state.labels, index);
       const newList = purgeLabel(state.list, label);
-      return { ...state, labels: newLabels, list: newList };
-    }
-    case ADD_TASK_AND_LABEL: {
-      const { task, label } = payload;
-      const newLabel = createLabel(label);
-      const newTask = createTask({ ...task, label: newLabel });
-      const newLabels = [...state.labels, newLabel];
-      const newList = [...state.tasks, newTask];
       return { ...state, labels: newLabels, list: newList };
     }
     default: {
