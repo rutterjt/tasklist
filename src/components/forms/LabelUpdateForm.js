@@ -5,22 +5,22 @@ import LabelForm from './LabelForm';
 
 // store
 import { useStore } from 'store/useStore';
-import { ADD_LABEL } from 'store/actions';
+import { UPDATE_LABEL } from 'store/actions';
 
-const LabelCreateForm = ({ closeForm }) => {
+const LabelUpdateForm = ({ label, closeForm }) => {
   const { dispatch, labels } = useStore();
-  const [formData, setFormData] = useState({});
+  const [formData, setFormData] = useState({ ...label });
 
   // store
-  const addLabelCreator = (formData) => ({
-    type: ADD_LABEL,
-    payload: { label: { ...formData } },
+  const updateLabelCreator = (formData) => ({
+    type: UPDATE_LABEL,
+    payload: { old: { ...label }, update: { ...formData } },
   });
 
-  const createLabel = () => dispatch(addLabelCreator(formData));
+  const updateLabel = (data) => dispatch(updateLabelCreator(data));
 
   const handleSubmit = () => {
-    createLabel();
+    updateLabel(formData);
     setFormData({});
     closeForm();
   };
@@ -36,4 +36,4 @@ const LabelCreateForm = ({ closeForm }) => {
   );
 };
 
-export default LabelCreateForm;
+export default LabelUpdateForm;
