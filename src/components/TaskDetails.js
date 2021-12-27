@@ -11,7 +11,7 @@ import {
 // components
 import PriorityIcon from './PriorityIcon';
 import DateChip from './DateChip';
-import WarningPopup from './WarningPopup';
+import WarningDialog from './WarningDialog';
 import TaskUpdateForm from './forms/TaskUpdateForm';
 import CustomDialog from './CustomDialog';
 import LabelDisplay from './LabelDisplay';
@@ -90,7 +90,7 @@ const TaskDetails = ({ open, onClose, id }) => {
     onClose();
   };
 
-  // checks if editor is open: if yes, opens a WarningPopup, if not, closes TaskDetails
+  // checks if editor is open: if yes, opens a WarningDialog, if not, closes TaskDetails
   const handleClose = () => {
     if (editing) {
       setWarningOpen(true);
@@ -110,7 +110,7 @@ const TaskDetails = ({ open, onClose, id }) => {
       ) : (
         <TaskDetailsBox {...task} openEditor={() => setEditing(true)} />
       )}
-      <WarningPopup
+      <WarningDialog
         open={warningOpen}
         title="Discard changes"
         body="Are you sure you want to discard all your changes? This can't be undone."

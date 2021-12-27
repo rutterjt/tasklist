@@ -12,7 +12,7 @@ import { ADD_TASK } from 'store/actions';
 import PriorityControl from './PriorityControl';
 import DueDateControl from './DueDateControl';
 import TextControl from './TextControl';
-import WarningPopup from 'components/WarningPopup';
+import WarningDialog from 'components/WarningDialog';
 import CustomForm from './CustomForm';
 import LabelControl from './LabelControl';
 
@@ -152,7 +152,7 @@ const TaskCreateForm = ({ defaultItem }) => {
       ) : (
         <AddButton openForm={() => setFormOpen(true)} />
       )}
-      <WarningPopup
+      <WarningDialog
         open={warningOpen}
         title="Discard Changes"
         body="Are you sure you want to discard your work? This cannot be undone."
