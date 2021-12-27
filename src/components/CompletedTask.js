@@ -9,8 +9,8 @@ import {
 } from '@mui/material';
 
 // store
-import { useStore } from '../store/context';
-import { RESTORE_TASK } from '../store/actions';
+import { useStore } from 'store/useStore';
+import { RESTORE_TASK } from 'store/actions';
 
 // components
 import TaskDeleteControl from './TaskListItem/TaskDeleteControl';

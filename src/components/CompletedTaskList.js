@@ -11,7 +11,7 @@ import CompletedTask from './CompletedTask';
 
 const CompletedTaskList = ({ list = [], label = 'Completed tasks' }) => {
   return (
-    <Box sx={{ mt: '2rem' }}>
+    <Box sx={{ pt: 1 }}>
       <Typography variant="h6" component="h2">
         {list.length <= 0 ? 'No completed tasks' : label}
       </Typography>

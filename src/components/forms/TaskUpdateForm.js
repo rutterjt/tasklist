@@ -1,22 +1,24 @@
 import React, { useState } from 'react';
 
 // mui
-import { Box, Typography, Grid, Button } from '@mui/material';
+import { Grid } from '@mui/material';
 
 // components
 import TextControl from './TextControl';
-import { DetailsGrid, ButtonGrid } from './TaskDetails';
+import { DetailsGrid } from 'components/TaskDetails';
 import PriorityControl from './PriorityControl';
 import DueDateControl from './DueDateControl';
+import CustomForm from './CustomForm';
+import LabelControl from './LabelControl';
 
 // store
-import { useStore } from '../store/context';
-import { UPDATE_TASK } from '../store/actions';
+import { useStore } from 'store/useStore';
+import { UPDATE_TASK } from 'store/actions';
 
 const TaskUpdateForm = ({ task, handleClose, handleSave }) => {
   const { dispatch } = useStore();
   const [data, setData] = useState({ ...task });
-  const { name, description, due, priority, id } = data;
+  const { name, description, due, priority, id, label } = data;
 
   // updates a given value in the state object
   // accepts a string representing the object key
@@ -29,6 +31,7 @@ const TaskUpdateForm = ({ task, handleClose, handleSave }) => {
   const setDescription = set('description');
   const setDue = set('due');
   const setPriority = set('priority');
+  const setLabel = set('label');
 
   const update = (setter) => (e) => setter(e.target.value);
 
@@ -46,10 +49,14 @@ const TaskUpdateForm = ({ task, handleClose, handleSave }) => {
   };
 
   return (
-    <Box sx={{ p: '1.5rem' }}>
-      <Typography variant="h6" component="h3" sx={{ mb: '1.5rem' }}>
-        Editing: {name}
-      </Typography>
+    <CustomForm
+      onSubmit={saveData}
+      title={`Editing: ${name}`}
+      onCancel={handleClose}
+      canSubmit={name}
+      cancelButton="Discard"
+      submitButton="Save"
+    >
       <TextControl
         name="Task"
         value={name || ''}
@@ -68,33 +75,17 @@ const TaskUpdateForm = ({ task, handleClose, handleSave }) => {
           <DueDateControl date={due} setDate={setDue} />
         </Grid>
         <Grid item>
-          <PriorityControl priority={priority} setPriority={setPriority} />
+          <Grid container alignItems="center" spacing={2}>
+            <Grid item>
+              <LabelControl label={label} setLabel={setLabel} />
+            </Grid>
+            <Grid item>
+              <PriorityControl priority={priority} setPriority={setPriority} />
+            </Grid>
+          </Grid>
         </Grid>
       </DetailsGrid>
-      <ButtonGrid>
-        <Grid item>
-          <Button
-            variant="outlined"
-            color="error"
-            onClick={handleClose}
-            disableRipple
-          >
-            Discard
-          </Button>
-        </Grid>
-        <Grid item>
-          <Button
-            disableRipple
-            variant="contained"
-            color="success"
-            disableElevation
-            onClick={saveData}
-          >
-            Save
-          </Button>
-        </Grid>
-      </ButtonGrid>
-    </Box>
+    </CustomForm>
   );
 };
 

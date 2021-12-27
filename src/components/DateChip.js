@@ -4,12 +4,12 @@ import React from 'react';
 import ShortChip from './ShortChip';
 
 // date
-import { displayDate } from '../utils/date';
+import { displayDate } from 'utils/date';
 
 // accepts a date value in milliseconds, unix time
 const DateChip = ({ date, noLabel = 'Unscheduled' }) => {
-  const label = displayDate(date, noLabel, 'Past Due', true);
-  const chipColor = displayDate(date, noLabel);
+  const label = displayDate(date, noLabel);
+  const chipColor = displayDate(date, noLabel, 'Past Due');
   let color = '';
   switch (chipColor) {
     case 'Today':

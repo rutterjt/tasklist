@@ -8,9 +8,9 @@ const flagColors = [null, red[500], purple[500], indigo[500], indigo[500]];
 
 const PriorityIcon = ({ priority = 4 }) => {
   if (priority >= 4) {
-    return <FlagOutlinedIcon />;
+    return <FlagOutlinedIcon sx={{ display: 'block' }} />;
   } else {
-    return <FlagIcon sx={{ color: flagColors[priority] }} />;
+    return <FlagIcon sx={{ display: 'block', color: flagColors[priority] }} />;
   }
 };
 

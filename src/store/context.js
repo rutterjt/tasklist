@@ -1,8 +1,8 @@
-import React, { useReducer, useContext } from 'react';
+import React, { useReducer } from 'react';
 
 import { defaultState, reducer } from './reducer';
 
-const StoreContext = React.createContext();
+export const StoreContext = React.createContext();
 
 export const StoreProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, defaultState);
@@ -11,8 +11,4 @@ export const StoreProvider = ({ children }) => {
       {children}
     </StoreContext.Provider>
   );
-};
-
-export const useStore = () => {
-  return useContext(StoreContext);
 };
