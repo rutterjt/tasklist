@@ -10,8 +10,8 @@ const Layout = ({ children }) => {
   return (
     <Box
       sx={{
-        pl: { xs: 4, lg: 8 },
-        pr: 4,
+        pl: { xs: 2, sm: 4, lg: 8 },
+        pr: { xs: 2, sm: 4 },
         pb: 4,
         maxWidth: '600px',
       }}
