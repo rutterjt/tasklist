@@ -12,8 +12,8 @@ import {
   ListItemText,
   Divider,
 } from '@mui/material';
-import SettingsIcon from '@mui/icons-material/Settings';
 import CheckIcon from '@mui/icons-material/Check';
+import MoreVertIcon from '@mui/icons-material/MoreVert';
 
 // store
 import { useStore } from 'store/useStore';
@@ -63,8 +63,8 @@ const TaskListSettings = () => {
   const id = open ? 'priority-popup' : undefined;
   return (
     <Box>
-      <IconButton aria-label="open settings" onClick={handleClick}>
-        <SettingsIcon />
+      <IconButton aria-label="open list settings" onClick={handleClick}>
+        <MoreVertIcon />
       </IconButton>
 
       <Popover
