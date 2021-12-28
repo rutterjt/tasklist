@@ -5,7 +5,7 @@ import { Grid, Typography } from '@mui/material';
 import LocalOfferIcon from '@mui/icons-material/LocalOffer';
 
 // colors
-import { colors } from 'data/colors';
+import { colors } from '../data/colors';
 
 const LabelDisplay = ({ label }) => {
   const { color, name } = label;

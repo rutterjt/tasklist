@@ -6,7 +6,7 @@ import { Typography, Grid } from '@mui/material';
 // components
 import DateChip from '../DateChip';
 import PriorityIcon from '../PriorityIcon';
-import LabelDisplay from 'components/LabelDisplay';
+import LabelDisplay from '../LabelDisplay';
 
 const DescriptionDisplay = ({ description }) => {
   if (!description) return null;

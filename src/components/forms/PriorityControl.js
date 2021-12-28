@@ -13,7 +13,7 @@ import {
 } from '@mui/material';
 
 // components
-import PriorityIcon from 'components/PriorityIcon';
+import PriorityIcon from '../PriorityIcon';
 
 // Renders controls for the task's priority
 const PriorityControl = ({ priority, setPriority }) => {

@@ -4,17 +4,17 @@ import React, { useState } from 'react';
 import { Box, Button } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 
-// store
-import { useStore } from 'store/useStore';
-import { ADD_TASK } from 'store/actions';
-
-// components
-import WarningDialog from 'components/WarningDialog';
-import TaskForm from './TaskForm';
-
-// helpers
+// lodash helpers
 import isEmpty from 'lodash/isEmpty';
 import isEqual from 'lodash/isEqual';
+
+// store
+import { useStore } from '../../store/useStore';
+import { ADD_TASK } from '../../store/actions';
+
+// components
+import WarningDialog from '../WarningDialog';
+import TaskForm from './TaskForm';
 
 // Add task button: controls whether the form is visible
 const AddButton = ({ openForm }) => (

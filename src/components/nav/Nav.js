@@ -2,16 +2,16 @@ import React from 'react';
 import { Box, Drawer, Divider } from '@mui/material';
 
 // data
-import { navItems, completed } from 'data/nav';
+import { navItems, completed } from '../../data/nav';
 
 // components
 import NavLabelsList from './NavLabelsList';
-import Spacebar from 'components/Spacebar';
+import Spacebar from '../Spacebar';
 import NavList from './NavList';
 
 // store
-import { useStore } from 'store/useStore';
-import { TOGGLE_NAV } from 'store/actions';
+import { useStore } from '../../store/useStore';
+import { TOGGLE_NAV } from '../../store/actions';
 
 const NavDrawer = ({ children }) => {
   const { dispatch, navOpen } = useStore();

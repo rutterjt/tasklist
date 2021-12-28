@@ -16,11 +16,12 @@ import {
 import LocalOfferOutlinedIcon from '@mui/icons-material/LocalOfferOutlined';
 import LocalOfferIcon from '@mui/icons-material/LocalOffer';
 import DoNotDisturbAltIcon from '@mui/icons-material/DoNotDisturbAlt';
+
 // store
-import { useStore } from 'store/useStore';
+import { useStore } from '../../store/useStore';
 
 // colors
-import { colors } from 'data/colors';
+import { colors } from '../../data/colors';
 
 const LabelControl = ({ label, setLabel }) => {
   const [anchor, setAnchor] = useState(null);

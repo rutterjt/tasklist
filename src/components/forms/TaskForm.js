@@ -11,7 +11,7 @@ import LabelControl from './LabelControl';
 import PriorityControl from './PriorityControl';
 
 // utils
-import { updateFormData } from 'utils/form';
+import { updateFormData } from '../../utils/form';
 
 /**
  * Renders a form to create/update a task.

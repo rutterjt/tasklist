@@ -25,7 +25,7 @@ import DoNotDisturbAltIcon from '@mui/icons-material/DoNotDisturbAlt';
 import add from 'date-fns/add';
 
 // utils
-import { displayDate } from 'utils/date';
+import { displayDate } from '../../utils/date';
 
 const DateListItem = ({ title, icon, onClick }) => (
   <ListItem>

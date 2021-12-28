@@ -9,7 +9,7 @@ import NavLink from './NavLink';
 import LabelSettings from './LabelSettings';
 
 // colors
-import { colors } from 'data/colors';
+import { colors } from '../../data/colors';
 
 const NavLabelItem = ({ label }) => {
   const { name, color, id } = label;

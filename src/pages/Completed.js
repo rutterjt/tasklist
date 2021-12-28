@@ -5,12 +5,12 @@ import { Button } from '@mui/material';
 import { Delete } from '@mui/icons-material';
 
 // components
-import Layout from 'components/Layout';
-import CompletedTaskList from 'components/CompletedTaskList';
+import Layout from '../components/Layout';
+import CompletedTaskList from '../components/CompletedTaskList';
 
 // store
-import { useStore } from 'store/useStore';
-import { EMPTY_TRASH } from 'store/actions';
+import { useStore } from '../store/useStore';
+import { EMPTY_TRASH } from '../store/actions';
 
 const Completed = () => {
   const { dispatch, deleted } = useStore();

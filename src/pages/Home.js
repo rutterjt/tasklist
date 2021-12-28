@@ -4,12 +4,12 @@ import React from 'react';
 import { Helmet } from 'react-helmet-async';
 
 // components
-import Layout from 'components/Layout';
-import TaskList from 'components/TaskList';
-import TaskCreateForm from 'components/forms/TaskCreateForm';
+import Layout from '../components/Layout';
+import TaskList from '../components/TaskList';
+import TaskCreateForm from '../components/forms/TaskCreateForm';
 
 // store
-import { useStore } from 'store/useStore';
+import { useStore } from '../store/useStore';
 
 const Home = () => {
   const { list } = useStore();

@@ -7,15 +7,15 @@ import { Helmet } from 'react-helmet-async';
 import add from 'date-fns/add';
 
 // components
-import Layout from 'components/Layout';
-import TaskList from 'components/TaskList';
-import TaskCreateForm from 'components/forms/TaskCreateForm';
+import Layout from '../components/Layout';
+import TaskList from '../components/TaskList';
+import TaskCreateForm from '../components/forms/TaskCreateForm';
 
 // store
-import { useStore } from 'store/useStore';
+import { useStore } from '../store/useStore';
 
 // utils
-import { isDueTomorrow } from 'utils/time';
+import { isDueTomorrow } from '../utils/time';
 
 const Tomorrow = () => {
   const { list } = useStore();

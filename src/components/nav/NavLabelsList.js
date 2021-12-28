@@ -7,11 +7,11 @@ import AddIcon from '@mui/icons-material/Add';
 // components
 import CollapseList from '../CollapseList';
 import NavLabelItem from './NavLabelItem';
-import LabelCreateForm from 'components/forms/LabelCreateForm';
+import LabelCreateForm from '../forms/LabelCreateForm';
 import CustomDialog from '../CustomDialog';
 
 // store
-import { useStore } from 'store/useStore';
+import { useStore } from '../../store/useStore';
 
 const AddLabelButton = ({ onClick }) => (
   <IconButton edge="end" aria-label="add label" onClick={onClick}>

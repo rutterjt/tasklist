@@ -17,13 +17,13 @@ import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 
 // store
-import { useStore } from 'store/useStore';
-import { DELETE_LABEL } from 'store/actions';
+import { useStore } from '../../store/useStore';
+import { DELETE_LABEL } from '../../store/actions';
 
 // components
-import WarningDialog from 'components/WarningDialog';
-import CustomDialog from 'components/CustomDialog';
-import LabelUpdateForm from 'components/forms/LabelUpdateForm';
+import WarningDialog from '../WarningDialog';
+import CustomDialog from '../CustomDialog';
+import LabelUpdateForm from '../forms/LabelUpdateForm';
 
 const LabelSettings = ({ id }) => {
   const { labels, dispatch } = useStore();

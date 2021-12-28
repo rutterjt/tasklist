@@ -4,7 +4,8 @@ import React from 'react';
 import { FormControl, InputLabel, Select, MenuItem } from '@mui/material';
 import SquareRoundedIcon from '@mui/icons-material/SquareRounded';
 
-import { colors } from 'data/colors';
+// colors
+import { colors } from '../../data/colors';
 
 const capitalize = (str) => str[0].toUpperCase() + str.slice(1).toLowerCase();
 

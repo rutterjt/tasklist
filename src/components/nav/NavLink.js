@@ -7,7 +7,7 @@ import { useLocation } from 'react-router-dom';
 import { ListItemButton } from '@mui/material';
 
 // hooks
-import { useRenderLink } from 'hooks/useRenderLink';
+import { useRenderLink } from '../../hooks/useRenderLink';
 
 const NavLink = ({ to, children }) => {
   const { pathname } = useLocation();

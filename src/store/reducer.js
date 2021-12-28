@@ -4,6 +4,9 @@ import { v4 as uuidv4 } from 'uuid';
 // dates
 import isDate from 'date-fns/isDate';
 
+// lodash helpers
+import { get } from 'lodash';
+
 // action types
 import {
   ADD_TASK,
@@ -18,7 +21,6 @@ import {
   UPDATE_LABEL,
   DELETE_LABEL,
 } from './actions';
-import { get } from 'lodash';
 
 // localstorage
 const getItem = (name) => JSON.parse(localStorage.getItem(name)) || null;
@@ -31,8 +33,6 @@ export const defaultState = {
   navOpen: false,
   sortBy: getItem('sortBy') || 'default',
 };
-
-// helper functions
 
 /**
  * Converts the given input into the number of seconds unix time, or undefined if the input cannot be converted.

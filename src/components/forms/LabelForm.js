@@ -6,7 +6,7 @@ import TextControl from './TextControl';
 import ColorDropdownControl from './ColorDropdownControl';
 
 // utils
-import { updateFormData } from 'utils/form';
+import { updateFormData } from '../../utils/form';
 
 /**
  * Renders a form to create/update a label.

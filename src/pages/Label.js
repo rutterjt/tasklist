@@ -1,6 +1,6 @@
 import React from 'react';
 
-// lodash
+// lodash helpers
 import get from 'lodash/get';
 import isEmpty from 'lodash/isEmpty';
 
@@ -11,12 +11,12 @@ import { useParams, Navigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 
 // components
-import Layout from 'components/Layout';
-import TaskList from 'components/TaskList';
-import TaskCreateForm from 'components/forms/TaskCreateForm';
+import Layout from '../components/Layout';
+import TaskList from '../components/TaskList';
+import TaskCreateForm from '../components/forms/TaskCreateForm';
 
 // store
-import { useStore } from 'store/useStore';
+import { useStore } from '../store/useStore';
 
 const hasLabel = (label) => (listItem) =>
   get(listItem, 'label.name', null) === get(label, 'name');

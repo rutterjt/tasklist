@@ -16,8 +16,8 @@ import CheckIcon from '@mui/icons-material/Check';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 
 // store
-import { useStore } from 'store/useStore';
-import { CHANGE_SORT_ORDER } from 'store/actions';
+import { useStore } from '../store/useStore';
+import { CHANGE_SORT_ORDER } from '../store/actions';
 
 const capitalize = (str) => str[0].toUpperCase() + str.slice(1).toLowerCase();
 

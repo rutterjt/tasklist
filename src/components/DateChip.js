@@ -4,7 +4,7 @@ import React from 'react';
 import ShortChip from './ShortChip';
 
 // date
-import { displayDate } from 'utils/date';
+import { displayDate } from '../utils/date';
 
 // accepts a date value in milliseconds, unix time
 const DateChip = ({ date, noLabel = 'Unscheduled' }) => {

@@ -4,8 +4,8 @@ import React, { useState } from 'react';
 import LabelForm from './LabelForm';
 
 // store
-import { useStore } from 'store/useStore';
-import { ADD_LABEL } from 'store/actions';
+import { useStore } from '../../store/useStore';
+import { ADD_LABEL } from '../../store/actions';
 
 const LabelCreateForm = ({ closeForm }) => {
   const { dispatch, labels } = useStore();
