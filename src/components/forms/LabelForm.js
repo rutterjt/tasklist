@@ -15,9 +15,17 @@ import { updateFormData } from 'utils/form';
  * @param {function} props.onSubmit - Callback to handle a submit event.
  * @param {function} props.closeForm - Callback to handle closing the form.
  * @param {array} props.labels - An array of labels.
+ * @param {boolean} [props.editing=false] - (Optional) boolean flag for whether the form is editing an existing task. If true, results in minor ui changes, but does not affect form functionality.
  * @return A form with fully controlled input components for all label data.
  */
-const LabelForm = ({ data, setter, onSubmit, closeForm, labels }) => {
+const LabelForm = ({
+  data,
+  setter,
+  onSubmit,
+  closeForm,
+  labels,
+  editing = false,
+}) => {
   // extract values from state
   const { name, color, id } = data;
 
@@ -41,10 +49,10 @@ const LabelForm = ({ data, setter, onSubmit, closeForm, labels }) => {
   return (
     <CustomForm
       onSubmit={onSubmit}
-      title="Create Label"
+      title={editing ? 'Update Label' : 'Create Label'}
       onCancel={closeForm}
       canSubmit={canSubmit()}
-      submitButton="Submit"
+      submitButton={editing ? 'Update Label' : 'Add Label'}
     >
       <TextControl
         name="Name"
