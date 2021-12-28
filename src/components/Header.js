@@ -1,9 +1,19 @@
 import React from 'react';
+
+// mui
 import { AppBar, Toolbar, IconButton, Typography } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import CloseIcon from '@mui/icons-material/Close';
 
-const Header = ({ toggleNav, navOpen }) => {
+// store
+import { useStore } from '../store/useStore';
+import { TOGGLE_NAV } from '../store/actions';
+
+const Header = () => {
+  const { dispatch, navOpen } = useStore();
+
+  const toggleNav = () => dispatch({ type: TOGGLE_NAV });
+
   return (
     <>
       <AppBar
@@ -26,7 +36,7 @@ const Header = ({ toggleNav, navOpen }) => {
               <MenuIcon sx={{ display: { xs: 'block', md: 'none' } }} />
             )}
           </IconButton>
-          <Typography variant="h6" component="h1" noWrap>
+          <Typography variant="h5" component="h1" noWrap>
             To Do List
           </Typography>
         </Toolbar>

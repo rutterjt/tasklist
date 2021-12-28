@@ -11,6 +11,7 @@ const TextControl = ({
   required,
   autoFocus,
   lines = 1,
+  ...rest
 }) => {
   if (lines > 1) {
     return (
@@ -26,7 +27,8 @@ const TextControl = ({
         multiline
         minRows={lines}
         maxRows={lines}
-        sx={{ mb: '1rem' }}
+        sx={{ mb: 2 }}
+        {...rest}
       />
     );
   } else {
@@ -40,7 +42,8 @@ const TextControl = ({
         autoFocus={autoFocus}
         fullWidth
         variant="outlined"
-        sx={{ mb: '1rem' }}
+        sx={{ mb: 2 }}
+        {...rest}
       />
     );
   }

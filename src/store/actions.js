@@ -6,3 +6,6 @@ export const TOGGLE_NAV = 'TOGGLE_NAV';
 export const CLOSE_NAV = 'CLOSE_NAV';
 export const RESTORE_TASK = 'RESTORE_TASK';
 export const CHANGE_SORT_ORDER = 'CHANGE_SORT_ORDER';
+export const ADD_LABEL = 'ADD_LABEL';
+export const UPDATE_LABEL = 'UPDATE_LABEL';
+export const DELETE_LABEL = 'DELETE_LABEL';

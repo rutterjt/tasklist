@@ -6,9 +6,9 @@ import { Typography } from '@mui/material';
 const TaskPrimaryInfo = ({ name }) => {
   return (
     <Typography
-      gutterBottom
-      variant="body1"
+      variant="subtitle1"
       component="h3"
+      gutterBottom
       sx={{ wordBreak: 'break-word' }}
     >
       {name}

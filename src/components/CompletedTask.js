@@ -9,7 +9,7 @@ import {
 } from '@mui/material';
 
 // store
-import { useStore } from '../store/context';
+import { useStore } from '../store/useStore';
 import { RESTORE_TASK } from '../store/actions';
 
 // components

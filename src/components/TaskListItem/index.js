@@ -15,7 +15,7 @@ import TaskSecondaryInfo from './TaskSecondaryInfo';
 import TaskDetails from '../TaskDetails';
 
 // store
-import { useStore } from '../../store/context';
+import { useStore } from '../../store/useStore';
 import { DELETE_TASK } from '../../store/actions';
 
 const TaskListItem = ({ task }) => {
@@ -26,7 +26,7 @@ const TaskListItem = ({ task }) => {
   const [detailsOpen, setDetailsOpen] = useState(false);
 
   // destructuring task properties
-  const { name, description, priority, due, id } = task;
+  const { name, id } = task;
 
   // deleting items
   const deleteCreator = (id) => {
@@ -68,17 +68,11 @@ const TaskListItem = ({ task }) => {
         <ListItemIcon>
           <TaskDeleteControl checked={checked} handleCheck={handleCheck} />
         </ListItemIcon>
-        <ListItemButton disableRipple onClick={openDetails}>
+        <ListItemButton onClick={openDetails}>
           <ListItemText
             disableTypography
             primary={<TaskPrimaryInfo name={name} />}
-            secondary={
-              <TaskSecondaryInfo
-                description={description}
-                due={due}
-                priority={priority}
-              />
-            }
+            secondary={<TaskSecondaryInfo {...task} />}
           />
         </ListItemButton>
       </ListItem>

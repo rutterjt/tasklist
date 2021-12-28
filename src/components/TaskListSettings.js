@@ -12,12 +12,15 @@ import {
   ListItemText,
   Divider,
 } from '@mui/material';
-import SettingsIcon from '@mui/icons-material/Settings';
 import CheckIcon from '@mui/icons-material/Check';
+import MoreVertIcon from '@mui/icons-material/MoreVert';
 
 // store
-import { useStore } from '../store/context';
+import { useStore } from '../store/useStore';
 import { CHANGE_SORT_ORDER } from '../store/actions';
+
+// components
+import ListHeader from './ListHeader';
 
 const capitalize = (str) => str[0].toUpperCase() + str.slice(1).toLowerCase();
 
@@ -63,8 +66,8 @@ const TaskListSettings = () => {
   const id = open ? 'priority-popup' : undefined;
   return (
     <Box>
-      <IconButton aria-label="open settings" onClick={handleClick}>
-        <SettingsIcon />
+      <IconButton aria-label="open list settings" onClick={handleClick}>
+        <MoreVertIcon />
       </IconButton>
 
       <Popover
@@ -75,11 +78,7 @@ const TaskListSettings = () => {
         anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
       >
         <List dense>
-          <ListItem>
-            <ListItemText>
-              <span style={{ fontWeight: 'bold' }}>Sort By</span>
-            </ListItemText>
-          </ListItem>
+          <ListHeader>Sort By</ListHeader>
           <Divider />
           <SettingsListItem
             value="default"

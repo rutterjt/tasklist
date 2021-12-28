@@ -1,7 +1,10 @@
 import { useEffect } from 'react';
 
+// routing
 import { useLocation } from 'react-router-dom';
-import { useStore } from '../store/context';
+
+// store
+import { useStore } from '../store/useStore';
 import { CLOSE_NAV } from '../store/actions';
 
 const PageChange = () => {

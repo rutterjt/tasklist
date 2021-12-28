@@ -6,6 +6,7 @@ import { Typography, Grid } from '@mui/material';
 // components
 import DateChip from '../DateChip';
 import PriorityIcon from '../PriorityIcon';
+import LabelDisplay from '../LabelDisplay';
 
 const DescriptionDisplay = ({ description }) => {
   if (!description) return null;
@@ -15,13 +16,13 @@ const DescriptionDisplay = ({ description }) => {
       : description
     : '';
   return (
-    <Typography gutterBottom variant="body2" sx={{ wordBreak: 'break-word' }}>
+    <Typography variant="body2" sx={{ wordBreak: 'break-word', mb: 1 }}>
       {shortDescription}
     </Typography>
   );
 };
 
-const DueDisplay = ({ due }) => {
+const DueWrapper = ({ due }) => {
   if (!due) return null;
   return (
     <Grid item>
@@ -30,7 +31,7 @@ const DueDisplay = ({ due }) => {
   );
 };
 
-const PriorityDisplay = ({ priority }) => {
+const PriorityWrapper = ({ priority }) => {
   if (!priority || priority >= 4) return null;
   return (
     <Grid item>
@@ -39,15 +40,25 @@ const PriorityDisplay = ({ priority }) => {
   );
 };
 
-const TaskSecondaryInfo = ({ description, due, priority }) => {
+const LabelWrapper = ({ label }) => {
+  if (!label) return null;
+  return (
+    <Grid item>
+      <LabelDisplay label={label} />
+    </Grid>
+  );
+};
+
+const TaskSecondaryInfo = ({ description, due, priority, label }) => {
   return (
     <>
       <DescriptionDisplay description={description} />
       {/* Only render bottom panel if there is either a due date or a set priority */}
-      {(due || priority < 4) && (
-        <Grid container spacing={1}>
-          <DueDisplay due={due} />
-          <PriorityDisplay priority={priority} />
+      {(due || priority < 4 || label) && (
+        <Grid container spacing={2} alignItems="center">
+          <DueWrapper due={due} />
+          <LabelWrapper label={label} />
+          <PriorityWrapper priority={priority} />
         </Grid>
       )}
     </>

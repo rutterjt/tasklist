@@ -1,25 +1,17 @@
 import React, { useState } from 'react';
 
-import {
-  Dialog,
-  Button,
-  Box,
-  Typography,
-  Grid,
-  // Chip,
-} from '@mui/material';
+import { Button, Box, Typography, Grid } from '@mui/material';
 
 // components
 import PriorityIcon from './PriorityIcon';
 import DateChip from './DateChip';
-import WarningPopup from './WarningPopup';
-import TaskUpdateForm from './TaskUpdateForm';
-
-// utils
-// import { displayDate } from '../utils/date';
+import WarningDialog from './WarningDialog';
+import TaskUpdateForm from './forms/TaskUpdateForm';
+import CustomDialog from './CustomDialog';
+import LabelDisplay from './LabelDisplay';
 
 // store
-import { useStore } from '../store/context';
+import { useStore } from '../store/useStore';
 
 export const DetailsGrid = ({ children }) => (
   <Grid container justifyContent="space-between">
@@ -28,32 +20,48 @@ export const DetailsGrid = ({ children }) => (
 );
 
 export const ButtonGrid = ({ children }) => (
-  <Grid container sx={{ mt: '1rem' }} justifyContent="flex-end" spacing={2}>
+  <Grid container sx={{ mt: 2 }} justifyContent="flex-end" spacing={2}>
     {children}
   </Grid>
 );
 
-const TaskDetailsBox = ({ name, description, due, priority, openEditor }) => (
-  <Box sx={{ p: '1.5rem' }}>
-    <Typography variant="h6" component="h3" sx={{ mb: '1.5rem' }}>
+const TaskDetailsBox = ({
+  name,
+  description,
+  due,
+  priority,
+  openEditor,
+  label,
+}) => (
+  <Box sx={{ p: 3 }}>
+    <Typography variant="h6" component="h3" sx={{ mb: 3 }}>
       {name}
     </Typography>
     {description && (
-      <Typography variant="body1" sx={{ mb: '1rem' }}>
+      <Typography variant="body1" sx={{ mb: 4 }}>
         {description}
       </Typography>
     )}
-    <DetailsGrid>
+    <Grid container justifyContent="space-between" spacing={2}>
       <Grid item>
         <DateChip date={due} />
       </Grid>
       <Grid item>
-        <PriorityIcon priority={priority} />
+        <Grid container alignItems="center" spacing={2}>
+          {label && (
+            <Grid item>
+              <LabelDisplay label={label} />
+            </Grid>
+          )}
+          <Grid item>
+            <PriorityIcon priority={priority} />
+          </Grid>
+        </Grid>
       </Grid>
-    </DetailsGrid>
+    </Grid>
     <ButtonGrid>
       <Grid item>
-        <Button disableRipple variant="outlined" onClick={openEditor}>
+        <Button variant="outlined" onClick={openEditor}>
           Update
         </Button>
       </Grid>
@@ -76,7 +84,7 @@ const TaskDetails = ({ open, onClose, id }) => {
     onClose();
   };
 
-  // checks if editor is open: if yes, opens a WarningPopup, if not, closes TaskDetails
+  // checks if editor is open: if yes, opens a WarningDialog, if not, closes TaskDetails
   const handleClose = () => {
     if (editing) {
       setWarningOpen(true);
@@ -86,12 +94,7 @@ const TaskDetails = ({ open, onClose, id }) => {
   };
 
   return (
-    <Dialog
-      onClose={handleClose}
-      open={open}
-      sx={{ '& .MuiDialog-paper': { width: '80%', maxHeight: 435 } }}
-      maxWidth="xs"
-    >
+    <CustomDialog onClose={handleClose} open={open}>
       {editing ? (
         <TaskUpdateForm
           task={task}
@@ -101,16 +104,16 @@ const TaskDetails = ({ open, onClose, id }) => {
       ) : (
         <TaskDetailsBox {...task} openEditor={() => setEditing(true)} />
       )}
-      <WarningPopup
+      <WarningDialog
         open={warningOpen}
         title="Discard changes"
         body="Are you sure you want to discard all your changes? This can't be undone."
         cancelLabel="Keep Editing"
-        successLabel="Discard"
+        confirmLabel="Discard"
         handleCancel={() => setWarningOpen(false)}
-        handleSuccess={close}
+        handleConfirm={close}
       />
-    </Dialog>
+    </CustomDialog>
   );
 };
 
