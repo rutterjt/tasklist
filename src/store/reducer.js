@@ -240,7 +240,17 @@ export const reducer = (state, action) => {
       const newLabels = sliceList(state.labels, index, label);
       // update task list by updating tasks with new label
       const newList = updateLabels(state.list, state.labels[index], label);
-      return { ...state, labels: newLabels, list: newList };
+      const newDeleted = updateLabels(
+        state.deleted,
+        state.labels[index],
+        label
+      );
+      return {
+        ...state,
+        labels: newLabels,
+        list: newList,
+        deleted: newDeleted,
+      };
     }
     // deletes an existing label, and updates the task list by deleting all references to the old label
     // payload: { label: name, color, id }
@@ -250,7 +260,13 @@ export const reducer = (state, action) => {
       if (index < 0) return state;
       const newLabels = sliceList(state.labels, index);
       const newList = purgeLabel(state.list, label);
-      return { ...state, labels: newLabels, list: newList };
+      const newDeleted = purgeLabel(state.deleted, label);
+      return {
+        ...state,
+        labels: newLabels,
+        list: newList,
+        deleted: newDeleted,
+      };
     }
     default: {
       console.warn('Unknown action type');
