@@ -32,6 +32,7 @@ const LabelUpdateForm = ({ label, closeForm }) => {
       onSubmit={handleSubmit}
       closeForm={closeForm}
       labels={labels}
+      editing
     />
   );
 };
