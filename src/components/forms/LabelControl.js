@@ -23,6 +23,9 @@ import { useStore } from '../../store/useStore';
 // colors
 import { colors } from '../../data/colors';
 
+// components
+import ListHeader from '../ListHeader';
+
 const LabelControl = ({ label, setLabel }) => {
   const [anchor, setAnchor] = useState(null);
   const { labels } = useStore();
@@ -76,11 +79,7 @@ const LabelControl = ({ label, setLabel }) => {
         anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
       >
         <List>
-          <ListItem>
-            <ListItemText>
-              <span style={{ fontWeight: 'bold' }}>Label</span>
-            </ListItemText>
-          </ListItem>
+          <ListHeader>Label</ListHeader>
           <Divider />
           {labels.map((label) => {
             const { name, color, id } = label;

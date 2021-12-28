@@ -27,8 +27,9 @@ import add from 'date-fns/add';
 // utils
 import { displayDate } from '../../utils/date';
 
+// components
 const DateListItem = ({ title, icon, onClick }) => (
-  <ListItem>
+  <ListItem sx={{ p: 0 }}>
     <ListItemButton onClick={onClick}>
       <ListItemIcon>{icon}</ListItemIcon>
       <ListItemText>{title}</ListItemText>
@@ -71,7 +72,7 @@ const DueDateControl = ({ date, setDate }) => {
         onClose={handleClose}
         anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
       >
-        <Box sx={{ py: 2 }}>
+        <Box sx={{ pt: 2 }}>
           <DatePicker
             label="Due Date"
             value={date}
@@ -84,7 +85,7 @@ const DueDateControl = ({ date, setDate }) => {
             )}
             minDate={Date.now()}
           />
-          <List dense>
+          <List>
             <Divider />
             <DateListItem
               title="Today"

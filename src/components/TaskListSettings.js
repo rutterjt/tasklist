@@ -19,6 +19,9 @@ import MoreVertIcon from '@mui/icons-material/MoreVert';
 import { useStore } from '../store/useStore';
 import { CHANGE_SORT_ORDER } from '../store/actions';
 
+// components
+import ListHeader from './ListHeader';
+
 const capitalize = (str) => str[0].toUpperCase() + str.slice(1).toLowerCase();
 
 const SettingsListItem = ({ value, sortBy, handleClick }) => (
@@ -75,11 +78,7 @@ const TaskListSettings = () => {
         anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
       >
         <List dense>
-          <ListItem>
-            <ListItemText>
-              <span style={{ fontWeight: 'bold' }}>Sort By</span>
-            </ListItemText>
-          </ListItem>
+          <ListHeader>Sort By</ListHeader>
           <Divider />
           <SettingsListItem
             value="default"

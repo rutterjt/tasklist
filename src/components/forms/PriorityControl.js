@@ -10,10 +10,12 @@ import {
   ListItemButton,
   ListItemIcon,
   ListItemText,
+  Divider,
 } from '@mui/material';
 
 // components
 import PriorityIcon from '../PriorityIcon';
+import ListHeader from '../ListHeader';
 
 // Renders controls for the task's priority
 const PriorityControl = ({ priority, setPriority }) => {
@@ -47,8 +49,10 @@ const PriorityControl = ({ priority, setPriority }) => {
         anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
       >
         <List>
+          <ListHeader>Priority</ListHeader>
+          <Divider />
           {[1, 2, 3, 4].map((num) => (
-            <ListItem key={num}>
+            <ListItem key={num} sx={{ p: 0 }}>
               <ListItemButton onClick={() => handleListClick(num)}>
                 <ListItemIcon>
                   <PriorityIcon priority={num} />
