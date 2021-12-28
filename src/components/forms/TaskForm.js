@@ -22,7 +22,7 @@ import { updateFormData } from '../../utils/form';
  * @param {boolean} [props.editing=false] - (Optional) boolean flag for whether the form is editing an existing task. If true, results in minor ui changes, but does not affect form functionality.
  * @return A form with fully controlled input components for all task data.
  */
-const TaskForm = ({ data, setter, onSubmit, closeForm, editing = 'false' }) => {
+const TaskForm = ({ data, setter, onSubmit, closeForm, editing = false }) => {
   // extract values from state
   const { name, description, priority, due, label } = data;
 
