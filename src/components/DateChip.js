@@ -16,7 +16,7 @@ const DateChip = ({ date, noLabel = 'Unscheduled' }) => {
       color = 'success';
       break;
     case 'Tomorrow':
-      color = 'warning';
+      color = 'primary';
       break;
     case 'Past Due':
       color = 'error';
