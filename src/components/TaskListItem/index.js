@@ -66,7 +66,11 @@ const TaskListItem = ({ task }) => {
     <>
       <ListItem disablePadding>
         <ListItemIcon>
-          <TaskDeleteControl checked={checked} handleCheck={handleCheck} />
+          <TaskDeleteControl
+            checked={checked}
+            handleCheck={handleCheck}
+            taskName={task.name}
+          />
         </ListItemIcon>
         <ListItemButton onClick={openDetails}>
           <ListItemText

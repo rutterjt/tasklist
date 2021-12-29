@@ -42,6 +42,8 @@ const CompletedTask = ({ task }) => {
         <TaskDeleteControl
           checked={checked}
           handleCheck={() => restoreTask(id)}
+          taskName={task.name}
+          action={'Restore'}
         />
       </ListItemIcon>
       <ListItemButton>
