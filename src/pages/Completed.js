@@ -1,5 +1,8 @@
 import React from 'react';
 
+// react helmet
+import { Helmet } from 'react-helmet-async';
+
 // mui
 import { Button } from '@mui/material';
 import { Delete } from '@mui/icons-material';
@@ -19,6 +22,10 @@ const Completed = () => {
 
   return (
     <Layout>
+      <Helmet>
+        <title>Completed | TaskList</title>
+      </Helmet>
+
       <CompletedTaskList list={deleted} noCheckbox />
       <Button
         onClick={deleteAll}

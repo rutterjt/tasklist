@@ -17,7 +17,7 @@ const Home = () => {
   return (
     <Layout>
       <Helmet>
-        <title>All Tasks | To Do List</title>
+        <title>All Tasks | TaskList</title>
       </Helmet>
       <TaskList label={'All Tasks'} list={list} />
       <TaskCreateForm />

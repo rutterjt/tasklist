@@ -28,7 +28,7 @@ const Tomorrow = () => {
   return (
     <Layout>
       <Helmet>
-        <title>Tomorrow | To Do List</title>
+        <title>Tomorrow | TaskList</title>
       </Helmet>
       <TaskList label={'Tomorrow'} list={filteredList} />
       <TaskCreateForm defaultItem={{ due: tomorrowRef.current }} />

@@ -22,7 +22,7 @@ const Upcoming = () => {
   return (
     <Layout>
       <Helmet>
-        <title>Upcoming | To Do List</title>
+        <title>Upcoming | TaskList</title>
       </Helmet>
       <TaskList label={'Upcoming'} list={filteredList} />
       <TaskCreateForm />

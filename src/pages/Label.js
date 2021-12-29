@@ -35,7 +35,7 @@ const Label = () => {
   return (
     <Layout>
       <Helmet>
-        <title>{label.name} | To Do List</title>
+        <title>{label.name} | TaskList</title>
       </Helmet>
       <TaskList label={`Label: ${label.name}`} list={filteredList} />
       <TaskCreateForm defaultItem={{ label: label }} />

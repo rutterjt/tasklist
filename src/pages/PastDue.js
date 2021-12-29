@@ -21,7 +21,7 @@ const PastDue = () => {
   return (
     <Layout>
       <Helmet>
-        <title>Past Due | To Do List</title>
+        <title>Past Due | TaskList</title>
       </Helmet>
       <TaskList label={'Past Due'} list={filteredList} />
       <TaskCreateForm />
