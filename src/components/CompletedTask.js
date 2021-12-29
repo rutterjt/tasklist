@@ -6,6 +6,7 @@ import {
   ListItemIcon,
   ListItemButton,
   ListItemText,
+  Divider,
 } from '@mui/material';
 
 // store
@@ -37,29 +38,32 @@ const CompletedTask = ({ task }) => {
   if (!task) return null;
 
   return (
-    <ListItem disablePadding>
-      <ListItemIcon>
-        <TaskDeleteControl
-          checked={checked}
-          handleCheck={() => restoreTask(id)}
-          taskName={task.name}
-          action={'Restore'}
-        />
-      </ListItemIcon>
-      <ListItemButton>
-        <ListItemText
-          disableTypography
-          primary={<TaskPrimaryInfo name={name} />}
-          secondary={
-            <TaskSecondaryInfo
-              description={description}
-              due={due}
-              priority={priority}
-            />
-          }
-        />
-      </ListItemButton>
-    </ListItem>
+    <>
+      <ListItem disablePadding>
+        <ListItemIcon>
+          <TaskDeleteControl
+            checked={checked}
+            handleCheck={() => restoreTask(id)}
+            taskName={task.name}
+            action={'Restore'}
+          />
+        </ListItemIcon>
+        <ListItemButton>
+          <ListItemText
+            disableTypography
+            primary={<TaskPrimaryInfo name={name} />}
+            secondary={
+              <TaskSecondaryInfo
+                description={description}
+                due={due}
+                priority={priority}
+              />
+            }
+          />
+        </ListItemButton>
+      </ListItem>
+      <Divider component="li" sx={{ ml: 7 }} />
+    </>
   );
 };
 

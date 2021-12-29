@@ -6,6 +6,7 @@ import {
   ListItemIcon,
   ListItemButton,
   ListItemText,
+  Divider,
 } from '@mui/material';
 
 // components
@@ -85,6 +86,7 @@ const TaskListItem = ({ task }) => {
         onClose={closeDetails}
         {...task}
       />
+      <Divider component="li" sx={{ ml: 7 }} />
     </>
   );
 };
