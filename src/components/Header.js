@@ -12,6 +12,9 @@ import {
 import MenuIcon from '@mui/icons-material/Menu';
 import CloseIcon from '@mui/icons-material/Close';
 
+// routing
+import { Link } from 'react-router-dom';
+
 // store
 import { useStore } from '../store/useStore';
 import { TOGGLE_NAV } from '../store/actions';
@@ -43,8 +46,8 @@ const Header = () => {
               alt="TaskList Logo"
               sx={{
                 mr: 2,
-                width: { xs: 25, sm: 40 },
-                height: { xs: 25, sm: 40 },
+                width: { xs: 24, sm: 36 },
+                height: { xs: 24, sm: 36 },
               }}
             />
             <Typography
@@ -52,7 +55,9 @@ const Header = () => {
               noWrap
               sx={{ fontSize: { xs: '1rem', sm: '1.5rem' } }}
             >
-              TaskList
+              <Link to="/" style={{ textDecoration: 'none', color: 'inherit' }}>
+                TaskList
+              </Link>
             </Typography>
           </Box>
           <IconButton
@@ -60,7 +65,7 @@ const Header = () => {
             edge="start"
             color="inherit"
             aria-label="Toggle menu"
-            sx={{ mr: 2, display: { md: 'none' } }}
+            sx={{ display: { md: 'none' } }}
             focusRipple
             onClick={toggleNav}
           >
