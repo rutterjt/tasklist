@@ -94,7 +94,7 @@ const DueDateControl = ({ date, setDate }) => {
             />
             <DateListItem
               title="Tomorrow"
-              icon={<UpcomingIcon color="warning" />}
+              icon={<UpcomingIcon color="primary" />}
               onClick={() => handleButtonClick(add(new Date(), { days: 1 }))}
             />
             <DateListItem
