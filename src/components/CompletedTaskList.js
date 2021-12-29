@@ -21,7 +21,7 @@ const CompletedTaskList = ({ list = [], label = 'Completed tasks' }) => {
             {list.map((task) => (
               <Collapse key={task.id}>
                 <CompletedTask task={task} />
-                <Divider variant="inset" component="li" />
+                <Divider component="li" sx={{ ml: 7 }} />
               </Collapse>
             ))}
           </TransitionGroup>
