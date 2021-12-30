@@ -19,12 +19,14 @@ import TaskDetails from '../TaskDetails';
 import { useStore } from '../../store/useStore';
 import { DELETE_TASK } from '../../store/actions';
 
+// hooks
+import { usePopup } from '../../hooks/usePopup';
+
 const TaskListItem = ({ task }) => {
   const { dispatch } = useStore();
   // checkbox state: when true, the item is deleted
   const [checked, setChecked] = useState(false);
-  // whether the task details dialog box is open
-  const [detailsOpen, setDetailsOpen] = useState(false);
+  const [detailsOpen, openDetails, closeDetails] = usePopup(false);
 
   // destructuring task properties
   const { name, id } = task;
@@ -56,10 +58,6 @@ const TaskListItem = ({ task }) => {
   const handleCheck = () => {
     setChecked((prev) => !prev);
   };
-
-  // handle clicks to main button
-  const closeDetails = () => setDetailsOpen(false);
-  const openDetails = () => setDetailsOpen(true);
 
   if (!task) return null;
 
