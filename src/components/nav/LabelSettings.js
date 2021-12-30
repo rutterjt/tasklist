@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 // mui
 import {
@@ -20,6 +20,10 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import { useStore } from '../../store/useStore';
 import { DELETE_LABEL } from '../../store/actions';
 
+// hooks
+import { usePopup } from '../../hooks/usePopup';
+import { usePopover } from '../../hooks/usePopover';
+
 // components
 import WarningDialog from '../WarningDialog';
 import CustomDialog from '../CustomDialog';
@@ -29,17 +33,15 @@ const LabelSettings = ({ id }) => {
   const { labels, dispatch } = useStore();
   const label = labels.find((label) => label.id === id) || {};
 
-  const [anchor, setAnchor] = useState(null);
-  const [warningOpen, setWarningOpen] = useState(false);
-  const [editorOpen, setEditorOpen] = useState(false);
+  const [warningOpen, openWarning, closeWarning] = usePopup(false);
+  const [editorOpen, openEditor, closeEditor] = usePopup(false);
+  const [settingsAnchor, openSettings, closeSettings, settingsOpen] =
+    usePopover(null);
 
   // event handlers
-  const handleClick = (e) => {
-    setAnchor(e.currentTarget);
-  };
-
-  const handleClose = () => {
-    setAnchor(null);
+  const confirmClose = () => {
+    closeEditor();
+    closeSettings();
   };
 
   // store
@@ -50,28 +52,18 @@ const LabelSettings = ({ id }) => {
 
   const deleteLabel = () => dispatch(deleteCreator());
 
-  // ui
-  const openWarning = () => setWarningOpen(true);
-  const closeWarning = () => setWarningOpen(false);
-  const openEditor = () => setEditorOpen(true);
-  const closeEditor = () => {
-    setEditorOpen(false);
-    handleClose();
-  };
-
-  const open = !!anchor;
-  const htmlID = open ? 'priority-popup' : undefined;
+  const htmlID = settingsOpen ? 'priority-popup' : undefined;
 
   return (
     <Box>
-      <IconButton aria-label="more options" edge="end" onClick={handleClick}>
+      <IconButton aria-label="more options" edge="end" onClick={openSettings}>
         <MoreHorizIcon />
       </IconButton>
       <Popover
         id={htmlID}
-        open={open}
-        anchorEl={anchor}
-        onClose={handleClose}
+        open={settingsOpen}
+        anchorEl={settingsAnchor}
+        onClose={closeSettings}
         anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
       >
         <List>
@@ -94,8 +86,8 @@ const LabelSettings = ({ id }) => {
           </ListItem>
         </List>
       </Popover>
-      <CustomDialog open={editorOpen} onClose={closeEditor}>
-        <LabelUpdateForm label={label} closeForm={closeEditor} />
+      <CustomDialog open={editorOpen} onClose={confirmClose}>
+        <LabelUpdateForm label={label} closeForm={confirmClose} />
       </CustomDialog>
       <WarningDialog
         open={warningOpen}

@@ -1,10 +1,7 @@
 import React from 'react';
 
 // mui
-import { List, Typography, Box, Collapse, Divider } from '@mui/material';
-
-// transition group
-import { TransitionGroup } from 'react-transition-group';
+import { List, Typography, Box } from '@mui/material';
 
 // components
 import CompletedTask from './CompletedTask';
@@ -17,14 +14,9 @@ const CompletedTaskList = ({ list = [], label = 'Completed tasks' }) => {
       </Typography>
       {list.length > 0 && (
         <List>
-          <TransitionGroup>
-            {list.map((task) => (
-              <Collapse key={task.id}>
-                <CompletedTask task={task} />
-                <Divider variant="inset" component="li" />
-              </Collapse>
-            ))}
-          </TransitionGroup>
+          {list.map((task) => (
+            <CompletedTask key={task.id} task={task} />
+          ))}
         </List>
       )}
     </Box>

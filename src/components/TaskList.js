@@ -1,10 +1,7 @@
 import React from 'react';
 
 // mui
-import { List, Typography, Box, Collapse, Divider, Grid } from '@mui/material';
-
-// transition group
-import { TransitionGroup } from 'react-transition-group';
+import { List, Typography, Box, Grid } from '@mui/material';
 
 // components
 import TaskListItem from './TaskListItem';
@@ -61,14 +58,9 @@ const TaskList = ({ list = [], label = 'To do' }) => {
       </Grid>
       {!listEmpty && (
         <List>
-          <TransitionGroup>
-            {sortedList.map((task) => (
-              <Collapse key={task.id}>
-                <TaskListItem task={task} />
-                <Divider component="li" sx={{ ml: 7 }} />
-              </Collapse>
-            ))}
-          </TransitionGroup>
+          {sortedList.map((task) => (
+            <TaskListItem key={task.id} task={task} />
+          ))}
         </List>
       )}
     </Box>

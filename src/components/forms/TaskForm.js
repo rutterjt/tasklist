@@ -23,6 +23,7 @@ import { updateFormData } from '../../utils/form';
  * @return A form with fully controlled input components for all task data.
  */
 const TaskForm = ({ data, setter, onSubmit, closeForm, editing = false }) => {
+  if (!data) return null;
   // extract values from state
   const { name, description, priority, due, label } = data;
 

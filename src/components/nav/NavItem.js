@@ -13,7 +13,7 @@ const NavItem = ({ title, list, icon, to }) => {
         <ListItemIcon>
           <Badge
             badgeContent={list.length}
-            color={title === 'Past Due' ? 'error' : 'secondary'}
+            color={title === 'Past Due' ? 'error' : 'primary'}
           >
             {icon}
           </Badge>

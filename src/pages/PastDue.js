@@ -6,7 +6,7 @@ import { Helmet } from 'react-helmet-async';
 // components
 import Layout from '../components/Layout';
 import TaskList from '../components/TaskList';
-import TaskCreateForm from '../components/forms/TaskCreateForm';
+import TaskCreateDropdown from '../components/TaskCreateDropdown';
 
 // store
 import { useStore } from '../store/useStore';
@@ -21,10 +21,10 @@ const PastDue = () => {
   return (
     <Layout>
       <Helmet>
-        <title>Past Due | To Do List</title>
+        <title>Past Due | TaskList</title>
       </Helmet>
       <TaskList label={'Past Due'} list={filteredList} />
-      <TaskCreateForm />
+      <TaskCreateDropdown />
     </Layout>
   );
 };

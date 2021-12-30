@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 import { Button, Box, Typography, Grid } from '@mui/material';
 
@@ -12,6 +12,9 @@ import LabelDisplay from './LabelDisplay';
 
 // store
 import { useStore } from '../store/useStore';
+
+// hooks
+import { usePopup } from '../hooks/usePopup';
 
 export const DetailsGrid = ({ children }) => (
   <Grid container justifyContent="space-between">
@@ -73,36 +76,30 @@ const TaskDetails = ({ open, onClose, id }) => {
   const { list } = useStore();
   // get all details of currently-opened task
   const task = list.find((task) => task.id === id) || {};
-
-  const [warningOpen, setWarningOpen] = useState(false);
-  const [editing, setEditing] = useState(false);
+  const [warningOpen, openWarning, closeWarning] = usePopup(false);
+  const [editorOpen, openEditor, closeEditor, tryCloseEditor] = usePopup(false);
 
   // closes the TaskDetails dialog
-  const close = () => {
-    setWarningOpen(false);
-    setEditing(false);
+  const confirmClose = () => {
+    closeWarning();
+    closeEditor();
     onClose();
   };
 
-  // checks if editor is open: if yes, opens a WarningDialog, if not, closes TaskDetails
-  const handleClose = () => {
-    if (editing) {
-      setWarningOpen(true);
-    } else {
-      close();
-    }
-  };
+  // attempts to close the ui
+  const tryClose = () =>
+    tryCloseEditor(() => !editorOpen, confirmClose, openWarning);
 
   return (
-    <CustomDialog onClose={handleClose} open={open}>
-      {editing ? (
+    <CustomDialog onClose={tryClose} open={open}>
+      {editorOpen ? (
         <TaskUpdateForm
           task={task}
-          handleClose={handleClose}
-          handleSave={close}
+          handleClose={tryClose}
+          handleSave={closeEditor}
         />
       ) : (
-        <TaskDetailsBox {...task} openEditor={() => setEditing(true)} />
+        <TaskDetailsBox {...task} openEditor={openEditor} />
       )}
       <WarningDialog
         open={warningOpen}
@@ -110,8 +107,8 @@ const TaskDetails = ({ open, onClose, id }) => {
         body="Are you sure you want to discard all your changes? This can't be undone."
         cancelLabel="Keep Editing"
         confirmLabel="Discard"
-        handleCancel={() => setWarningOpen(false)}
-        handleConfirm={close}
+        handleCancel={closeWarning}
+        handleConfirm={confirmClose}
       />
     </CustomDialog>
   );

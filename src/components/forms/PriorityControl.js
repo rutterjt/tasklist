@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 // mui
 import {
@@ -17,28 +17,22 @@ import {
 import PriorityIcon from '../PriorityIcon';
 import ListHeader from '../ListHeader';
 
+// hooks
+import { usePopover } from '../../hooks/usePopover';
+
 // Renders controls for the task's priority
 const PriorityControl = ({ priority, setPriority }) => {
-  const [anchor, setAnchor] = useState(null);
+  const [anchor, handleOpen, handleClose, open] = usePopover();
 
-  const handleClick = (e) => {
-    setAnchor(e.currentTarget);
-  };
-
-  const handleClose = () => {
-    setAnchor(null);
-  };
-
-  const handleListClick = (num) => {
+  const handleClick = (num) => {
     setPriority(num);
     handleClose();
   };
 
-  const open = !!anchor;
   const id = open ? 'priority-popup' : undefined;
   return (
     <Box>
-      <IconButton aria-label="Set Priority" onClick={handleClick}>
+      <IconButton aria-label="Set Priority" onClick={handleOpen}>
         <PriorityIcon priority={priority} />
       </IconButton>
       <Popover
@@ -53,7 +47,7 @@ const PriorityControl = ({ priority, setPriority }) => {
           <Divider />
           {[1, 2, 3, 4].map((num) => (
             <ListItem key={num} sx={{ p: 0 }}>
-              <ListItemButton onClick={() => handleListClick(num)}>
+              <ListItemButton onClick={() => handleClick(num)}>
                 <ListItemIcon>
                   <PriorityIcon priority={num} />
                 </ListItemIcon>

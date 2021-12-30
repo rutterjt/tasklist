@@ -6,7 +6,7 @@ import { Helmet } from 'react-helmet-async';
 // components
 import Layout from '../components/Layout';
 import TaskList from '../components/TaskList';
-import TaskCreateForm from '../components/forms/TaskCreateForm';
+import TaskCreateDropdown from '../components/TaskCreateDropdown';
 
 // store
 import { useStore } from '../store/useStore';
@@ -24,10 +24,10 @@ const Today = () => {
   return (
     <Layout>
       <Helmet>
-        <title>Today | To Do List</title>
+        <title>Today | TaskList</title>
       </Helmet>
       <TaskList label={'Today'} list={filteredList} />
-      <TaskCreateForm defaultItem={{ due: todayRef.current }} />
+      <TaskCreateDropdown defaultItem={{ due: todayRef.current }} />
     </Layout>
   );
 };

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 // mui
 import {
@@ -18,6 +18,9 @@ import MoreVertIcon from '@mui/icons-material/MoreVert';
 // store
 import { useStore } from '../store/useStore';
 import { CHANGE_SORT_ORDER } from '../store/actions';
+
+// hooks
+import { usePopover } from '../hooks/usePopover';
 
 // components
 import ListHeader from './ListHeader';
@@ -40,33 +43,23 @@ const SettingsListItem = ({ value, sortBy, handleClick }) => (
 // Renders controls for the task's priority
 const TaskListSettings = () => {
   const { dispatch, sortBy } = useStore();
-  const [anchor, setAnchor] = useState(null);
+  const [anchor, handleOpen, handleClose, open] = usePopover();
 
   // store
   const sortCreator = (order) => ({ type: CHANGE_SORT_ORDER, payload: order });
 
   const setSortBy = (order) => dispatch(sortCreator(order));
 
-  // event handlers
-  const handleClick = (e) => {
-    setAnchor(e.currentTarget);
-  };
-
-  const handleClose = () => {
-    setAnchor(null);
-  };
-
-  const handleListClick = (value) => {
+  const handleClick = (value) => {
     console.log('Clicked');
     setSortBy(value);
     handleClose();
   };
 
-  const open = !!anchor;
   const id = open ? 'priority-popup' : undefined;
   return (
     <Box>
-      <IconButton aria-label="open list settings" onClick={handleClick}>
+      <IconButton aria-label="open list settings" onClick={handleOpen}>
         <MoreVertIcon />
       </IconButton>
 
@@ -82,27 +75,27 @@ const TaskListSettings = () => {
           <Divider />
           <SettingsListItem
             value="default"
-            handleClick={handleListClick}
+            handleClick={handleClick}
             sortBy={sortBy}
           />
           <SettingsListItem
             value="alphabetically"
-            handleClick={handleListClick}
+            handleClick={handleClick}
             sortBy={sortBy}
           />
           <SettingsListItem
             value="due date"
-            handleClick={handleListClick}
+            handleClick={handleClick}
             sortBy={sortBy}
           />
           <SettingsListItem
             value="date added"
-            handleClick={handleListClick}
+            handleClick={handleClick}
             sortBy={sortBy}
           />
           <SettingsListItem
             value="priority"
-            handleClick={handleListClick}
+            handleClick={handleClick}
             sortBy={sortBy}
           />
         </List>
