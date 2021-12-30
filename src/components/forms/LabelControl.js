@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 // mui
 import {
@@ -26,19 +26,14 @@ import { colors } from '../../data/colors';
 // components
 import ListHeader from '../ListHeader';
 
+// hooks
+import { usePopover } from '../../hooks/usePopover';
+
 const LabelControl = ({ label, setLabel }) => {
-  const [anchor, setAnchor] = useState(null);
+  const [anchor, handleOpen, handleClose, open] = usePopover();
   const { labels } = useStore();
 
-  const handleClick = (e) => {
-    setAnchor(e.currentTarget);
-  };
-
-  const handleClose = () => {
-    setAnchor(null);
-  };
-
-  const handleListClick = (label) => {
+  const handleClick = (label) => {
     setLabel(label);
     handleClose();
   };
@@ -48,14 +43,13 @@ const LabelControl = ({ label, setLabel }) => {
     handleClose();
   };
 
-  const open = !!anchor;
   const id = open ? 'label-popup' : undefined;
 
   return (
     <Box>
       {label ? (
         <Button
-          onClick={handleClick}
+          onClick={handleOpen}
           sx={(theme) => ({
             color: theme.palette.text.primary,
             textTransform: 'capitalize',
@@ -67,7 +61,7 @@ const LabelControl = ({ label, setLabel }) => {
           {label.name}
         </Button>
       ) : (
-        <IconButton aria-label="Set label" onClick={handleClick}>
+        <IconButton aria-label="Set label" onClick={handleOpen}>
           <LocalOfferOutlinedIcon />
         </IconButton>
       )}
@@ -85,7 +79,7 @@ const LabelControl = ({ label, setLabel }) => {
             const { name, color, id } = label;
             return (
               <ListItem key={id} sx={{ p: 0 }}>
-                <ListItemButton onClick={() => handleListClick(label)}>
+                <ListItemButton onClick={() => handleClick(label)}>
                   <ListItemIcon>
                     <LocalOfferIcon sx={{ color: colors[color] }} />
                   </ListItemIcon>

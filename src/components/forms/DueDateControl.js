@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 // mui
 import {
@@ -27,6 +27,9 @@ import add from 'date-fns/add';
 // utils
 import { displayDate } from '../../utils/date';
 
+// hooks
+import { usePopover } from '../../hooks/usePopover';
+
 // components
 const DateListItem = ({ title, icon, onClick }) => (
   <ListItem sx={{ p: 0 }}>
@@ -39,30 +42,21 @@ const DateListItem = ({ title, icon, onClick }) => (
 
 // renders the controls for the task's due date
 const DueDateControl = ({ date, setDate }) => {
-  const [anchor, setAnchor] = useState(null);
-
-  const handleClick = (e) => {
-    setAnchor(e.currentTarget);
-  };
-
-  const handleClose = () => {
-    setAnchor(null);
-  };
+  const [anchor, handleOpen, handleClose, open] = usePopover();
 
   const handleDateChange = (newDate) => {
     newDate === null ? setDate(null) : setDate(newDate.getTime());
   };
 
-  const handleButtonClick = (newDate) => {
+  const handleClick = (newDate) => {
     handleDateChange(newDate);
     handleClose();
   };
 
-  const open = !!anchor;
   const id = open ? 'date-popup' : undefined;
   return (
     <Box>
-      <Button onClick={handleClick} variant="outlined">
+      <Button onClick={handleOpen} variant="outlined">
         {displayDate(date)}
       </Button>
       <Popover
@@ -90,23 +84,23 @@ const DueDateControl = ({ date, setDate }) => {
             <DateListItem
               title="Today"
               icon={<TodayIcon color="success" />}
-              onClick={() => handleButtonClick(new Date())}
+              onClick={() => handleClick(new Date())}
             />
             <DateListItem
               title="Tomorrow"
               icon={<UpcomingIcon color="primary" />}
-              onClick={() => handleButtonClick(add(new Date(), { days: 1 }))}
+              onClick={() => handleClick(add(new Date(), { days: 1 }))}
             />
             <DateListItem
               title="Next Week"
               icon={<InsertInvitationIcon color="secondary" />}
-              onClick={() => handleButtonClick(add(new Date(), { weeks: 1 }))}
+              onClick={() => handleClick(add(new Date(), { weeks: 1 }))}
             />
             <Divider />
             <DateListItem
               title="No Date"
               icon={<DoNotDisturbAltIcon />}
-              onClick={() => handleButtonClick(null)}
+              onClick={() => handleClick(null)}
             />
           </List>
         </Box>
