@@ -22,6 +22,9 @@ import { TOGGLE_NAV } from '../store/actions';
 // images
 import Logo from '../images/logo.svg';
 
+// components
+import TaskCreateDialog from './TaskCreateDialog';
+
 const Header = () => {
   const { dispatch, navOpen } = useStore();
 
@@ -53,28 +56,31 @@ const Header = () => {
             <Typography
               component="h1"
               noWrap
-              sx={{ fontSize: { xs: '1rem', sm: '1.5rem' } }}
+              sx={{ fontSize: { xs: '1.25rem', sm: '1.5rem' } }}
             >
               <Link to="/" style={{ textDecoration: 'none', color: 'inherit' }}>
                 TaskList
               </Link>
             </Typography>
           </Box>
-          <IconButton
-            size="large"
-            edge="start"
-            color="inherit"
-            aria-label="Toggle menu"
-            sx={{ display: { md: 'none' } }}
-            focusRipple
-            onClick={toggleNav}
-          >
-            {navOpen ? (
-              <CloseIcon sx={{ display: { xs: 'block', md: 'none' } }} />
-            ) : (
-              <MenuIcon sx={{ display: { xs: 'block', md: 'none' } }} />
-            )}
-          </IconButton>
+          <Box sx={{ display: 'flex', alignItems: 'center' }}>
+            <TaskCreateDialog />
+            <IconButton
+              size="large"
+              edge="start"
+              color="inherit"
+              aria-label="Toggle menu"
+              sx={{ display: { md: 'none' }, ml: 2 }}
+              focusRipple
+              onClick={toggleNav}
+            >
+              {navOpen ? (
+                <CloseIcon sx={{ display: { xs: 'block', md: 'none' } }} />
+              ) : (
+                <MenuIcon sx={{ display: { xs: 'block', md: 'none' } }} />
+              )}
+            </IconButton>
+          </Box>
         </Toolbar>
       </AppBar>
       <div style={{ marginTop: '5rem' }} />

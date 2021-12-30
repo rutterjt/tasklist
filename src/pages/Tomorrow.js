@@ -9,7 +9,7 @@ import add from 'date-fns/add';
 // components
 import Layout from '../components/Layout';
 import TaskList from '../components/TaskList';
-import TaskCreateForm from '../components/forms/TaskCreateForm';
+import TaskCreateDropdown from '../components/TaskCreateDropdown';
 
 // store
 import { useStore } from '../store/useStore';
@@ -31,7 +31,7 @@ const Tomorrow = () => {
         <title>Tomorrow | TaskList</title>
       </Helmet>
       <TaskList label={'Tomorrow'} list={filteredList} />
-      <TaskCreateForm defaultItem={{ due: tomorrowRef.current }} />
+      <TaskCreateDropdown defaultItem={{ due: tomorrowRef.current }} />
     </Layout>
   );
 };
