@@ -32,6 +32,13 @@ import WarningDialog from '../WarningDialog';
 import CustomDialog from '../CustomDialog';
 import LabelUpdateForm from '../forms/LabelUpdateForm';
 
+/**
+ * Renders the UI for editing labels.
+ *
+ * Initially renders a button that, when pressed, renders a PopOver with options to edit or delete the label.
+ *
+ * @param {string} id - The id of the label to update.
+ */
 const LabelSettings = ({ id }) => {
   const { labels, dispatch } = useStore();
   const label = labels.find((label) => label.id === id) || {};

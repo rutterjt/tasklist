@@ -12,6 +12,11 @@ import { colors } from '../../data/colors';
 
 const capitalize = (str) => str[0].toUpperCase() + str.slice(1).toLowerCase();
 
+/**
+ * A form control to handle picking a color.
+ * @param {string} color - A color string.
+ * @param {function} setColor - A setter for the color string.
+ */
 const ColorDropdownControl = ({ color, setColor }) => {
   const handleChange = (e) => setColor(e.target.value);
 

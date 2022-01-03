@@ -19,6 +19,9 @@ const AddLabelButton = ({ onClick }) => (
   </IconButton>
 );
 
+/**
+ * A modified NavList for rendering NavLabels.
+ */
 const NavLabelsList = () => {
   const { labels } = useStore();
   const [editing, setEditing] = useState(false);

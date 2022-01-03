@@ -76,6 +76,12 @@ const TaskDetailsBox = ({
   </Box>
 );
 
+/**
+ * Renders a modal box to display the Task's details.
+ * @param {boolean} open - Boolean for whether the dialog should be open.
+ * @param {function} onClose - Code to run when the user attempts to close the dialog.
+ * @param {string} id - The id of the current task.
+ */
 const TaskDetails = ({ open, onClose, id }) => {
   const { list } = useStore();
   // get all details of currently-opened task

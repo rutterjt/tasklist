@@ -32,6 +32,11 @@ import ListHeader from '../ListHeader';
 // hooks
 import { usePopover } from '../../hooks/usePopover';
 
+/**
+ * A form control to handle adding a label to a task.
+ * @param {string} label - A label object.
+ * @param {function} setLabel - A setter for task.label.
+ */
 const LabelControl = ({ label, setLabel }) => {
   const [anchor, handleOpen, handleClose, open] = usePopover();
   const { labels } = useStore();

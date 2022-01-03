@@ -10,6 +10,10 @@ import LabelForm from './LabelForm';
 import { useStore } from '../../store/useStore';
 import { ADD_LABEL } from '../../store/actions';
 
+/**
+ * A component to create new labels. Manages updating and submitting form data, and renders a LabelForm to control the form UI.
+ * @param {function} closeForm - Function to run when closing the form.
+ */
 const LabelCreateForm = ({ closeForm }) => {
   const { dispatch, labels } = useStore();
   const [formData, setFormData] = useState({});

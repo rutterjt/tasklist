@@ -18,11 +18,11 @@ import { updateFormData } from '../../utils/form';
 
 /**
  * Renders a form to create/update a task.
- * @param {object} props.data - A formData state object.
- * @param {function} props.setter - The state setter for the formData.
- * @param {function} props.onSubmit - Callback to handle a submit event.
- * @param {function} props.closeForm - Callback to handle closing the form.
- * @param {boolean} [props.editing=false] - (Optional) boolean flag for whether the form is editing an existing task. If true, results in minor ui changes, but does not affect form functionality.
+ * @param {object} data - A formData state object.
+ * @param {function} setter - The state setter for the formData.
+ * @param {function} onSubmit - Callback to handle a submit event.
+ * @param {function} closeForm - Callback to handle closing the form.
+ * @param {boolean} [editing=false] - (Optional) boolean flag for whether the form is editing an existing task. If true, results in minor ui changes, but does not affect form functionality.
  * @return A form with fully controlled input components for all task data.
  */
 const TaskForm = ({ data, setter, onSubmit, closeForm, editing = false }) => {
@@ -50,14 +50,14 @@ const TaskForm = ({ data, setter, onSubmit, closeForm, editing = false }) => {
       submitButton={editing ? 'Update Task' : 'Add Task'}
     >
       <TextControl
-        name="Task"
+        label="Task"
         value={name || ''}
         onChange={update(setName)}
         required
         autoFocus
       />
       <TextControl
-        name="Description"
+        label="Description"
         value={description || ''}
         onChange={update(setDescription)}
         lines={3}

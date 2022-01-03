@@ -6,12 +6,14 @@ import PropTypes from 'prop-types';
 // mui
 import { Checkbox } from '@mui/material';
 
-const TaskDeleteControl = ({
-  checked,
-  handleCheck,
-  action = 'Delete',
-  taskName,
-}) => (
+/**
+ * Renders the UI for a checkbox that deletes or restores a task.
+ * @param {boolean} checked - Whether the checkbox is checked.
+ * @param {function} handleCheck - Handles checking and unchecking the checkbox.
+ * @param {string} taskName - The task's name. Used to create the checkbox's label.
+ * @param {string} [action='Delete'] - (Optional, defaults 'Delete') Whether the checkbox is being rendered to delete or restore a task. Used to create the checkbox's label. Accepts two values: 'Delete' and 'Restore'.
+ */
+const TaskDeleteControl = ({ checked, handleCheck, action, taskName }) => (
   <Checkbox
     edge="end"
     onChange={handleCheck}

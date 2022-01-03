@@ -16,6 +16,11 @@ import { useStore } from '../store/useStore';
 
 const notDeleted = (item) => !item.deleted;
 
+/**
+ * Renders a list of tasks.
+ * @param {array} list - The list of items to render. Should be either state.list or a subset of it.
+ * @param {string} label - The list's title.
+ */
 const TaskList = ({ list, label }) => {
   const { sortBy } = useStore();
   const listEmpty = !list.filter(notDeleted).length;

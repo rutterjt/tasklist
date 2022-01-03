@@ -3,6 +3,9 @@ import React from 'react';
 // mui
 import { Toolbar } from '@mui/material';
 
+/**
+ * Creates spacing under the main site header.
+ */
 const Spacebar = () => {
   return (
     <>

@@ -25,6 +25,13 @@ import { DELETE_TASK } from '../../store/actions';
 // hooks
 import { usePopup } from '../../hooks/usePopup';
 
+/**
+ * Renders a task's data as a MUI ListItem.
+ *
+ * Renders components that display the task data, open a modal box to update the task data, and handle deleting the task.
+ * @param {object} task - The task object.
+ * @param {function} handleDelete - Code to run when a task is deleted (e.g., opening a notification with an option to undo).
+ */
 const TaskListItem = ({ handleDelete, task }) => {
   const { dispatch } = useStore();
   // checkbox state: when true, the item is deleted

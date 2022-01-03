@@ -6,6 +6,10 @@ import PropTypes from 'prop-types';
 // mui
 import { Typography } from '@mui/material';
 
+/**
+ * Renders a formatted MUI Typography element to display the task's name.
+ * @param {string} name - The task's name.
+ */
 const TaskPrimaryInfo = ({ name }) => {
   return (
     <Typography

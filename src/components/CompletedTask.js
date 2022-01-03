@@ -21,6 +21,10 @@ import TaskDeleteControl from './TaskListItem/TaskDeleteControl';
 import TaskPrimaryInfo from './TaskListItem/./TaskPrimaryInfo';
 import TaskSecondaryInfo from './TaskListItem/./TaskSecondaryInfo';
 
+/**
+ * A modified TaskListItem, rendered by the CompletedTaskList to represent a task that has been deleted.
+ * @param {object} task - A task object.
+ */
 const CompletedTask = ({ task }) => {
   // store
   const { dispatch } = useStore();

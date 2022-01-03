@@ -10,6 +10,10 @@ import LocalOfferIcon from '@mui/icons-material/LocalOffer';
 // colors
 import { colors } from '../data/colors';
 
+/**
+ * Renders a label, with a colored tag.
+ * @param {object} label - A label object.
+ */
 const LabelDisplay = ({ label }) => {
   const { color, name } = label;
   return (

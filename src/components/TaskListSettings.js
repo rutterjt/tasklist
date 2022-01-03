@@ -40,7 +40,10 @@ const SettingsListItem = ({ value, sortBy, handleClick }) => (
   </ListItem>
 );
 
-// Renders controls for the task's priority
+/**
+ * Renders a button that, when pressed, opens a popover that allows users to sort the list in different ways.
+ *
+ */
 const TaskListSettings = () => {
   const { dispatch, sortBy } = useStore();
   const [anchor, handleOpen, handleClose, open] = usePopover();

@@ -13,12 +13,12 @@ import { updateFormData } from '../../utils/form';
 
 /**
  * Renders a form to create/update a label.
- * @param {object} props.data - A formData state object.
- * @param {function} props.setter - The state setter for the formData.
- * @param {function} props.onSubmit - Callback to handle a submit event.
- * @param {function} props.closeForm - Callback to handle closing the form.
- * @param {array} props.labels - An array of labels.
- * @param {boolean} [props.editing=false] - (Optional) boolean flag for whether the form is editing an existing task. If true, results in minor ui changes, but does not affect form functionality.
+ * @param {object} data - A formData state object.
+ * @param {function} setter - The state setter for the formData.
+ * @param {function} onSubmit - Callback to handle a submit event.
+ * @param {function} closeForm - Callback to handle closing the form.
+ * @param {array} labels - An array of labels.
+ * @param {boolean} [editing=false] - (Optional) boolean flag for whether the form is editing an existing task. If true, results in minor ui changes, but does not affect form functionality.
  * @return A form with fully controlled input components for all label data.
  */
 const LabelForm = ({ data, setter, onSubmit, closeForm, labels, editing }) => {
@@ -51,7 +51,7 @@ const LabelForm = ({ data, setter, onSubmit, closeForm, labels, editing }) => {
       submitButton={editing ? 'Update Label' : 'Add Label'}
     >
       <TextControl
-        name="Name"
+        label="Name"
         value={name || ''}
         onChange={update(setName)}
         required

@@ -54,6 +54,9 @@ const NavDrawer = ({ children }) => {
   );
 };
 
+/**
+ * Renders the site navigation.
+ */
 const Nav = () => {
   return (
     <NavDrawer>

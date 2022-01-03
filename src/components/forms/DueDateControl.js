@@ -43,7 +43,11 @@ const DateListItem = ({ title, icon, onClick }) => (
   </ListItem>
 );
 
-// renders the controls for the task's due date
+/**
+ * A form control to handle picking a date.
+ * @param {number} date - A number representing the date in milliseconds Unix time.
+ * @param {function} setDate - A setter for the date.
+ */
 const DueDateControl = ({ date, setDate }) => {
   const [anchor, handleOpen, handleClose, open] = usePopover();
 

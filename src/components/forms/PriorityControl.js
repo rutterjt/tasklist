@@ -23,7 +23,13 @@ import ListHeader from '../ListHeader';
 // hooks
 import { usePopover } from '../../hooks/usePopover';
 
-// Renders controls for the task's priority
+/**
+ * A form control for selecting a task's priority.
+ *
+ * Renders a button that opens a PopOver with options to select a priority.
+ * @param {number} [priority] - A number representing the priority.
+ * @param {function} setPriority - A setter for task.priority.
+ */
 const PriorityControl = ({ priority, setPriority }) => {
   const [anchor, handleOpen, handleClose, open] = usePopover();
 

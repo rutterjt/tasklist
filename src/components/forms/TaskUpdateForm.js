@@ -10,7 +10,13 @@ import TaskForm from './TaskForm';
 import { useStore } from '../../store/useStore';
 import { UPDATE_TASK } from '../../store/actions';
 
-const TaskUpdateForm = ({ task, handleClose, handleSave }) => {
+/**
+ * A component to update an already-existing task. Manages updating and submitting form data, and renders a TaskForm to control the form UI.
+ * @param {object} task - The task object to update.
+ * @param {function} handleClose - Function to run when closing the form.
+ * @param {function} handleSave - Function to run to run when submitting the form data.
+ */
+ const TaskUpdateForm = ({ task, handleClose, handleSave }) => {
   const { dispatch } = useStore();
   const [formData, setFormData] = useState({ ...task });
 

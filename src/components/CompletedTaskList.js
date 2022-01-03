@@ -9,6 +9,11 @@ import { List, Typography, Box } from '@mui/material';
 // components
 import CompletedTask from './CompletedTask';
 
+/**
+ * A modified TaskList, for rendering completed tasks.
+ * @param {array} [list=[]] - (Optional) list, an array of list items. Should be the state.deleted array.
+ * @param {string} [label="Completed tasks"] - The list's title.
+ */
 const CompletedTaskList = ({ list = [], label = 'Completed tasks' }) => {
   return (
     <Box sx={{ pt: 1 }}>

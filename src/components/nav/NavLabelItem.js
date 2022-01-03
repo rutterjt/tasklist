@@ -14,6 +14,10 @@ import LabelSettings from './LabelSettings';
 // colors
 import { colors } from '../../data/colors';
 
+/**
+ * A modified NavItem, for rendering links to label pages.
+ * @param {object} label - The associated label object.
+ */
 const NavLabelItem = ({ label }) => {
   const { name, color, id } = label;
   return (

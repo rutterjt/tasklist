@@ -14,6 +14,12 @@ const SlideTransition = (props) => {
   return <Slide {...props} direction="right" />;
 };
 
+/**
+ * Renders an alert confirming that a list item was deleted, with a button to undo the deletion.
+ * @param {boolean} open - Whether the alert should render.
+ * @param {function} handleClose - Code to run when the user attempts to close the alert, or the alert times out.
+ * @param {string} id - The id of the most recently-deleted task.
+ */
 const UndoAlert = ({ open, handleClose, id }) => {
   const { dispatch } = useStore();
 

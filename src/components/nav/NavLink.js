@@ -12,6 +12,11 @@ import { ListItemButton } from '@mui/material';
 // hooks
 import { useRenderLink } from '../../hooks/useRenderLink';
 
+/**
+ * Renders a React Router link as a MUI ListItemButton, for use as a navigation link.
+ * @param {string} to - The link href, passed to the <Link> component.
+ * @param {any} children - Any NavItem elements that should be rendered inside the Link.
+ */
 const NavLink = ({ to, children }) => {
   const { pathname } = useLocation();
   const renderLink = useRenderLink(to);
