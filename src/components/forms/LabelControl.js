@@ -1,5 +1,8 @@
 import React from 'react';
 
+// proptypes
+import PropTypes from 'prop-types';
+
 // mui
 import {
   Box,
@@ -101,6 +104,11 @@ const LabelControl = ({ label, setLabel }) => {
       </Popover>
     </Box>
   );
+};
+
+LabelControl.propTypes = {
+  label: PropTypes.object,
+  setLabel: PropTypes.func.isRequired,
 };
 
 export default LabelControl;

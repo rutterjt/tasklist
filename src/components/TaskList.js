@@ -1,5 +1,8 @@
 import React from 'react';
 
+// proptypes
+import PropTypes from 'prop-types';
+
 // mui
 import { List, Typography, Box, Grid } from '@mui/material';
 
@@ -12,7 +15,7 @@ import { useStore } from '../store/useStore';
 
 const notDeleted = (item) => !item.deleted;
 
-const TaskList = ({ list = [], label = 'To do' }) => {
+const TaskList = ({ list, label }) => {
   const { sortBy } = useStore();
   const listEmpty = !list.filter(notDeleted).length;
 
@@ -65,6 +68,16 @@ const TaskList = ({ list = [], label = 'To do' }) => {
       )}
     </Box>
   );
+};
+
+TaskList.defaultProps = {
+  list: [],
+  label: 'To do',
+};
+
+TaskList.propTypes = {
+  list: PropTypes.arrayOf(PropTypes.object),
+  label: PropTypes.string,
 };
 
 export default TaskList;

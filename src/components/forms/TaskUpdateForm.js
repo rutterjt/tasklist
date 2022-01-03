@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
 
+// proptypes
+import PropTypes from 'prop-types';
+
 // components
 import TaskForm from './TaskForm';
 
@@ -33,6 +36,12 @@ const TaskUpdateForm = ({ task, handleClose, handleSave }) => {
       editing
     />
   );
+};
+
+TaskUpdateForm.propTypes = {
+  task: PropTypes.object.isRequired,
+  handleClose: PropTypes.func.isRequired,
+  handleSave: PropTypes.func.isRequired,
 };
 
 export default TaskUpdateForm;

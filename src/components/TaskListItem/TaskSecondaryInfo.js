@@ -1,5 +1,8 @@
 import React from 'react';
 
+// proptypes
+import PropTypes from 'prop-types';
+
 // mui
 import { Typography, Grid } from '@mui/material';
 
@@ -63,6 +66,13 @@ const TaskSecondaryInfo = ({ description, due, priority, label }) => {
       )}
     </>
   );
+};
+
+TaskSecondaryInfo.propTypes = {
+  description: PropTypes.string,
+  due: PropTypes.number,
+  priority: PropTypes.number,
+  label: PropTypes.object,
 };
 
 export default TaskSecondaryInfo;

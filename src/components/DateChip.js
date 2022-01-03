@@ -1,5 +1,8 @@
 import React from 'react';
 
+// proptypes
+import PropTypes from 'prop-types';
+
 // components
 import ShortChip from './ShortChip';
 
@@ -26,6 +29,15 @@ const DateChip = ({ date, noLabel = 'Unscheduled' }) => {
   }
 
   return <ShortChip color={color} label={label} variant="outlined" />;
+};
+
+DateChip.defaultProps = {
+  noLabel: 'Unscheduled',
+};
+
+DateChip.propTypes = {
+  date: PropTypes.number,
+  noLabel: PropTypes.string,
 };
 
 export default DateChip;

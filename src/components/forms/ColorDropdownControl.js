@@ -1,5 +1,8 @@
 import React from 'react';
 
+// proptypes
+import PropTypes from 'prop-types';
+
 // mui
 import { FormControl, InputLabel, Select, MenuItem } from '@mui/material';
 import SquareRoundedIcon from '@mui/icons-material/SquareRounded';
@@ -18,7 +21,7 @@ const ColorDropdownControl = ({ color, setColor }) => {
       <Select
         labelId="color-dropdown-label"
         id="color-dropdown"
-        value={color || ''}
+        value={color}
         onChange={handleChange}
         label="Label Color"
         sx={{
@@ -42,6 +45,15 @@ const ColorDropdownControl = ({ color, setColor }) => {
       </Select>
     </FormControl>
   );
+};
+
+ColorDropdownControl.defaultProps = {
+  color: '',
+};
+
+ColorDropdownControl.propTypes = {
+  color: PropTypes.string.isRequired,
+  setColor: PropTypes.func.isRequired,
 };
 
 export default ColorDropdownControl;

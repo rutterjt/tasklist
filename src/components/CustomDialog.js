@@ -1,5 +1,8 @@
 import React from 'react';
 
+// proptypes
+import PropTypes from 'prop-types';
+
 // mui
 import { Dialog } from '@mui/material';
 
@@ -21,6 +24,12 @@ const CustomDialog = ({ open, onClose, children }) => {
       {children}
     </Dialog>
   );
+};
+
+CustomDialog.propTypes = {
+  open: PropTypes.bool.isRequired,
+  onClose: PropTypes.func.isRequired,
+  children: PropTypes.node.isRequired,
 };
 
 export default CustomDialog;

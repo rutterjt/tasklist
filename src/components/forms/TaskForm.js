@@ -1,5 +1,8 @@
 import React from 'react';
 
+// proptypes
+import PropTypes from 'prop-types';
+
 // mui
 import { Grid } from '@mui/material';
 
@@ -42,7 +45,7 @@ const TaskForm = ({ data, setter, onSubmit, closeForm, editing = false }) => {
     <CustomForm
       onSubmit={onSubmit}
       title={editing ? 'Update Task' : 'Create Task'}
-      canSubmit={name}
+      canSubmit={name ? true : false}
       onCancel={closeForm}
       submitButton={editing ? 'Update Task' : 'Add Task'}
     >
@@ -81,6 +84,18 @@ const TaskForm = ({ data, setter, onSubmit, closeForm, editing = false }) => {
       </Grid>
     </CustomForm>
   );
+};
+
+TaskForm.defaultProps = {
+  editing: false,
+};
+
+TaskForm.propTypes = {
+  data: PropTypes.object.isRequired,
+  setter: PropTypes.func.isRequired,
+  onSubmit: PropTypes.func.isRequired,
+  closeForm: PropTypes.func.isRequired,
+  editing: PropTypes.bool,
 };
 
 export default TaskForm;

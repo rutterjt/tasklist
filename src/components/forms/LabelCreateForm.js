@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
 
+// proptypes
+import PropTypes from 'prop-types';
+
 // components
 import LabelForm from './LabelForm';
 
@@ -34,6 +37,10 @@ const LabelCreateForm = ({ closeForm }) => {
       labels={labels}
     />
   );
+};
+
+LabelCreateForm.propTypes = {
+  closeForm: PropTypes.func.isRequired,
 };
 
 export default LabelCreateForm;

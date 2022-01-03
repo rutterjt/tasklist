@@ -1,5 +1,8 @@
 import React from 'react';
 
+// proptypes
+import PropTypes from 'prop-types';
+
 // mui
 import { List, Typography, Box } from '@mui/material';
 
@@ -21,6 +24,16 @@ const CompletedTaskList = ({ list = [], label = 'Completed tasks' }) => {
       )}
     </Box>
   );
+};
+
+CompletedTaskList.defaultProps = {
+  list: [],
+  label: 'Completed tasks',
+};
+
+CompletedTaskList.propTypes = {
+  list: PropTypes.arrayOf(PropTypes.object),
+  label: PropTypes.string,
 };
 
 export default CompletedTaskList;

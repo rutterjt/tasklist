@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
 
+// proptypes
+import PropTypes from 'prop-types';
+
 // mui
 import {
   List,
@@ -20,10 +23,7 @@ const CollapseList = ({ label, secondaryAction, children }) => {
 
   return (
     <List>
-      <ListItem
-        sx={{ p: 0 }}
-        secondaryAction={secondaryAction ? secondaryAction : null}
-      >
+      <ListItem sx={{ p: 0 }} secondaryAction={secondaryAction}>
         <ListItemButton onClick={handleClick}>
           <ListItemIcon>
             {expanded ? <ExpandLess /> : <ExpandMore />}
@@ -36,6 +36,16 @@ const CollapseList = ({ label, secondaryAction, children }) => {
       </Collapse>
     </List>
   );
+};
+
+CollapseList.defaultProps = {
+  secondaryAction: null,
+};
+
+CollapseList.propTypes = {
+  label: PropTypes.string.isRequired,
+  secondaryAction: PropTypes.node,
+  children: PropTypes.node.isRequired,
 };
 
 export default CollapseList;

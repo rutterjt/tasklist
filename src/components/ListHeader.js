@@ -1,5 +1,8 @@
 import React from 'react';
 
+// proptypes
+import PropTypes from 'prop-types';
+
 // mui
 import { ListItem, ListItemText } from '@mui/material';
 
@@ -11,6 +14,10 @@ const ListHeader = ({ children }) => {
       </ListItemText>
     </ListItem>
   );
+};
+
+ListHeader.propTypes = {
+  children: PropTypes.node.isRequired,
 };
 
 export default ListHeader;
