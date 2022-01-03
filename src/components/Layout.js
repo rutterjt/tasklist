@@ -1,5 +1,8 @@
 import React from 'react';
 
+// proptypes
+import PropTypes from 'prop-types';
+
 // mui
 import { Box } from '@mui/material';
 
@@ -21,6 +24,10 @@ const Layout = ({ children }) => {
       {children}
     </Box>
   );
+};
+
+Layout.propTypes = {
+  children: PropTypes.node.isRequired,
 };
 
 export default Layout;

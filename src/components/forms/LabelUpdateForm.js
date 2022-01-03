@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
 
+// proptypes
+import PropTypes from 'prop-types';
+
 // components
 import LabelForm from './LabelForm';
 
@@ -35,6 +38,11 @@ const LabelUpdateForm = ({ label, closeForm }) => {
       editing
     />
   );
+};
+
+LabelUpdateForm.propTypes = {
+  label: PropTypes.object.isRequired,
+  closeForm: PropTypes.func.isRequired,
 };
 
 export default LabelUpdateForm;

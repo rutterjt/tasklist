@@ -1,5 +1,8 @@
 import React from 'react';
 
+// proptypes
+import PropTypes from 'prop-types';
+
 // mui
 import { Grid, Typography } from '@mui/material';
 import LocalOfferIcon from '@mui/icons-material/LocalOffer';
@@ -22,6 +25,13 @@ const LabelDisplay = ({ label }) => {
       </Grid>
     </Grid>
   );
+};
+
+LabelDisplay.propTypes = {
+  label: PropTypes.shape({
+    color: PropTypes.string,
+    name: PropTypes.string.isRequired,
+  }).isRequired,
 };
 
 export default LabelDisplay;

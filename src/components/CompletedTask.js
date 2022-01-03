@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
 
+// proptypes
+import PropTypes from 'prop-types';
+
 // mui
 import {
   ListItem,
@@ -35,7 +38,7 @@ const CompletedTask = ({ task }) => {
     dispatch(restoreCreator(id));
   };
 
-  if (!task) return null;
+  if (!name || !id) return null;
 
   return (
     <>
@@ -65,6 +68,20 @@ const CompletedTask = ({ task }) => {
       <Divider component="li" sx={{ ml: 7 }} />
     </>
   );
+};
+
+CompletedTask.defaultProps = {
+  task: {
+    name: '',
+    id: '',
+  },
+};
+
+CompletedTask.propTypes = {
+  task: PropTypes.shape({
+    name: PropTypes.string.isRequired,
+    id: PropTypes.string.isRequired,
+  }),
 };
 
 export default CompletedTask;

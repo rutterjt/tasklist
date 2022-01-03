@@ -1,5 +1,8 @@
 import React from 'react';
 
+// proptypes
+import PropTypes from 'prop-types';
+
 // mui
 import { Box, Paper, Typography, Button, Grid } from '@mui/material';
 
@@ -7,9 +10,9 @@ const CustomForm = ({
   onSubmit,
   title,
   onCancel,
-  canSubmit = false,
-  cancelButton = 'Cancel',
-  submitButton = 'Submit',
+  canSubmit,
+  cancelButton,
+  submitButton,
   children,
 }) => {
   const handleSubmit = (e) => {
@@ -44,6 +47,22 @@ const CustomForm = ({
       </Paper>
     </Box>
   );
+};
+
+CustomForm.defaultProps = {
+  canSubmit: false,
+  cancelButton: 'Cancel',
+  submitButton: 'Submit',
+};
+
+CustomForm.propTypes = {
+  onSubmit: PropTypes.func.isRequired,
+  title: PropTypes.string.isRequired,
+  onCancel: PropTypes.func.isRequired,
+  canSubmit: PropTypes.bool.isRequired,
+  cancelButton: PropTypes.string.isRequired,
+  submitButton: PropTypes.string.isRequired,
+  children: PropTypes.node.isRequired,
 };
 
 export default CustomForm;

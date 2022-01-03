@@ -1,5 +1,8 @@
 import React from 'react';
 
+// proptypes
+import PropTypes from 'prop-types';
+
 // mui
 import {
   List,
@@ -45,7 +48,7 @@ const DueDateControl = ({ date, setDate }) => {
   const [anchor, handleOpen, handleClose, open] = usePopover();
 
   const handleDateChange = (newDate) => {
-    newDate === null ? setDate(null) : setDate(newDate.getTime());
+    newDate === undefined ? setDate(undefined) : setDate(newDate.getTime());
   };
 
   const handleClick = (newDate) => {
@@ -107,6 +110,11 @@ const DueDateControl = ({ date, setDate }) => {
       </Popover>
     </Box>
   );
+};
+
+DueDateControl.propTypes = {
+  date: PropTypes.number,
+  setDate: PropTypes.func.isRequired,
 };
 
 export default DueDateControl;

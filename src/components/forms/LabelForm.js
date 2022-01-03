@@ -1,5 +1,8 @@
 import React from 'react';
 
+// proptypes
+import PropTypes from 'prop-types';
+
 // components
 import CustomForm from './CustomForm';
 import TextControl from './TextControl';
@@ -18,14 +21,7 @@ import { updateFormData } from '../../utils/form';
  * @param {boolean} [props.editing=false] - (Optional) boolean flag for whether the form is editing an existing task. If true, results in minor ui changes, but does not affect form functionality.
  * @return A form with fully controlled input components for all label data.
  */
-const LabelForm = ({
-  data,
-  setter,
-  onSubmit,
-  closeForm,
-  labels,
-  editing = false,
-}) => {
+const LabelForm = ({ data, setter, onSubmit, closeForm, labels, editing }) => {
   // extract values from state
   const { name, color, id } = data;
 
@@ -43,7 +39,7 @@ const LabelForm = ({
   const nameInLabels = (name) => !nameNotInLabels(name);
 
   const canSubmit = () => {
-    return name && nameNotInLabels(name);
+    return name && nameNotInLabels(name) ? true : false;
   };
 
   return (
@@ -63,9 +59,22 @@ const LabelForm = ({
         error={nameInLabels(name)}
         helperText={nameInLabels(name) ? 'Label already exists.' : ''}
       />
-      <ColorDropdownControl color={color} setColor={setColor} />
+      <ColorDropdownControl color={color || ''} setColor={setColor} />
     </CustomForm>
   );
+};
+
+LabelForm.defaultProps = {
+  editing: false,
+};
+
+LabelForm.propTypes = {
+  data: PropTypes.object.isRequired,
+  setter: PropTypes.func.isRequired,
+  onSubmit: PropTypes.func.isRequired,
+  closeForm: PropTypes.func.isRequired,
+  labels: PropTypes.array.isRequired,
+  editing: PropTypes.bool,
 };
 
 export default LabelForm;

@@ -51,7 +51,6 @@ const TaskListSettings = () => {
   const setSortBy = (order) => dispatch(sortCreator(order));
 
   const handleClick = (value) => {
-    console.log('Clicked');
     setSortBy(value);
     handleClose();
   };

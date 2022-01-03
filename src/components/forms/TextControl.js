@@ -1,5 +1,8 @@
 import React from 'react';
 
+// proptypes
+import PropTypes from 'prop-types';
+
 // mui
 import { TextField } from '@mui/material';
 
@@ -47,6 +50,23 @@ const TextControl = ({
       />
     );
   }
+};
+
+TextControl.defaultProps = {
+  lines: 1,
+  value: '',
+  required: false,
+  autoFocus: false,
+};
+
+TextControl.propTypes = {
+  name: PropTypes.string.isRequired,
+  value: PropTypes.string.isRequired,
+  onChange: PropTypes.func.isRequired,
+  required: PropTypes.bool.isRequired,
+  autoFocus: PropTypes.bool.isRequired,
+  lines: PropTypes.number.isRequired,
+  rest: PropTypes.object,
 };
 
 export default TextControl;

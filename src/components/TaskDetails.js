@@ -1,5 +1,9 @@
 import React from 'react';
 
+// proptypes
+import PropTypes from 'prop-types';
+
+// mui
 import { Button, Box, Typography, Grid } from '@mui/material';
 
 // components
@@ -112,6 +116,16 @@ const TaskDetails = ({ open, onClose, id }) => {
       />
     </CustomDialog>
   );
+};
+
+TaskDetails.defaultProps = {
+  open: false,
+};
+
+TaskDetails.propTypes = {
+  open: PropTypes.bool.isRequired,
+  onClose: PropTypes.func.isRequired,
+  id: PropTypes.string.isRequired,
 };
 
 export default TaskDetails;

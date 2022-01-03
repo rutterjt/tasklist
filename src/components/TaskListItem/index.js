@@ -1,5 +1,8 @@
 import React, { useState, useEffect, useCallback } from 'react';
 
+// proptypes
+import PropTypes from 'prop-types';
+
 // mui
 import {
   ListItem,
@@ -59,7 +62,7 @@ const TaskListItem = ({ task }) => {
     setChecked((prev) => !prev);
   };
 
-  if (!task) return null;
+  if (!name || !id) return null;
 
   return (
     <>
@@ -87,6 +90,20 @@ const TaskListItem = ({ task }) => {
       <Divider component="li" sx={{ ml: 7 }} />
     </>
   );
+};
+
+TaskListItem.defaultProps = {
+  task: {
+    name: '',
+    id: '',
+  },
+};
+
+TaskListItem.propTypes = {
+  task: PropTypes.shape({
+    name: PropTypes.string.isRequired,
+    id: PropTypes.string.isRequired,
+  }).isRequired,
 };
 
 export default TaskListItem;

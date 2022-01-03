@@ -1,5 +1,8 @@
 import React from 'react';
 
+// proptypes
+import PropTypes from 'prop-types';
+
 // mui
 import { Box, Button } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
@@ -65,6 +68,14 @@ const TaskCreateDropdown = ({ defaultItem }) => {
       />
     </Box>
   );
+};
+
+TaskCreateDropdown.defaultProps = {
+  defaultItem: {},
+};
+
+TaskCreateDropdown.propTypes = {
+  defaultItem: PropTypes.object,
 };
 
 export default TaskCreateDropdown;

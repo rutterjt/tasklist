@@ -1,5 +1,8 @@
 import React from 'react';
 
+// proptypes
+import PropTypes from 'prop-types';
+
 // mui
 import {
   Box,
@@ -59,6 +62,11 @@ const PriorityControl = ({ priority, setPriority }) => {
       </Popover>
     </Box>
   );
+};
+
+PriorityControl.propTypes = {
+  priority: PropTypes.number,
+  setPriority: PropTypes.func.isRequired,
 };
 
 export default PriorityControl;

@@ -1,5 +1,8 @@
 import React from 'react';
 
+// proptypes
+import PropTypes from 'prop-types';
+
 // routing
 import { useLocation } from 'react-router-dom';
 
@@ -18,6 +21,11 @@ const NavLink = ({ to, children }) => {
       {children}
     </ListItemButton>
   );
+};
+
+NavLink.propTypes = {
+  to: PropTypes.string.isRequired,
+  children: PropTypes.node.isRequired,
 };
 
 export default NavLink;

@@ -1,5 +1,8 @@
 import React from 'react';
 
+// proptypes
+import PropTypes from 'prop-types';
+
 // mui
 import { ListItem, ListItemIcon, Badge, ListItemText } from '@mui/material';
 
@@ -22,6 +25,13 @@ const NavItem = ({ title, list, icon, to }) => {
       </NavLink>
     </ListItem>
   );
+};
+
+NavItem.propTypes = {
+  title: PropTypes.string.isRequired,
+  list: PropTypes.array.isRequired,
+  icon: PropTypes.node.isRequired,
+  to: PropTypes.string.isRequired,
 };
 
 export default NavItem;

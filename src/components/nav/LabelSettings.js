@@ -1,5 +1,8 @@
 import React from 'react';
 
+// proptypes
+import PropTypes from 'prop-types';
+
 // mui
 import {
   Box,
@@ -99,6 +102,10 @@ const LabelSettings = ({ id }) => {
       />
     </Box>
   );
+};
+
+LabelSettings.propTypes = {
+  id: PropTypes.string.isRequired,
 };
 
 export default LabelSettings;

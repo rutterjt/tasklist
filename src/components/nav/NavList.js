@@ -1,5 +1,8 @@
 import React from 'react';
 
+// proptypes
+import PropTypes from 'prop-types';
+
 // mui
 import { List } from '@mui/material';
 
@@ -30,6 +33,10 @@ const NavList = ({ navList }) => {
       })}
     </List>
   );
+};
+
+NavList.propTypes = {
+  navList: PropTypes.array.isRequired,
 };
 
 export default NavList;
