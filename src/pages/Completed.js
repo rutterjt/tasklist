@@ -10,15 +10,30 @@ import { Delete } from '@mui/icons-material';
 // components
 import Layout from '../components/Layout';
 import CompletedTaskList from '../components/CompletedTaskList';
+import WarningDialog from '../components/WarningDialog';
 
 // store
 import { useStore } from '../store/useStore';
 import { EMPTY_TRASH } from '../store/actions';
 
+// custom hooks
+import { usePopup } from '../hooks/usePopup';
+
 const Completed = () => {
   const { dispatch, deleted } = useStore();
+  const [warningOpen, openWarning, closeWarning] = usePopup(false);
+
   const deleteCreator = () => ({ type: EMPTY_TRASH });
-  const deleteAll = () => dispatch(deleteCreator());
+
+  const deleteAll = () => {
+    dispatch(deleteCreator());
+    closeWarning();
+  };
+
+  const checkBeforeWarning = () => {
+    if (!deleted.length) return;
+    else openWarning();
+  };
 
   return (
     <Layout>
@@ -28,13 +43,22 @@ const Completed = () => {
 
       <CompletedTaskList list={deleted} noCheckbox />
       <Button
-        onClick={deleteAll}
+        onClick={checkBeforeWarning}
         color="error"
         startIcon={<Delete />}
         sx={{ mt: 1 }}
       >
         Delete All
       </Button>
+      <WarningDialog
+        open={warningOpen}
+        title="Empty Trash"
+        body="Are you sure you want to delete all of your completed tasks? This can't be undone."
+        handleCancel={closeWarning}
+        handleConfirm={deleteAll}
+        cancelLabel="Cancel"
+        confirmLabel="Delete"
+      />
     </Layout>
   );
 };
