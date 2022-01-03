@@ -25,7 +25,7 @@ import { DELETE_TASK } from '../../store/actions';
 // hooks
 import { usePopup } from '../../hooks/usePopup';
 
-const TaskListItem = ({ task }) => {
+const TaskListItem = ({ handleDelete, task }) => {
   const { dispatch } = useStore();
   // checkbox state: when true, the item is deleted
   const [checked, setChecked] = useState(false);
@@ -41,9 +41,10 @@ const TaskListItem = ({ task }) => {
 
   const deleteTask = useCallback(
     (id) => {
+      handleDelete(id);
       dispatch(deleteCreator(id));
     },
-    [dispatch]
+    [dispatch, handleDelete]
   );
 
   // creates 500ms lag between clicking checkbox and deleting item.
@@ -104,6 +105,7 @@ TaskListItem.propTypes = {
     name: PropTypes.string.isRequired,
     id: PropTypes.string.isRequired,
   }).isRequired,
+  handleDelete: PropTypes.func.isRequired,
 };
 
 export default TaskListItem;
