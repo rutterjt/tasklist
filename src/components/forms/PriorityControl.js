@@ -1,5 +1,8 @@
 import React from 'react';
 
+// proptypes
+import PropTypes from 'prop-types';
+
 // mui
 import {
   Box,
@@ -11,6 +14,7 @@ import {
   ListItemIcon,
   ListItemText,
   Divider,
+  Tooltip,
 } from '@mui/material';
 
 // components
@@ -20,7 +24,13 @@ import ListHeader from '../ListHeader';
 // hooks
 import { usePopover } from '../../hooks/usePopover';
 
-// Renders controls for the task's priority
+/**
+ * A form control for selecting a task's priority.
+ *
+ * Renders a button that opens a PopOver with options to select a priority.
+ * @param {number} [priority] - A number representing the priority.
+ * @param {function} setPriority - A setter for task.priority.
+ */
 const PriorityControl = ({ priority, setPriority }) => {
   const [anchor, handleOpen, handleClose, open] = usePopover();
 
@@ -32,9 +42,11 @@ const PriorityControl = ({ priority, setPriority }) => {
   const id = open ? 'priority-popup' : undefined;
   return (
     <Box>
-      <IconButton aria-label="Set Priority" onClick={handleOpen}>
-        <PriorityIcon priority={priority} />
-      </IconButton>
+      <Tooltip title="Set Priority">
+        <IconButton aria-label="Set Priority" onClick={handleOpen}>
+          <PriorityIcon priority={priority} />
+        </IconButton>
+      </Tooltip>
       <Popover
         id={id}
         open={open}
@@ -59,6 +71,11 @@ const PriorityControl = ({ priority, setPriority }) => {
       </Popover>
     </Box>
   );
+};
+
+PriorityControl.propTypes = {
+  priority: PropTypes.number,
+  setPriority: PropTypes.func.isRequired,
 };
 
 export default PriorityControl;

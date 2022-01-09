@@ -1,5 +1,8 @@
 import React, { useState, useEffect, useCallback } from 'react';
 
+// proptypes
+import PropTypes from 'prop-types';
+
 // mui
 import {
   ListItem,
@@ -22,7 +25,14 @@ import { DELETE_TASK } from '../../store/actions';
 // hooks
 import { usePopup } from '../../hooks/usePopup';
 
-const TaskListItem = ({ task }) => {
+/**
+ * Renders a task's data as a MUI ListItem.
+ *
+ * Renders components that display the task data, open a modal box to update the task data, and handle deleting the task.
+ * @param {object} task - The task object.
+ * @param {function} handleDelete - Code to run when a task is deleted (e.g., opening a notification with an option to undo).
+ */
+const TaskListItem = ({ handleDelete, task }) => {
   const { dispatch } = useStore();
   // checkbox state: when true, the item is deleted
   const [checked, setChecked] = useState(false);
@@ -38,9 +48,10 @@ const TaskListItem = ({ task }) => {
 
   const deleteTask = useCallback(
     (id) => {
+      handleDelete(id);
       dispatch(deleteCreator(id));
     },
-    [dispatch]
+    [dispatch, handleDelete]
   );
 
   // creates 500ms lag between clicking checkbox and deleting item.
@@ -59,7 +70,7 @@ const TaskListItem = ({ task }) => {
     setChecked((prev) => !prev);
   };
 
-  if (!task) return null;
+  if (!name || !id) return null;
 
   return (
     <>
@@ -87,6 +98,21 @@ const TaskListItem = ({ task }) => {
       <Divider component="li" sx={{ ml: 7 }} />
     </>
   );
+};
+
+TaskListItem.defaultProps = {
+  task: {
+    name: '',
+    id: '',
+  },
+};
+
+TaskListItem.propTypes = {
+  task: PropTypes.shape({
+    name: PropTypes.string.isRequired,
+    id: PropTypes.string.isRequired,
+  }).isRequired,
+  handleDelete: PropTypes.func.isRequired,
 };
 
 export default TaskListItem;

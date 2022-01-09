@@ -11,6 +11,7 @@ import {
   ListItemIcon,
   ListItemText,
   Divider,
+  Tooltip,
 } from '@mui/material';
 import CheckIcon from '@mui/icons-material/Check';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
@@ -40,7 +41,10 @@ const SettingsListItem = ({ value, sortBy, handleClick }) => (
   </ListItem>
 );
 
-// Renders controls for the task's priority
+/**
+ * Renders a button that, when pressed, opens a popover that allows users to sort the list in different ways.
+ *
+ */
 const TaskListSettings = () => {
   const { dispatch, sortBy } = useStore();
   const [anchor, handleOpen, handleClose, open] = usePopover();
@@ -51,7 +55,6 @@ const TaskListSettings = () => {
   const setSortBy = (order) => dispatch(sortCreator(order));
 
   const handleClick = (value) => {
-    console.log('Clicked');
     setSortBy(value);
     handleClose();
   };
@@ -59,9 +62,11 @@ const TaskListSettings = () => {
   const id = open ? 'priority-popup' : undefined;
   return (
     <Box>
-      <IconButton aria-label="open list settings" onClick={handleOpen}>
-        <MoreVertIcon />
-      </IconButton>
+      <Tooltip title="Sort list">
+        <IconButton aria-label="sort list" onClick={handleOpen}>
+          <MoreVertIcon />
+        </IconButton>
+      </Tooltip>
 
       <Popover
         id={id}

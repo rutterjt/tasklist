@@ -1,4 +1,7 @@
-import React from 'react';
+import React, { useState, useCallback } from 'react';
+
+// proptypes
+import PropTypes from 'prop-types';
 
 // mui
 import { List, Typography, Box, Grid } from '@mui/material';
@@ -6,15 +9,31 @@ import { List, Typography, Box, Grid } from '@mui/material';
 // components
 import TaskListItem from './TaskListItem';
 import TaskListSettings from './TaskListSettings';
+import UndoAlert from './UndoAlert';
 
 // store
 import { useStore } from '../store/useStore';
 
 const notDeleted = (item) => !item.deleted;
 
-const TaskList = ({ list = [], label = 'To do' }) => {
+/**
+ * Renders a list of tasks.
+ * @param {array} list - The list of items to render. Should be either state.list or a subset of it.
+ * @param {string} label - The list's title.
+ */
+const TaskList = ({ list, label }) => {
   const { sortBy } = useStore();
   const listEmpty = !list.filter(notDeleted).length;
+  const [deletedTask, setDeletedTask] = useState('');
+
+  // task delete
+  const handleDeleteTask = useCallback((id) => {
+    setDeletedTask(id);
+  }, []);
+
+  const handleUndoDeleteTask = () => {
+    setDeletedTask('');
+  };
 
   // sorting
   let sortCallback = (a, b) => 0;
@@ -59,12 +78,31 @@ const TaskList = ({ list = [], label = 'To do' }) => {
       {!listEmpty && (
         <List>
           {sortedList.map((task) => (
-            <TaskListItem key={task.id} task={task} />
+            <TaskListItem
+              key={task.id}
+              task={task}
+              handleDelete={handleDeleteTask}
+            />
           ))}
         </List>
       )}
+      <UndoAlert
+        open={!!deletedTask}
+        id={deletedTask}
+        handleClose={handleUndoDeleteTask}
+      />
     </Box>
   );
+};
+
+TaskList.defaultProps = {
+  list: [],
+  label: 'To do',
+};
+
+TaskList.propTypes = {
+  list: PropTypes.arrayOf(PropTypes.object),
+  label: PropTypes.string,
 };
 
 export default TaskList;

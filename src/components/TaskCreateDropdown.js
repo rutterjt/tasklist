@@ -1,5 +1,8 @@
 import React from 'react';
 
+// proptypes
+import PropTypes from 'prop-types';
+
 // mui
 import { Box, Button } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
@@ -16,6 +19,7 @@ import { usePopup } from '../hooks/usePopup';
  * Renders a button that, when pressed, causes a Task creation form to be rendered as a dropdown.
  *
  * Also renders a warning dialog when the user attempts to close the form without saving.
+ * @param {object} [defaultItem] - Default item data. Passed to the underlying Task form.
  */
 const TaskCreateDropdown = ({ defaultItem }) => {
   const { data, setter, submit, close, isValid, isEmpty } = useTaskCreate();
@@ -65,6 +69,14 @@ const TaskCreateDropdown = ({ defaultItem }) => {
       />
     </Box>
   );
+};
+
+TaskCreateDropdown.defaultProps = {
+  defaultItem: {},
+};
+
+TaskCreateDropdown.propTypes = {
+  defaultItem: PropTypes.object,
 };
 
 export default TaskCreateDropdown;

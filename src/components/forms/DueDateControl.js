@@ -1,5 +1,8 @@
 import React from 'react';
 
+// proptypes
+import PropTypes from 'prop-types';
+
 // mui
 import {
   List,
@@ -12,6 +15,7 @@ import {
   Popover,
   TextField,
   Divider,
+  Tooltip,
 } from '@mui/material';
 import DatePicker from '@mui/lab/DatePicker';
 
@@ -40,12 +44,16 @@ const DateListItem = ({ title, icon, onClick }) => (
   </ListItem>
 );
 
-// renders the controls for the task's due date
+/**
+ * A form control to handle picking a date.
+ * @param {number} date - A number representing the date in milliseconds Unix time.
+ * @param {function} setDate - A setter for the date.
+ */
 const DueDateControl = ({ date, setDate }) => {
   const [anchor, handleOpen, handleClose, open] = usePopover();
 
   const handleDateChange = (newDate) => {
-    newDate === null ? setDate(null) : setDate(newDate.getTime());
+    newDate === undefined ? setDate(undefined) : setDate(newDate.getTime());
   };
 
   const handleClick = (newDate) => {
@@ -56,9 +64,11 @@ const DueDateControl = ({ date, setDate }) => {
   const id = open ? 'date-popup' : undefined;
   return (
     <Box>
-      <Button onClick={handleOpen} variant="outlined">
-        {displayDate(date)}
-      </Button>
+      <Tooltip title="Set Due Date" aria-label="Set due date">
+        <Button onClick={handleOpen} variant="outlined">
+          {displayDate(date)}
+        </Button>
+      </Tooltip>
       <Popover
         id={id}
         open={open}
@@ -107,6 +117,11 @@ const DueDateControl = ({ date, setDate }) => {
       </Popover>
     </Box>
   );
+};
+
+DueDateControl.propTypes = {
+  date: PropTypes.number,
+  setDate: PropTypes.func.isRequired,
 };
 
 export default DueDateControl;

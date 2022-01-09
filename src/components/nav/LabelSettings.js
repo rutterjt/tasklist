@@ -1,5 +1,8 @@
 import React from 'react';
 
+// proptypes
+import PropTypes from 'prop-types';
+
 // mui
 import {
   Box,
@@ -11,6 +14,7 @@ import {
   Divider,
   ListItemButton,
   ListItemIcon,
+  Tooltip,
 } from '@mui/material';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import EditIcon from '@mui/icons-material/Edit';
@@ -29,6 +33,13 @@ import WarningDialog from '../WarningDialog';
 import CustomDialog from '../CustomDialog';
 import LabelUpdateForm from '../forms/LabelUpdateForm';
 
+/**
+ * Renders the UI for editing labels.
+ *
+ * Initially renders a button that, when pressed, renders a PopOver with options to edit or delete the label.
+ *
+ * @param {string} id - The id of the label to update.
+ */
 const LabelSettings = ({ id }) => {
   const { labels, dispatch } = useStore();
   const label = labels.find((label) => label.id === id) || {};
@@ -56,9 +67,11 @@ const LabelSettings = ({ id }) => {
 
   return (
     <Box>
-      <IconButton aria-label="more options" edge="end" onClick={openSettings}>
-        <MoreHorizIcon />
-      </IconButton>
+      <Tooltip title="More options">
+        <IconButton aria-label="more options" edge="end" onClick={openSettings}>
+          <MoreHorizIcon />
+        </IconButton>
+      </Tooltip>
       <Popover
         id={htmlID}
         open={settingsOpen}
@@ -99,6 +112,10 @@ const LabelSettings = ({ id }) => {
       />
     </Box>
   );
+};
+
+LabelSettings.propTypes = {
+  id: PropTypes.string.isRequired,
 };
 
 export default LabelSettings;

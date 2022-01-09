@@ -1,5 +1,8 @@
 import React from 'react';
 
+// proptypes
+import PropTypes from 'prop-types';
+
 // mui
 import { Typography, Grid } from '@mui/material';
 
@@ -49,6 +52,13 @@ const LabelWrapper = ({ label }) => {
   );
 };
 
+/**
+ * Renders the task's main details, appearing under the task's name.
+ * @param {string} [description] - (Optional) the task's description.
+ * @param {number} [due] - (Optional) the task's due date.
+ * @param {number} [priority] - (Optional) the task's priority.
+ * @param {object} [label] - (Optional) the task's description.
+ */
 const TaskSecondaryInfo = ({ description, due, priority, label }) => {
   return (
     <>
@@ -63,6 +73,13 @@ const TaskSecondaryInfo = ({ description, due, priority, label }) => {
       )}
     </>
   );
+};
+
+TaskSecondaryInfo.propTypes = {
+  description: PropTypes.string,
+  due: PropTypes.number,
+  priority: PropTypes.number,
+  label: PropTypes.object,
 };
 
 export default TaskSecondaryInfo;

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 // mui
-import { ListItem, ListItemText, IconButton } from '@mui/material';
+import { ListItem, ListItemText, IconButton, Tooltip } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 
 // components
@@ -14,11 +14,16 @@ import CustomDialog from '../CustomDialog';
 import { useStore } from '../../store/useStore';
 
 const AddLabelButton = ({ onClick }) => (
-  <IconButton edge="end" aria-label="add label" onClick={onClick}>
-    <AddIcon />
-  </IconButton>
+  <Tooltip title="New Label">
+    <IconButton edge="end" aria-label="new label" onClick={onClick}>
+      <AddIcon />
+    </IconButton>
+  </Tooltip>
 );
 
+/**
+ * A modified NavList for rendering NavLabels.
+ */
 const NavLabelsList = () => {
   const { labels } = useStore();
   const [editing, setEditing] = useState(false);

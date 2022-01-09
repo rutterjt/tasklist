@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
 
+// proptypes
+import PropTypes from 'prop-types';
+
 // mui
 import {
   ListItem,
@@ -18,6 +21,10 @@ import TaskDeleteControl from './TaskListItem/TaskDeleteControl';
 import TaskPrimaryInfo from './TaskListItem/./TaskPrimaryInfo';
 import TaskSecondaryInfo from './TaskListItem/./TaskSecondaryInfo';
 
+/**
+ * A modified TaskListItem, rendered by the CompletedTaskList to represent a task that has been deleted.
+ * @param {object} task - A task object.
+ */
 const CompletedTask = ({ task }) => {
   // store
   const { dispatch } = useStore();
@@ -35,7 +42,7 @@ const CompletedTask = ({ task }) => {
     dispatch(restoreCreator(id));
   };
 
-  if (!task) return null;
+  if (!name || !id) return null;
 
   return (
     <>
@@ -65,6 +72,20 @@ const CompletedTask = ({ task }) => {
       <Divider component="li" sx={{ ml: 7 }} />
     </>
   );
+};
+
+CompletedTask.defaultProps = {
+  task: {
+    name: '',
+    id: '',
+  },
+};
+
+CompletedTask.propTypes = {
+  task: PropTypes.shape({
+    name: PropTypes.string.isRequired,
+    id: PropTypes.string.isRequired,
+  }),
 };
 
 export default CompletedTask;

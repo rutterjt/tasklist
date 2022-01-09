@@ -1,5 +1,9 @@
 import React from 'react';
 
+// proptypes
+import PropTypes from 'prop-types';
+
+// mui
 import { Button, Box, Typography, Grid } from '@mui/material';
 
 // components
@@ -72,6 +76,12 @@ const TaskDetailsBox = ({
   </Box>
 );
 
+/**
+ * Renders a modal box to display the Task's details.
+ * @param {boolean} open - Boolean for whether the dialog should be open.
+ * @param {function} onClose - Code to run when the user attempts to close the dialog.
+ * @param {string} id - The id of the current task.
+ */
 const TaskDetails = ({ open, onClose, id }) => {
   const { list } = useStore();
   // get all details of currently-opened task
@@ -112,6 +122,16 @@ const TaskDetails = ({ open, onClose, id }) => {
       />
     </CustomDialog>
   );
+};
+
+TaskDetails.defaultProps = {
+  open: false,
+};
+
+TaskDetails.propTypes = {
+  open: PropTypes.bool.isRequired,
+  onClose: PropTypes.func.isRequired,
+  id: PropTypes.string.isRequired,
 };
 
 export default TaskDetails;

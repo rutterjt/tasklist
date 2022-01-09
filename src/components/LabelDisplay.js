@@ -1,5 +1,8 @@
 import React from 'react';
 
+// proptypes
+import PropTypes from 'prop-types';
+
 // mui
 import { Grid, Typography } from '@mui/material';
 import LocalOfferIcon from '@mui/icons-material/LocalOffer';
@@ -7,6 +10,10 @@ import LocalOfferIcon from '@mui/icons-material/LocalOffer';
 // colors
 import { colors } from '../data/colors';
 
+/**
+ * Renders a label, with a colored tag.
+ * @param {object} label - A label object.
+ */
 const LabelDisplay = ({ label }) => {
   const { color, name } = label;
   return (
@@ -22,6 +29,13 @@ const LabelDisplay = ({ label }) => {
       </Grid>
     </Grid>
   );
+};
+
+LabelDisplay.propTypes = {
+  label: PropTypes.shape({
+    color: PropTypes.string,
+    name: PropTypes.string.isRequired,
+  }).isRequired,
 };
 
 export default LabelDisplay;

@@ -1,4 +1,6 @@
 import React from 'react';
+
+// mui
 import { Box, Drawer, Divider } from '@mui/material';
 
 // data
@@ -52,6 +54,9 @@ const NavDrawer = ({ children }) => {
   );
 };
 
+/**
+ * Renders the site navigation.
+ */
 const Nav = () => {
   return (
     <NavDrawer>

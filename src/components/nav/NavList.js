@@ -1,5 +1,8 @@
 import React from 'react';
 
+// proptypes
+import PropTypes from 'prop-types';
+
 // mui
 import { List } from '@mui/material';
 
@@ -9,6 +12,10 @@ import NavItem from './NavItem';
 // store
 import { useStore } from '../../store/useStore';
 
+/**
+ * Renders a list of nav items.
+ * @param {array} navList - An array of nav links, each to be rendered as a <NavItem> component.
+ */
 const NavList = ({ navList }) => {
   const { list } = useStore();
 
@@ -30,6 +37,10 @@ const NavList = ({ navList }) => {
       })}
     </List>
   );
+};
+
+NavList.propTypes = {
+  navList: PropTypes.array.isRequired,
 };
 
 export default NavList;

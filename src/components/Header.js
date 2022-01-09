@@ -25,6 +25,9 @@ import Logo from '../images/logo.svg';
 // components
 import TaskCreateDialog from './TaskCreateDialog';
 
+/**
+ * Renders the site header.
+ */
 const Header = () => {
   const { dispatch, navOpen } = useStore();
 
