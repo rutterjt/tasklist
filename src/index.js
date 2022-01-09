@@ -4,7 +4,8 @@ import App from './App';
 import CssBaseline from '@mui/material/CssBaseline';
 
 // store
-import { StoreProvider } from './store/context';
+import { Provider } from 'react-redux';
+import store from './store/store';
 
 // mui/date
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
@@ -23,10 +24,10 @@ ReactDOM.render(
   <React.StrictMode>
     <HelmetProvider>
       <LocalizationProvider dateAdapter={AdapterDateFns}>
-        <StoreProvider>
+        <Provider store={store}>
           <CssBaseline />
           <App />
-        </StoreProvider>
+        </Provider>
       </LocalizationProvider>
     </HelmetProvider>
   </React.StrictMode>,
