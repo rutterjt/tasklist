@@ -12,15 +12,17 @@ import {
   Divider,
 } from '@mui/material';
 
+// redux
+import { useSelector, shallowEqual, useDispatch } from 'react-redux';
+
+// store
+import { taskCompleted, selectTaskById } from '../../store/slices/listSlice';
+
 // components
 import TaskDeleteControl from './TaskDeleteControl';
 import TaskPrimaryInfo from './TaskPrimaryInfo';
 import TaskSecondaryInfo from './TaskSecondaryInfo';
 import TaskDetails from '../TaskDetails';
-
-// store
-import { useStore } from '../../store/useStore';
-import { DELETE_TASK } from '../../store/actions';
 
 // hooks
 import { usePopup } from '../../hooks/usePopup';
@@ -32,24 +34,20 @@ import { usePopup } from '../../hooks/usePopup';
  * @param {object} task - The task object.
  * @param {function} handleDelete - Code to run when a task is deleted (e.g., opening a notification with an option to undo).
  */
-const TaskListItem = ({ handleDelete, task }) => {
-  const { dispatch } = useStore();
+const TaskListItem = ({ handleDelete, id }) => {
+  const dispatch = useDispatch();
   // checkbox state: when true, the item is deleted
   const [checked, setChecked] = useState(false);
   const [detailsOpen, openDetails, closeDetails] = usePopup(false);
 
   // destructuring task properties
-  const { name, id } = task;
-
-  // deleting items
-  const deleteCreator = (id) => {
-    return { type: DELETE_TASK, payload: id };
-  };
+  const task = useSelector((state) => selectTaskById(state, id), shallowEqual);
+  const { name } = task;
 
   const deleteTask = useCallback(
     (id) => {
       handleDelete(id);
-      dispatch(deleteCreator(id));
+      dispatch(taskCompleted(id));
     },
     [dispatch, handleDelete]
   );
@@ -70,7 +68,7 @@ const TaskListItem = ({ handleDelete, task }) => {
     setChecked((prev) => !prev);
   };
 
-  if (!name || !id) return null;
+  if (!name || !id || task.completed) return null;
 
   return (
     <>
@@ -90,11 +88,7 @@ const TaskListItem = ({ handleDelete, task }) => {
           />
         </ListItemButton>
       </ListItem>
-      <TaskDetails
-        open={task && detailsOpen}
-        onClose={closeDetails}
-        {...task}
-      />
+      <TaskDetails open={task && detailsOpen} onClose={closeDetails} id={id} />
       <Divider component="li" sx={{ ml: 7 }} />
     </>
   );

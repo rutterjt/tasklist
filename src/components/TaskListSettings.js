@@ -1,5 +1,8 @@
 import React from 'react';
 
+// redux
+import { useDispatch, useSelector } from 'react-redux';
+
 // mui
 import {
   Box,
@@ -16,8 +19,7 @@ import CheckIcon from '@mui/icons-material/Check';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 
 // store
-import { useStore } from '../store/useStore';
-import { CHANGE_SORT_ORDER } from '../store/actions';
+import { sortByUpdated, selectSortByName } from '../store/slices/sortBySlice';
 
 // hooks
 import { usePopover } from '../hooks/usePopover';
@@ -45,16 +47,12 @@ const SettingsListItem = ({ value, sortBy, handleClick }) => (
  *
  */
 const TaskListSettings = () => {
-  const { dispatch, sortBy } = useStore();
+  const dispatch = useDispatch();
+  const sortBy = useSelector(selectSortByName);
   const [anchor, handleOpen, handleClose, open] = usePopover();
 
-  // store
-  const sortCreator = (order) => ({ type: CHANGE_SORT_ORDER, payload: order });
-
-  const setSortBy = (order) => dispatch(sortCreator(order));
-
   const handleClick = (value) => {
-    setSortBy(value);
+    dispatch(sortByUpdated(value));
     handleClose();
   };
 

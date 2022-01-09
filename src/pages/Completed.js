@@ -7,31 +7,32 @@ import { Helmet } from 'react-helmet-async';
 import { Button } from '@mui/material';
 import { Delete } from '@mui/icons-material';
 
+// redux
+import { useDispatch, useSelector, shallowEqual } from 'react-redux';
+
 // components
 import Layout from '../components/Layout';
 import CompletedTaskList from '../components/CompletedTaskList';
 import WarningDialog from '../components/WarningDialog';
 
 // store
-import { useStore } from '../store/useStore';
-import { EMPTY_TRASH } from '../store/actions';
+import { completedDeleted, selectTaskIds } from '../store/slices/listSlice';
 
 // custom hooks
 import { usePopup } from '../hooks/usePopup';
 
 const Completed = () => {
-  const { dispatch, deleted } = useStore();
+  const dispatch = useDispatch();
+  const listIds = useSelector(selectTaskIds, shallowEqual);
   const [warningOpen, openWarning, closeWarning] = usePopup(false);
 
-  const deleteCreator = () => ({ type: EMPTY_TRASH });
-
   const deleteAll = () => {
-    dispatch(deleteCreator());
+    dispatch(completedDeleted());
     closeWarning();
   };
 
   const checkBeforeWarning = () => {
-    if (!deleted.length) return;
+    if (!listIds.length) return;
     else openWarning();
   };
 
@@ -41,7 +42,7 @@ const Completed = () => {
         <title>Completed | TaskList</title>
       </Helmet>
 
-      <CompletedTaskList list={deleted} noCheckbox />
+      <CompletedTaskList listIds={listIds} noCheckbox />
       <Button
         onClick={checkBeforeWarning}
         color="error"

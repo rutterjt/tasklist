@@ -1,5 +1,8 @@
 import React from 'react';
 
+// redux
+import { useSelector, shallowEqual } from 'react-redux';
+
 // react helmet
 import { Helmet } from 'react-helmet-async';
 
@@ -9,22 +12,23 @@ import TaskList from '../components/TaskList';
 import TaskCreateDropdown from '../components/TaskCreateDropdown';
 
 // store
-import { useStore } from '../store/useStore';
+import { selectTaskIdsByCallback } from '../store/slices/listSlice';
 
 // utils
 import { isDueInFuture } from '../utils/time';
 
 const Upcoming = () => {
-  const { list } = useStore();
-
-  const filteredList = list.filter(isDueInFuture);
+  const taskIds = useSelector(
+    (state) => selectTaskIdsByCallback(state, isDueInFuture),
+    shallowEqual
+  );
 
   return (
     <Layout>
       <Helmet>
         <title>Upcoming | TaskList</title>
       </Helmet>
-      <TaskList label={'Upcoming'} list={filteredList} />
+      <TaskList label={'Upcoming'} list={taskIds} />
       <TaskCreateDropdown />
     </Layout>
   );

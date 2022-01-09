@@ -3,28 +3,28 @@ import React, { useState } from 'react';
 // proptypes
 import PropTypes from 'prop-types';
 
+// redux
+import { useDispatch, useSelector, shallowEqual } from 'react-redux';
+
 // components
 import LabelForm from './LabelForm';
 
 // store
-import { useStore } from '../../store/useStore';
-import { ADD_LABEL } from '../../store/actions';
+import {
+  labelCreated,
+  selectLabelsAsList,
+} from '../../store/slices/labelsSlice';
 
 /**
  * A component to create new labels. Manages updating and submitting form data, and renders a LabelForm to control the form UI.
  * @param {function} closeForm - Function to run when closing the form.
  */
 const LabelCreateForm = ({ closeForm }) => {
-  const { dispatch, labels } = useStore();
+  const labels = useSelector(selectLabelsAsList, shallowEqual);
+  const dispatch = useDispatch();
   const [formData, setFormData] = useState({});
 
-  // store
-  const addLabelCreator = (formData) => ({
-    type: ADD_LABEL,
-    payload: { label: { ...formData } },
-  });
-
-  const createLabel = () => dispatch(addLabelCreator(formData));
+  const createLabel = () => dispatch(labelCreated(formData));
 
   const handleSubmit = () => {
     createLabel();

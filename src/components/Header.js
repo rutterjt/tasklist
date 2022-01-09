@@ -15,9 +15,11 @@ import CloseIcon from '@mui/icons-material/Close';
 // routing
 import { Link } from 'react-router-dom';
 
+// redux
+import { useDispatch, useSelector } from 'react-redux';
+
 // store
-import { useStore } from '../store/useStore';
-import { TOGGLE_NAV } from '../store/actions';
+import { navToggled, selectNavOpen } from '../store/slices/navSlice';
 
 // images
 import Logo from '../images/logo.svg';
@@ -29,9 +31,10 @@ import TaskCreateDialog from './TaskCreateDialog';
  * Renders the site header.
  */
 const Header = () => {
-  const { dispatch, navOpen } = useStore();
+  const dispatch = useDispatch();
+  const navOpen = useSelector(selectNavOpen);
 
-  const toggleNav = () => dispatch({ type: TOGGLE_NAV });
+  const toggleNav = () => dispatch(navToggled());
 
   return (
     <>

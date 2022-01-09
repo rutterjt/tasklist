@@ -1,5 +1,8 @@
 import React from 'react';
 
+// redux
+import { useSelector, shallowEqual } from 'react-redux';
+
 // proptypes
 import PropTypes from 'prop-types';
 
@@ -21,7 +24,7 @@ import LocalOfferIcon from '@mui/icons-material/LocalOffer';
 import DoNotDisturbAltIcon from '@mui/icons-material/DoNotDisturbAlt';
 
 // store
-import { useStore } from '../../store/useStore';
+import { selectLabelsAsList } from '../../store/slices/labelsSlice';
 
 // colors
 import { colors } from '../../data/colors';
@@ -39,7 +42,7 @@ import { usePopover } from '../../hooks/usePopover';
  */
 const LabelControl = ({ label, setLabel }) => {
   const [anchor, handleOpen, handleClose, open] = usePopover();
-  const { labels } = useStore();
+  const labels = useSelector(selectLabelsAsList, shallowEqual);
 
   const handleClick = (label) => {
     setLabel(label);

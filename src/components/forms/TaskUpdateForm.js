@@ -3,12 +3,14 @@ import React, { useState } from 'react';
 // proptypes
 import PropTypes from 'prop-types';
 
+// redux
+import { useDispatch } from 'react-redux';
+
 // components
 import TaskForm from './TaskForm';
 
 // store
-import { useStore } from '../../store/useStore';
-import { UPDATE_TASK } from '../../store/actions';
+import { taskUpdated } from '../../store/slices/listSlice';
 
 /**
  * A component to update an already-existing task. Manages updating and submitting form data, and renders a TaskForm to control the form UI.
@@ -16,20 +18,14 @@ import { UPDATE_TASK } from '../../store/actions';
  * @param {function} handleClose - Function to run when closing the form.
  * @param {function} handleSave - Function to run to run when submitting the form data.
  */
- const TaskUpdateForm = ({ task, handleClose, handleSave }) => {
-  const { dispatch } = useStore();
+const TaskUpdateForm = ({ task, handleClose, handleSave }) => {
+  const dispatch = useDispatch();
   const [formData, setFormData] = useState({ ...task });
 
-  // store
-  const updateCreator = (id, data) => ({
-    type: UPDATE_TASK,
-    payload: { id, data },
-  });
-
-  const updateTask = () => dispatch(updateCreator(task.id, formData));
+  const updateTask = (id, data) => dispatch(taskUpdated({ id, data }));
 
   const saveData = () => {
-    updateTask();
+    updateTask(task.id, formData);
     handleSave();
   };
 

@@ -3,6 +3,9 @@ import React from 'react';
 // mui
 import { Box, Drawer, Divider } from '@mui/material';
 
+// redux
+import { useDispatch, useSelector } from 'react-redux';
+
 // data
 import { navItems, completed } from '../../data/nav';
 
@@ -12,12 +15,12 @@ import Spacebar from '../Spacebar';
 import NavList from './NavList';
 
 // store
-import { useStore } from '../../store/useStore';
-import { TOGGLE_NAV } from '../../store/actions';
+import { navToggled, selectNavOpen } from '../../store/slices/navSlice';
 
 const NavDrawer = ({ children }) => {
-  const { dispatch, navOpen } = useStore();
-  const toggleNav = () => dispatch({ type: TOGGLE_NAV });
+  const dispatch = useDispatch();
+  const navOpen = useSelector(selectNavOpen);
+  const toggleNav = () => dispatch(navToggled());
 
   const drawerWidth = 240;
   const container = window.document.body;

@@ -1,5 +1,8 @@
 import React from 'react';
 
+// redux
+import { useSelector } from 'react-redux';
+
 // proptypes
 import PropTypes from 'prop-types';
 
@@ -15,7 +18,7 @@ import CustomDialog from './CustomDialog';
 import LabelDisplay from './LabelDisplay';
 
 // store
-import { useStore } from '../store/useStore';
+import { selectTaskById } from '../store/slices/listSlice';
 
 // hooks
 import { usePopup } from '../hooks/usePopup';
@@ -83,9 +86,7 @@ const TaskDetailsBox = ({
  * @param {string} id - The id of the current task.
  */
 const TaskDetails = ({ open, onClose, id }) => {
-  const { list } = useStore();
-  // get all details of currently-opened task
-  const task = list.find((task) => task.id === id) || {};
+  const task = useSelector((state) => selectTaskById(state, id));
   const [warningOpen, openWarning, closeWarning] = usePopup(false);
   const [editorOpen, openEditor, closeEditor, tryCloseEditor] = usePopup(false);
 

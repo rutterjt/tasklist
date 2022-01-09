@@ -11,10 +11,13 @@ import TaskListItem from './TaskListItem';
 import TaskListSettings from './TaskListSettings';
 import UndoAlert from './UndoAlert';
 
-// store
-import { useStore } from '../store/useStore';
+// redux
+// import { useSelector, shallowEqual } from 'react-redux';
 
-const notDeleted = (item) => !item.deleted;
+// store
+// import { selectTaskIds } from '../store/slices/listSlice';
+
+// const notDeleted = (item) => !item.deleted;
 
 /**
  * Renders a list of tasks.
@@ -22,8 +25,9 @@ const notDeleted = (item) => !item.deleted;
  * @param {string} label - The list's title.
  */
 const TaskList = ({ list, label }) => {
-  const { sortBy } = useStore();
-  const listEmpty = !list.filter(notDeleted).length;
+  // const { sortBy } = useState('default');
+  // const sortByName = useSelector(useSelector);
+  const listEmpty = !list.length;
   const [deletedTask, setDeletedTask] = useState('');
 
   // task delete
@@ -35,33 +39,13 @@ const TaskList = ({ list, label }) => {
     setDeletedTask('');
   };
 
-  // sorting
-  let sortCallback = (a, b) => 0;
-  switch (sortBy) {
-    case 'alphabetically':
-      sortCallback = (a, b) => {
-        return a.name < b.name ? -1 : 1;
-      };
-      break;
-    case 'due date':
-      sortCallback = (a, b) => {
-        if (!b.due) return -1;
-        if (!a.due) return 1;
-        return a.due - b.due;
-      };
-      break;
-    case 'priority':
-      sortCallback = (a, b) => a.priority - b.priority;
-      break;
-    case 'date added':
-    case 'default':
-    default:
-      sortCallback = (a, b) => 0;
-  }
+  // let sortedList = [...list];
 
-  let sortedList = [...list];
+  // if (sortBy !== 'default') sortedList.sort(sortCallback);
 
-  if (sortBy !== 'default') sortedList.sort(sortCallback);
+  const listContents = list.map((id) => (
+    <TaskListItem key={id} id={id} handleDelete={handleDeleteTask} />
+  ));
 
   return (
     <Box>
@@ -75,17 +59,7 @@ const TaskList = ({ list, label }) => {
           <TaskListSettings />
         </Grid>
       </Grid>
-      {!listEmpty && (
-        <List>
-          {sortedList.map((task) => (
-            <TaskListItem
-              key={task.id}
-              task={task}
-              handleDelete={handleDeleteTask}
-            />
-          ))}
-        </List>
-      )}
+      {!listEmpty && <List>{listContents}</List>}
       <UndoAlert
         open={!!deletedTask}
         id={deletedTask}
@@ -96,12 +70,11 @@ const TaskList = ({ list, label }) => {
 };
 
 TaskList.defaultProps = {
-  list: [],
   label: 'To do',
 };
 
 TaskList.propTypes = {
-  list: PropTypes.arrayOf(PropTypes.object),
+  list: PropTypes.arrayOf(PropTypes.string).isRequired,
   label: PropTypes.string,
 };
 

@@ -4,9 +4,11 @@ import { useState } from 'react';
 import isEmpty from 'lodash/isEmpty';
 import isEqual from 'lodash/isEqual';
 
+// redux
+import { useDispatch } from 'react-redux';
+
 // store
-import { useStore } from '../store/useStore';
-import { ADD_TASK } from '../store/actions';
+import { taskCreated } from '../store/slices/listSlice';
 
 /**
  * Custom hook to handle state management for task creation forms.
@@ -27,25 +29,17 @@ import { ADD_TASK } from '../store/actions';
  *
  */
 export const useTaskCreate = (defaultItem) => {
-  const { dispatch } = useStore();
-  const [data, setData] = useState(defaultItem ? { ...defaultItem } : {});
+  const dispatch = useDispatch();
+  const [data, setData] = useState(defaultItem ? defaultItem : {});
 
-  // store
-  const itemCreator = (data) => {
-    return {
-      type: ADD_TASK,
-      payload: { ...data },
-    };
-  };
-
-  const close = () => setData({ ...defaultItem });
+  const close = () => setData(defaultItem);
 
   /**
    * Submits the form data with a dispatch to the store, and clears the old form data.
    * @return {undefined}
    */
   const submit = () => {
-    dispatch(itemCreator(data));
+    dispatch(taskCreated(data));
     close();
   };
 

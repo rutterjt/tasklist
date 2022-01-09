@@ -20,13 +20,11 @@ import Header from './components/Header';
 import Nav from './components/nav/Nav';
 
 // util components
-import SaveToStorage from './components/SaveToStorage';
 import PageChange from './components/PageChange';
 
 const App = () => (
   <Router>
     <Box sx={{ display: 'flex' }}>
-      <SaveToStorage />
       <PageChange />
       <Header />
       <Nav />

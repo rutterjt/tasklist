@@ -19,9 +19,11 @@ import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 
+// redux
+import { useDispatch, useSelector, shallowEqual } from 'react-redux';
+
 // store
-import { useStore } from '../../store/useStore';
-import { DELETE_LABEL } from '../../store/actions';
+import { labelDeleted, selectLabelById } from '../../store/slices/labelsSlice';
 
 // hooks
 import { usePopup } from '../../hooks/usePopup';
@@ -40,8 +42,11 @@ import LabelUpdateForm from '../forms/LabelUpdateForm';
  * @param {string} id - The id of the label to update.
  */
 const LabelSettings = ({ id }) => {
-  const { labels, dispatch } = useStore();
-  const label = labels.find((label) => label.id === id) || {};
+  const label = useSelector(
+    (state) => selectLabelById(state, id),
+    shallowEqual
+  );
+  const dispatch = useDispatch();
 
   const [warningOpen, openWarning, closeWarning] = usePopup(false);
   const [editorOpen, openEditor, closeEditor] = usePopup(false);
@@ -54,13 +59,7 @@ const LabelSettings = ({ id }) => {
     closeSettings();
   };
 
-  // store
-  const deleteCreator = () => ({
-    type: DELETE_LABEL,
-    payload: { label },
-  });
-
-  const deleteLabel = () => dispatch(deleteCreator());
+  const deleteLabel = () => dispatch(labelDeleted(id));
 
   const htmlID = settingsOpen ? 'priority-popup' : undefined;
 

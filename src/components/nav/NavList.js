@@ -1,5 +1,8 @@
 import React from 'react';
 
+// redux
+import { useSelector } from 'react-redux';
+
 // proptypes
 import PropTypes from 'prop-types';
 
@@ -10,33 +13,30 @@ import { List } from '@mui/material';
 import NavItem from './NavItem';
 
 // store
-import { useStore } from '../../store/useStore';
+import { selectListAsList } from '../../store/slices/listSlice';
 
 /**
  * Renders a list of nav items.
  * @param {array} navList - An array of nav links, each to be rendered as a <NavItem> component.
  */
 const NavList = ({ navList }) => {
-  const { list } = useStore();
+  const list = useSelector(selectListAsList);
 
-  return (
-    <List sx={{ pt: 0 }}>
-      {navList.map((item, index) => {
-        const { title, to, listCallback, icon } = item;
-        if (title === 'Past Due' && !list.filter(listCallback).length)
-          return null;
-        return (
-          <NavItem
-            key={index}
-            title={title}
-            to={to}
-            list={list.filter(listCallback)}
-            icon={icon}
-          />
-        );
-      })}
-    </List>
-  );
+  const listContents = navList.map((item, index) => {
+    const { title, to, listCallback, icon } = item;
+    if (title === 'Past Due' && !list.filter(listCallback).length) return null;
+    return (
+      <NavItem
+        key={index}
+        title={title}
+        to={to}
+        list={list.filter(listCallback)}
+        icon={icon}
+      />
+    );
+  });
+
+  return <List sx={{ pt: 0 }}>{listContents}</List>;
 };
 
 NavList.propTypes = {

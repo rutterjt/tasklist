@@ -1,5 +1,8 @@
 import React from 'react';
 
+// redux
+import { useSelector, shallowEqual } from 'react-redux';
+
 // proptypes
 import PropTypes from 'prop-types';
 
@@ -11,19 +14,22 @@ import ColorDropdownControl from './ColorDropdownControl';
 // utils
 import { updateFormData } from '../../utils/form';
 
+// store
+import { selectLabelsAsList } from '../../store/slices/labelsSlice';
+
 /**
  * Renders a form to create/update a label.
  * @param {object} data - A formData state object.
  * @param {function} setter - The state setter for the formData.
  * @param {function} onSubmit - Callback to handle a submit event.
  * @param {function} closeForm - Callback to handle closing the form.
- * @param {array} labels - An array of labels.
  * @param {boolean} [editing=false] - (Optional) boolean flag for whether the form is editing an existing task. If true, results in minor ui changes, but does not affect form functionality.
  * @return A form with fully controlled input components for all label data.
  */
-const LabelForm = ({ data, setter, onSubmit, closeForm, labels, editing }) => {
+const LabelForm = ({ data, setter, onSubmit, closeForm, editing }) => {
   // extract values from state
   const { name, color, id } = data;
+  const labels = useSelector(selectLabelsAsList, shallowEqual);
 
   // setters
   const updateData = updateFormData(setter);

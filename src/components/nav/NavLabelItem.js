@@ -1,5 +1,8 @@
 import React from 'react';
 
+// redux
+import { useSelector } from 'react-redux';
+
 // proptypes
 import PropTypes from 'prop-types';
 
@@ -14,12 +17,15 @@ import LabelSettings from './LabelSettings';
 // colors
 import { colors } from '../../data/colors';
 
+// store
+import { selectLabelById } from '../../store/slices/labelsSlice';
+
 /**
  * A modified NavItem, for rendering links to label pages.
  * @param {object} label - The associated label object.
  */
-const NavLabelItem = ({ label }) => {
-  const { name, color, id } = label;
+const NavLabelItem = ({ id }) => {
+  const { name, color } = useSelector((state) => selectLabelById(state, id));
   return (
     <ListItem sx={{ p: 0, pl: 4 }} secondaryAction={<LabelSettings id={id} />}>
       <NavLink to={`/label/${name}`}>

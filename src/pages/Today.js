@@ -1,5 +1,8 @@
 import React, { useRef } from 'react';
 
+// redux
+import { useSelector, shallowEqual } from 'react-redux';
+
 // react helmet
 import { Helmet } from 'react-helmet-async';
 
@@ -9,15 +12,16 @@ import TaskList from '../components/TaskList';
 import TaskCreateDropdown from '../components/TaskCreateDropdown';
 
 // store
-import { useStore } from '../store/useStore';
+import { selectTaskIdsByCallback } from '../store/slices/listSlice';
 
 // utils
 import { isDueToday } from '../utils/time';
 
 const Today = () => {
-  const { list } = useStore();
-
-  const filteredList = list.filter(isDueToday);
+  const taskIds = useSelector(
+    (state) => selectTaskIdsByCallback(state, isDueToday),
+    shallowEqual
+  );
 
   // persist the data with useRef, to avoid unsyncing the data between Today and TaskCreateForm on subsequent rerenders (and unnecessarily triggering a warning popup when closing the form)
   const todayRef = useRef(new Date().getTime());
@@ -26,7 +30,7 @@ const Today = () => {
       <Helmet>
         <title>Today | TaskList</title>
       </Helmet>
-      <TaskList label={'Today'} list={filteredList} />
+      <TaskList label={'Today'} list={taskIds} />
       <TaskCreateDropdown defaultItem={{ due: todayRef.current }} />
     </Layout>
   );

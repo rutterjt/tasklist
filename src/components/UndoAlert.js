@@ -6,9 +6,11 @@ import PropTypes from 'prop-types';
 // mui
 import { Snackbar, Alert, Button, Slide } from '@mui/material';
 
+// redux
+import { useDispatch } from 'react-redux';
+
 // store
-import { useStore } from '../store/useStore';
-import { RESTORE_TASK } from '../store/actions';
+import { taskRestored } from '../store/slices/listSlice';
 
 const SlideTransition = (props) => {
   return <Slide {...props} direction="right" />;
@@ -21,16 +23,10 @@ const SlideTransition = (props) => {
  * @param {string} id - The id of the most recently-deleted task.
  */
 const UndoAlert = ({ open, handleClose, id }) => {
-  const { dispatch } = useStore();
-
-  // store
-  const restoreCreator = (id) => ({
-    type: RESTORE_TASK,
-    payload: id,
-  });
+  const dispatch = useDispatch();
 
   const restoreTask = () => {
-    dispatch(restoreCreator(id));
+    dispatch(taskRestored(id));
     handleClose();
   };
 

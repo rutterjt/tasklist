@@ -1,8 +1,7 @@
 import React from 'react';
 
-// lodash helpers
-import get from 'lodash/get';
-import isEmpty from 'lodash/isEmpty';
+// redux
+import { useSelector, shallowEqual } from 'react-redux';
 
 // routing
 import { useParams, Navigate } from 'react-router-dom';
@@ -16,29 +15,28 @@ import TaskList from '../components/TaskList';
 import TaskCreateDropdown from '../components/TaskCreateDropdown';
 
 // store
-import { useStore } from '../store/useStore';
-
-const hasLabel = (label) => (listItem) =>
-  get(listItem, 'label.name', null) === get(label, 'name');
+import { selectLabelIdByName } from '../store/slices/labelsSlice';
+import { selectTaskIdsByLabel } from '../store/slices/listSlice';
 
 const Label = () => {
-  const { list, labels } = useStore();
-  const { label: paramLabelName } = useParams();
+  const { label: labelName } = useParams();
+  const labelId = useSelector((state) => selectLabelIdByName(state, labelName));
+  const taskIds = useSelector(
+    (state) => selectTaskIdsByLabel(state, labelId),
+    shallowEqual
+  );
 
-  const label = labels.find((label) => label.name === paramLabelName);
-  const filteredList = list.filter(hasLabel(label));
-
-  if (!label || isEmpty(label)) {
+  if (!labelName || !labelId) {
     return <Navigate to="/" replace={true} />;
   }
 
   return (
     <Layout>
       <Helmet>
-        <title>{label.name} | TaskList</title>
+        <title>{labelName} | TaskList</title>
       </Helmet>
-      <TaskList label={`Label: ${label.name}`} list={filteredList} />
-      <TaskCreateDropdown defaultItem={{ label: label }} />
+      <TaskList label={`Label: ${labelName}`} list={taskIds} />
+      <TaskCreateDropdown defaultItem={{ label: labelId }} />
     </Layout>
   );
 };

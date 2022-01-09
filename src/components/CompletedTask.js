@@ -12,9 +12,11 @@ import {
   Divider,
 } from '@mui/material';
 
+// redux
+import { useDispatch } from 'react-redux';
+
 // store
-import { useStore } from '../store/useStore';
-import { RESTORE_TASK } from '../store/actions';
+import { taskRestored } from '../store/slices/listSlice';
 
 // components
 import TaskDeleteControl from './TaskListItem/TaskDeleteControl';
@@ -27,19 +29,15 @@ import TaskSecondaryInfo from './TaskListItem/./TaskSecondaryInfo';
  */
 const CompletedTask = ({ task }) => {
   // store
-  const { dispatch } = useStore();
+  const dispatch = useDispatch();
   const [checked, setChecked] = useState(true);
 
   // destructuring task properties
   const { name, description, priority, due, id } = task;
 
-  const restoreCreator = (id) => {
-    return { type: RESTORE_TASK, payload: id };
-  };
-
   const restoreTask = (id) => {
     setChecked(false);
-    dispatch(restoreCreator(id));
+    dispatch(taskRestored(id));
   };
 
   if (!name || !id) return null;
