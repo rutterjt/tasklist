@@ -14,6 +14,7 @@ import {
   ListItemIcon,
   ListItemText,
   Divider,
+  Tooltip,
 } from '@mui/material';
 
 // components
@@ -41,9 +42,11 @@ const PriorityControl = ({ priority, setPriority }) => {
   const id = open ? 'priority-popup' : undefined;
   return (
     <Box>
-      <IconButton aria-label="Set Priority" onClick={handleOpen}>
-        <PriorityIcon priority={priority} />
-      </IconButton>
+      <Tooltip title="Set Priority">
+        <IconButton aria-label="Set Priority" onClick={handleOpen}>
+          <PriorityIcon priority={priority} />
+        </IconButton>
+      </Tooltip>
       <Popover
         id={id}
         open={open}
