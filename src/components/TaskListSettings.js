@@ -11,6 +11,7 @@ import {
   ListItemIcon,
   ListItemText,
   Divider,
+  Tooltip,
 } from '@mui/material';
 import CheckIcon from '@mui/icons-material/Check';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
@@ -61,9 +62,11 @@ const TaskListSettings = () => {
   const id = open ? 'priority-popup' : undefined;
   return (
     <Box>
-      <IconButton aria-label="open list settings" onClick={handleOpen}>
-        <MoreVertIcon />
-      </IconButton>
+      <Tooltip title="Sort list">
+        <IconButton aria-label="sort list" onClick={handleOpen}>
+          <MoreVertIcon />
+        </IconButton>
+      </Tooltip>
 
       <Popover
         id={id}
