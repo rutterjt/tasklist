@@ -15,6 +15,7 @@ import {
   Popover,
   TextField,
   Divider,
+  Tooltip,
 } from '@mui/material';
 import DatePicker from '@mui/lab/DatePicker';
 
@@ -63,9 +64,11 @@ const DueDateControl = ({ date, setDate }) => {
   const id = open ? 'date-popup' : undefined;
   return (
     <Box>
-      <Button onClick={handleOpen} variant="outlined">
-        {displayDate(date)}
-      </Button>
+      <Tooltip title="Set Due Date" aria-label="Set due date">
+        <Button onClick={handleOpen} variant="outlined">
+          {displayDate(date)}
+        </Button>
+      </Tooltip>
       <Popover
         id={id}
         open={open}

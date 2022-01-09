@@ -1,7 +1,7 @@
 import React from 'react';
 
 // mui
-import { IconButton } from '@mui/material';
+import { IconButton, Tooltip } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 
 // components
@@ -44,16 +44,18 @@ const TaskCreateDialog = () => {
 
   return (
     <>
-      <IconButton
-        size="large"
-        edge="start"
-        color="inherit"
-        aria-label="Create new task"
-        focusRipple
-        onClick={openForm}
-      >
-        <AddIcon />
-      </IconButton>
+      <Tooltip title="New Task">
+        <IconButton
+          size="large"
+          edge="start"
+          color="inherit"
+          aria-label="create new task"
+          focusRipple
+          onClick={openForm}
+        >
+          <AddIcon />
+        </IconButton>
+      </Tooltip>
       <CustomDialog open={formOpen} onClose={tryClose}>
         <TaskForm
           data={data}

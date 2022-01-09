@@ -15,6 +15,7 @@ import {
   ListItemText,
   ListItemIcon,
   Divider,
+  Tooltip,
 } from '@mui/material';
 import LocalOfferOutlinedIcon from '@mui/icons-material/LocalOfferOutlined';
 import LocalOfferIcon from '@mui/icons-material/LocalOffer';
@@ -56,22 +57,26 @@ const LabelControl = ({ label, setLabel }) => {
   return (
     <Box>
       {label ? (
-        <Button
-          onClick={handleOpen}
-          sx={(theme) => ({
-            color: theme.palette.text.primary,
-            textTransform: 'capitalize',
-            fontWeight: 'normal',
-            '&:hover': { backgroundColor: 'rgba(0, 0, 0, 0.04)' },
-          })}
-          startIcon={<LocalOfferIcon sx={{ color: colors[label.color] }} />}
-        >
-          {label.name}
-        </Button>
+        <Tooltip title="Update Label">
+          <Button
+            onClick={handleOpen}
+            sx={(theme) => ({
+              color: theme.palette.text.primary,
+              textTransform: 'capitalize',
+              fontWeight: 'normal',
+              '&:hover': { backgroundColor: 'rgba(0, 0, 0, 0.04)' },
+            })}
+            startIcon={<LocalOfferIcon sx={{ color: colors[label.color] }} />}
+          >
+            {label.name}
+          </Button>
+        </Tooltip>
       ) : (
-        <IconButton aria-label="Set label" onClick={handleOpen}>
-          <LocalOfferOutlinedIcon />
-        </IconButton>
+        <Tooltip title="Set Label">
+          <IconButton aria-label="Set label" onClick={handleOpen}>
+            <LocalOfferOutlinedIcon />
+          </IconButton>
+        </Tooltip>
       )}
       <Popover
         id={id}
