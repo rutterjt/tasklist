@@ -14,6 +14,7 @@ import {
   Divider,
   ListItemButton,
   ListItemIcon,
+  Tooltip,
 } from '@mui/material';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import EditIcon from '@mui/icons-material/Edit';
@@ -66,9 +67,11 @@ const LabelSettings = ({ id }) => {
 
   return (
     <Box>
-      <IconButton aria-label="more options" edge="end" onClick={openSettings}>
-        <MoreHorizIcon />
-      </IconButton>
+      <Tooltip title="More options">
+        <IconButton aria-label="more options" edge="end" onClick={openSettings}>
+          <MoreHorizIcon />
+        </IconButton>
+      </Tooltip>
       <Popover
         id={htmlID}
         open={settingsOpen}
