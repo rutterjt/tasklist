@@ -44,12 +44,12 @@ const TaskCreateDialog = () => {
 
   return (
     <>
-      <Tooltip title="Create New Task">
+      <Tooltip title="New Task">
         <IconButton
           size="large"
           edge="start"
           color="inherit"
-          aria-label="Create new task"
+          aria-label="create new task"
           focusRipple
           onClick={openForm}
         >

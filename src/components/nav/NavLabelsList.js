@@ -14,7 +14,7 @@ import CustomDialog from '../CustomDialog';
 import { useStore } from '../../store/useStore';
 
 const AddLabelButton = ({ onClick }) => (
-  <Tooltip title="New label">
+  <Tooltip title="New Label">
     <IconButton edge="end" aria-label="new label" onClick={onClick}>
       <AddIcon />
     </IconButton>
