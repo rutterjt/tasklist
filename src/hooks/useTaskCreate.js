@@ -28,7 +28,7 @@ import { taskCreated } from '../store/slices/listSlice';
  * @param {object} [defaultItem={}] - Default form data, injected into the initial form data state if provided.
  *
  */
-export const useTaskCreate = (defaultItem) => {
+export const useTaskCreate = (defaultItem = {}) => {
   const dispatch = useDispatch();
   const [data, setData] = useState(defaultItem ? defaultItem : {});
 
