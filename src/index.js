@@ -6,6 +6,7 @@ import CssBaseline from '@mui/material/CssBaseline';
 // store
 import { Provider } from 'react-redux';
 import store from './store/store';
+import { saveState } from './store/localStorage';
 
 // mui/date
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
@@ -19,6 +20,11 @@ import '@fontsource/roboto/300.css';
 import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
+
+store.subscribe(() => {
+  const { list, labels } = store.getState();
+  saveState({ list, labels });
+});
 
 ReactDOM.render(
   <React.StrictMode>
