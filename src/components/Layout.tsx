@@ -1,20 +1,26 @@
 import React from 'react';
 
-// proptypes
-import PropTypes from 'prop-types';
+// react helmet
+import { Helmet } from 'react-helmet-async';
 
 // mui
 import { Box } from '@mui/material';
 
 // components
-import Spacebar from './Spacebar';
+import { Spacebar } from './Spacebar';
+
+type Props = {
+  title: string;
+};
 
 /**
  * The app's main content layout component.
- * @param {any} children - The app's main content.
  */
-const Layout = ({ children }) => {
-  return (
+export const Layout: React.FC<Props> = ({ title, children }) => (
+  <>
+    <Helmet>
+      <title>All Tasks | TaskList</title>
+    </Helmet>
     <Box
       sx={{
         pl: { xs: 2, sm: 4, lg: 8 },
@@ -27,11 +33,5 @@ const Layout = ({ children }) => {
 
       {children}
     </Box>
-  );
-};
-
-Layout.propTypes = {
-  children: PropTypes.node.isRequired,
-};
-
-export default Layout;
+  </>
+);

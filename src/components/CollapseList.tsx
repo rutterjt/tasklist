@@ -1,8 +1,5 @@
 import React, { useState } from 'react';
 
-// proptypes
-import PropTypes from 'prop-types';
-
 // mui
 import {
   List,
@@ -15,13 +12,19 @@ import {
 import ExpandMore from '@mui/icons-material/ExpandMore';
 import ExpandLess from '@mui/icons-material/ExpandLess';
 
+type Props = {
+  label: string;
+  secondaryAction: React.ReactNode;
+};
+
 /**
  * Renders a MUI List component with a dropdownlist.
- * @param {string} label - The text for the dropdown trigger.
- * @param {any} secondaryAction - JSX element to provide secondary functionality to the dropdown button.
- * @param {any} children - The content of the dropdown <List>.
  */
-const CollapseList = ({ label, secondaryAction, children }) => {
+export const CollapseList: React.FC<Props> = ({
+  label,
+  secondaryAction,
+  children,
+}) => {
   const [expanded, setExpanded] = useState(false);
   const handleClick = () => {
     setExpanded((prev) => !prev);
@@ -43,15 +46,3 @@ const CollapseList = ({ label, secondaryAction, children }) => {
     </List>
   );
 };
-
-CollapseList.defaultProps = {
-  secondaryAction: null,
-};
-
-CollapseList.propTypes = {
-  label: PropTypes.string.isRequired,
-  secondaryAction: PropTypes.node,
-  children: PropTypes.node.isRequired,
-};
-
-export default CollapseList;
