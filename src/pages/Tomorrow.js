@@ -11,11 +11,11 @@ import add from 'date-fns/add';
 
 // components
 import Layout from '../components/Layout';
-import TaskList from '../components/TaskList';
-import TaskCreateDropdown from '../components/TaskCreateDropdown';
+import TaskList from '../features/tasks/TaskList';
+import TaskCreateDropdown from '../features/tasks/TaskCreateDropdown';
 
 // store
-import { selectTaskIdsByCallback } from '../store/slices/listSlice';
+import { selectTaskIdsByCallback } from '../features/tasks/tasksSlice';
 
 // utils
 import { isDueTomorrow } from '../utils/time';

@@ -11,12 +11,12 @@ import { Helmet } from 'react-helmet-async';
 
 // components
 import Layout from '../components/Layout';
-import TaskList from '../components/TaskList';
-import TaskCreateDropdown from '../components/TaskCreateDropdown';
+import TaskList from '../features/tasks/TaskList';
+import TaskCreateDropdown from '../features/tasks/TaskCreateDropdown';
 
 // store
-import { selectLabelIdByName } from '../store/slices/labelsSlice';
-import { selectTaskIdsByLabel } from '../store/slices/listSlice';
+import { selectLabelIdByName } from '../features/labels/labelsSlice';
+import { selectTaskIdsByLabel } from '../features/tasks/tasksSlice';
 
 const Label = () => {
   const { label: labelName } = useParams();

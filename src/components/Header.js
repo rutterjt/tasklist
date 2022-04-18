@@ -19,13 +19,13 @@ import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
 // store
-import { navToggled, selectNavOpen } from '../store/slices/navSlice';
+import { navToggled, selectNavOpen } from '../features/nav/navSlice';
 
 // images
-import Logo from '../images/logo.svg';
+import Logo from '../app/logo.svg';
 
 // components
-import TaskCreateDialog from './TaskCreateDialog';
+import TaskCreateDialog from '../features/tasks/TaskCreateDialog';
 
 /**
  * Renders the site header.

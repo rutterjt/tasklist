@@ -7,7 +7,7 @@ import { useLocation } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 
 // store
-import { navClosed } from '../store/slices/navSlice';
+import { navClosed } from '../features/nav/navSlice';
 
 /**
  * Utility component that closes the nav whenever the user changes pages.

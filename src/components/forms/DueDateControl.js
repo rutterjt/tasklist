@@ -107,7 +107,7 @@ const DueDateControl = ({ date, setDate }) => {
             <DateListItem
               title="No Date"
               icon={<DoNotDisturbAltIcon />}
-              onClick={() => handleClick(null)}
+              onClick={() => handleClick(undefined)}
             />
           </List>
         </Box>

@@ -8,11 +8,11 @@ import { Helmet } from 'react-helmet-async';
 
 // components
 import Layout from '../components/Layout';
-import TaskList from '../components/TaskList';
-import TaskCreateDropdown from '../components/TaskCreateDropdown';
+import TaskList from '../features/tasks/TaskList';
+import TaskCreateDropdown from '../features/tasks/TaskCreateDropdown';
 
 // store
-import { selectTaskIdsByCallback } from '../store/slices/listSlice';
+import { selectTaskIdsByCallback } from '../features/tasks/tasksSlice';
 
 // utils
 import { isPastDue } from '../utils/time';

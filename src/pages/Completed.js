@@ -12,11 +12,11 @@ import { useDispatch, useSelector, shallowEqual } from 'react-redux';
 
 // components
 import Layout from '../components/Layout';
-import CompletedTaskList from '../components/CompletedTaskList';
+import CompletedTaskList from '../features/tasks/CompletedTaskList';
 import WarningDialog from '../components/WarningDialog';
 
 // store
-import { completedDeleted, selectTaskIds } from '../store/slices/listSlice';
+import { completedDeleted, selectTaskIds } from '../features/tasks/tasksSlice';
 
 // custom hooks
 import { usePopup } from '../hooks/usePopup';

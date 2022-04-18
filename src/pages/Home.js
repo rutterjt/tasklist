@@ -1,28 +1,22 @@
 import React from 'react';
 
-// react helmet
-import { Helmet } from 'react-helmet-async';
-
 // redux
 import { useSelector, shallowEqual } from 'react-redux';
 
 // store
-import { selectTaskIds } from '../store/slices/listSlice';
+import { selectTaskIds } from '../features/tasks/tasksSlice';
 
 // components
-import Layout from '../components/Layout';
-import TaskList from '../components/TaskList';
-import TaskCreateDropdown from '../components/TaskCreateDropdown';
+import { Layout } from '../components';
+import TaskList from '../features/tasks/TaskList';
+import TaskCreateDropdown from '../features/tasks/TaskCreateDropdown';
 
 const Home = () => {
   const taskIds = useSelector(selectTaskIds, shallowEqual);
 
   return (
-    <Layout>
-      <Helmet>
-        <title>All Tasks | TaskList</title>
-      </Helmet>
-      <TaskList label="All Tasks" list={taskIds} />
+    <Layout title="All Tasks | TaskList">
+      <TaskList label="All Tasks" taskIds={taskIds} />
       <TaskCreateDropdown />
     </Layout>
   );

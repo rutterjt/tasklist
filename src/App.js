@@ -7,20 +7,19 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { Box } from '@mui/material';
 
 // pages
-import Home from './pages/Home';
-import Today from './pages/Today';
-import Tomorrow from './pages/Tomorrow';
-import Completed from './pages/Completed';
-import PastDue from './pages/PastDue';
-import Upcoming from './pages/Upcoming';
-import Label from './pages/Label';
+import {
+  Home,
+  Today,
+  Tomorrow,
+  Completed,
+  PastDue,
+  Upcoming,
+  Label,
+} from './pages';
 
 // components
-import Header from './components/Header';
-import Nav from './components/nav/Nav';
-
-// util components
-import PageChange from './components/PageChange';
+import { Header, PageChange } from './components';
+import Nav from './features/nav/Nav';
 
 const App = () => (
   <Router>
