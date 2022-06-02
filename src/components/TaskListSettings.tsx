@@ -26,9 +26,27 @@ import { usePopover } from '../hooks/usePopover';
 // components
 import ListHeader from './ListHeader';
 
-const capitalize = (str) => str[0].toUpperCase() + str.slice(1).toLowerCase();
+type SortOption =
+  | 'default'
+  | 'alphabetically'
+  | 'due date'
+  | 'date added'
+  | 'priority';
 
-const SettingsListItem = ({ value, sortBy, handleClick }) => (
+const capitalize = (str: string) =>
+  str[0].toUpperCase() + str.slice(1).toLowerCase();
+
+type ItemProps = {
+  value: SortOption;
+  sortBy: string;
+  handleClick: (value: SortOption) => void;
+};
+
+const SettingsListItem: React.FC<ItemProps> = ({
+  value,
+  sortBy,
+  handleClick,
+}) => (
   <ListItem disablePadding>
     <ListItemButton onClick={() => handleClick(value)}>
       {sortBy === value && (
@@ -45,16 +63,19 @@ const SettingsListItem = ({ value, sortBy, handleClick }) => (
  * Renders a button that, when pressed, opens a popover that allows users to sort the list in different ways.
  *
  */
-const TaskListSettings = () => {
+export const TaskListSettings = () => {
   const { dispatch, sortBy } = useStore();
   const [anchor, handleOpen, handleClose, open] = usePopover();
 
   // store
-  const sortCreator = (order) => ({ type: CHANGE_SORT_ORDER, payload: order });
+  const sortCreator = (order: SortOption) => ({
+    type: CHANGE_SORT_ORDER,
+    payload: order,
+  });
 
-  const setSortBy = (order) => dispatch(sortCreator(order));
+  const setSortBy = (order: SortOption) => dispatch(sortCreator(order));
 
-  const handleClick = (value) => {
+  const handleClick = (value: SortOption) => {
     setSortBy(value);
     handleClose();
   };
