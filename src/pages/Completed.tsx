@@ -19,7 +19,7 @@ import { EMPTY_TRASH } from '../store/actions';
 // custom hooks
 import { usePopup } from '../hooks/usePopup';
 
-const Completed = () => {
+export const Completed: React.FC = () => {
   const { dispatch, deleted } = useStore();
   const [warningOpen, openWarning, closeWarning] = usePopup(false);
 
@@ -41,7 +41,7 @@ const Completed = () => {
         <title>Completed | TaskList</title>
       </Helmet>
 
-      <CompletedTaskList list={deleted} noCheckbox />
+      <CompletedTaskList list={deleted} label="Completed" />
       <Button
         onClick={checkBeforeWarning}
         color="error"

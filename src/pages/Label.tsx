@@ -18,10 +18,13 @@ import TaskCreateDropdown from '../components/TaskCreateDropdown';
 // store
 import { useStore } from '../store/useStore';
 
-const hasLabel = (label) => (listItem) =>
+// types
+import { TaskType, LabelType } from '../types';
+
+const hasLabel = (label?: LabelType) => (listItem: TaskType) =>
   get(listItem, 'label.name', null) === get(label, 'name');
 
-const Label = () => {
+export const Label: React.FC = () => {
   const { list, labels } = useStore();
   const { label: paramLabelName } = useParams();
 

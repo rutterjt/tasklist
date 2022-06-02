@@ -17,7 +17,7 @@ import { useStore } from '../store/useStore';
 // utils
 import { isDueTomorrow } from '../utils/time';
 
-const Tomorrow = () => {
+export const Tomorrow: React.FC = () => {
   const { list } = useStore();
 
   const filteredList = list.filter(isDueTomorrow);

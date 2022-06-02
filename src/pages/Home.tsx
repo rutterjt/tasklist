@@ -6,28 +6,23 @@ import { Helmet } from 'react-helmet-async';
 // components
 import Layout from '../components/Layout';
 import TaskList from '../components/TaskList';
-import TaskCreateDropdown from '../components/TaskCreateDropdown';
+import { TaskCreateDropdown } from '../components/TaskCreateDropdown';
 
 // store
 import { useStore } from '../store/useStore';
 
-// utils
-import { isDueInFuture } from '../utils/time';
-
-const Upcoming = () => {
+export const Home: React.FC = () => {
   const { list } = useStore();
-
-  const filteredList = list.filter(isDueInFuture);
 
   return (
     <Layout>
       <Helmet>
-        <title>Upcoming | TaskList</title>
+        <title>All Tasks | TaskList</title>
       </Helmet>
-      <TaskList label={'Upcoming'} list={filteredList} />
+      <TaskList label={'All Tasks'} list={list} />
       <TaskCreateDropdown />
     </Layout>
   );
 };
 
-export default Upcoming;
+export default Home;

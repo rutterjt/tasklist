@@ -11,18 +11,22 @@ import TaskCreateDropdown from '../components/TaskCreateDropdown';
 // store
 import { useStore } from '../store/useStore';
 
-const Home = () => {
+// utils
+import { isPastDue } from '../utils/time';
+
+export const PastDue: React.FC = () => {
   const { list } = useStore();
 
+  const filteredList = list.filter(isPastDue);
   return (
     <Layout>
       <Helmet>
-        <title>All Tasks | TaskList</title>
+        <title>Past Due | TaskList</title>
       </Helmet>
-      <TaskList label={'All Tasks'} list={list} />
+      <TaskList label={'Past Due'} list={filteredList} />
       <TaskCreateDropdown />
     </Layout>
   );
 };
 
-export default Home;
+export default PastDue;
