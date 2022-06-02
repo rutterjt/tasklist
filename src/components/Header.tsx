@@ -28,7 +28,7 @@ import TaskCreateDialog from './TaskCreateDialog';
 /**
  * Renders the site header.
  */
-const Header = () => {
+export const Header: React.FC = () => {
   const { dispatch, navOpen } = useStore();
 
   const toggleNav = () => dispatch({ type: TOGGLE_NAV });
