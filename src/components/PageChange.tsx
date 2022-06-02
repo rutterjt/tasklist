@@ -10,7 +10,7 @@ import { CLOSE_NAV } from '../store/actions';
 /**
  * Utility component that closes the nav whenever the user changes pages.
  */
-const PageChange = () => {
+export const PageChange = () => {
   const { pathname } = useLocation();
   const { dispatch } = useStore();
   useEffect(() => {
