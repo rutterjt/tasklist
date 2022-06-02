@@ -1,36 +1,45 @@
 import React from 'react';
 
-// proptypes
-import PropTypes from 'prop-types';
-
 // mui
-import { Snackbar, Alert, Button, Slide } from '@mui/material';
+import { Snackbar, Alert, Button, Slide, SlideProps } from '@mui/material';
 
 // store
 import { useStore } from '../store/useStore';
 import { RESTORE_TASK } from '../store/actions';
 
-const SlideTransition = (props) => {
+type BaseSlideProps = {
+  direction: 'right';
+};
+type SlideTProps = Omit<SlideProps, keyof BaseSlideProps>;
+const SlideTransition: React.FC<SlideTProps> = (props: SlideProps) => {
   return <Slide {...props} direction="right" />;
+};
+
+type Props = {
+  open: boolean;
+  handleClose: () => void;
+  id: string;
 };
 
 /**
  * Renders an alert confirming that a list item was deleted, with a button to undo the deletion.
- * @param {boolean} open - Whether the alert should render.
- * @param {function} handleClose - Code to run when the user attempts to close the alert, or the alert times out.
- * @param {string} id - The id of the most recently-deleted task.
+task.
  */
-const UndoAlert = ({ open, handleClose, id }) => {
+export const UndoAlert: React.FC<Props> = ({
+  open = false,
+  handleClose,
+  id,
+}) => {
   const { dispatch } = useStore();
 
   // store
-  const restoreCreator = (id) => ({
+  const restoreCreator = () => ({
     type: RESTORE_TASK,
     payload: id,
   });
 
   const restoreTask = () => {
-    dispatch(restoreCreator(id));
+    dispatch(restoreCreator());
     handleClose();
   };
 
@@ -59,16 +68,6 @@ const UndoAlert = ({ open, handleClose, id }) => {
       </Alert>
     </Snackbar>
   );
-};
-
-UndoAlert.defaultProps = {
-  open: false,
-};
-
-UndoAlert.propTypes = {
-  open: PropTypes.bool.isRequired,
-  handleClose: PropTypes.func.isRequired,
-  id: PropTypes.string.isRequired,
 };
 
 export default UndoAlert;
