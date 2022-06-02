@@ -1,8 +1,5 @@
 import React from 'react';
 
-// proptypes
-import PropTypes from 'prop-types';
-
 // mui
 import { Button, Box, Typography, Grid } from '@mui/material';
 
@@ -10,7 +7,6 @@ import { Button, Box, Typography, Grid } from '@mui/material';
 import PriorityIcon from './PriorityIcon';
 import DateChip from './DateChip';
 import WarningDialog from './WarningDialog';
-import TaskUpdateForm from './forms/TaskUpdateForm';
 import CustomDialog from './CustomDialog';
 import LabelDisplay from './LabelDisplay';
 
@@ -20,48 +16,52 @@ import { useStore } from '../store/useStore';
 // hooks
 import { usePopup } from '../hooks/usePopup';
 
-export const DetailsGrid = ({ children }) => (
+// types
+import { TaskType } from '../types';
+import { UpdateTask } from './forms/UpdateTask';
+
+export const DetailsGrid: React.FC = ({ children }) => (
   <Grid container justifyContent="space-between">
     {children}
   </Grid>
 );
 
-export const ButtonGrid = ({ children }) => (
+export const ButtonGrid: React.FC = ({ children }) => (
   <Grid container sx={{ mt: 2 }} justifyContent="flex-end" spacing={2}>
     {children}
   </Grid>
 );
 
-const TaskDetailsBox = ({
-  name,
-  description,
-  due,
-  priority,
-  openEditor,
-  label,
-}) => (
+type BoxProps = {
+  task: TaskType;
+  openEditor: () => void;
+};
+
+const TaskDetailsBox: React.FC<BoxProps> = ({ task, openEditor }) => (
   <Box sx={{ p: 3 }}>
     <Typography variant="h6" component="h3" sx={{ mb: 3 }}>
-      {name}
+      {task.name}
     </Typography>
-    {description && (
+    {task.description && (
       <Typography variant="body1" sx={{ mb: 4 }}>
-        {description}
+        {task.description}
       </Typography>
     )}
     <Grid container justifyContent="space-between" spacing={2}>
-      <Grid item>
-        <DateChip date={due} />
-      </Grid>
+      {task.due && (
+        <Grid item>
+          <DateChip date={task.due} />
+        </Grid>
+      )}
       <Grid item>
         <Grid container alignItems="center" spacing={2}>
-          {label && (
+          {task.label && (
             <Grid item>
-              <LabelDisplay label={label} />
+              <LabelDisplay label={task.label} />
             </Grid>
           )}
           <Grid item>
-            <PriorityIcon priority={priority} />
+            <PriorityIcon priority={task.priority} />
           </Grid>
         </Grid>
       </Grid>
@@ -76,16 +76,19 @@ const TaskDetailsBox = ({
   </Box>
 );
 
+type Props = {
+  open: boolean;
+  onClose: () => void;
+  id: string;
+};
+
 /**
  * Renders a modal box to display the Task's details.
- * @param {boolean} open - Boolean for whether the dialog should be open.
- * @param {function} onClose - Code to run when the user attempts to close the dialog.
- * @param {string} id - The id of the current task.
  */
-const TaskDetails = ({ open, onClose, id }) => {
+export const TaskDetails: React.FC<Props> = ({ open = false, onClose, id }) => {
   const { list } = useStore();
   // get all details of currently-opened task
-  const task = list.find((task) => task.id === id) || {};
+  const task = list.find((task) => task.id === id) || null;
   const [warningOpen, openWarning, closeWarning] = usePopup(false);
   const [editorOpen, openEditor, closeEditor, tryCloseEditor] = usePopup(false);
 
@@ -100,16 +103,18 @@ const TaskDetails = ({ open, onClose, id }) => {
   const tryClose = () =>
     tryCloseEditor(() => !editorOpen, confirmClose, openWarning);
 
+  if (!task) return null;
+
   return (
     <CustomDialog onClose={tryClose} open={open}>
       {editorOpen ? (
-        <TaskUpdateForm
+        <UpdateTask
           task={task}
-          handleClose={tryClose}
-          handleSave={closeEditor}
+          onClose={confirmClose}
+          onDiscard={openWarning}
         />
       ) : (
-        <TaskDetailsBox {...task} openEditor={openEditor} />
+        <TaskDetailsBox task={task} openEditor={openEditor} />
       )}
       <WarningDialog
         open={warningOpen}
@@ -122,16 +127,6 @@ const TaskDetails = ({ open, onClose, id }) => {
       />
     </CustomDialog>
   );
-};
-
-TaskDetails.defaultProps = {
-  open: false,
-};
-
-TaskDetails.propTypes = {
-  open: PropTypes.bool.isRequired,
-  onClose: PropTypes.func.isRequired,
-  id: PropTypes.string.isRequired,
 };
 
 export default TaskDetails;
