@@ -4,7 +4,7 @@ export type PriorityType = 1 | 2 | 3 | 4;
 
 export interface LabelIncompleteType {
   name: string;
-  color: ColorType;
+  color?: ColorType;
   id?: string;
 }
 export interface LabelType extends LabelIncompleteType {
