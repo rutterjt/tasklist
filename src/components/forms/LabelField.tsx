@@ -1,8 +1,5 @@
 import React from 'react';
 
-// proptypes
-import PropTypes from 'prop-types';
-
 // mui
 import {
   Box,
@@ -33,16 +30,22 @@ import ListHeader from '../ListHeader';
 // hooks
 import { usePopover } from '../../hooks/usePopover';
 
+import { LabelType } from '../../types';
+
+type Props = {
+  label: LabelType | undefined;
+  setLabel: React.Dispatch<React.SetStateAction<LabelType | undefined>>;
+};
+
 /**
  * A form control to handle adding a label to a task.
- * @param {string} label - A label object.
- * @param {function} setLabel - A setter for task.label.
  */
-const LabelControl = ({ label, setLabel }) => {
+export const LabelField: React.FC<Props> = ({ label, setLabel }) => {
   const [anchor, handleOpen, handleClose, open] = usePopover();
   const { labels } = useStore();
 
-  const handleClick = (label) => {
+  const handleClick = (label: LabelType) => {
+    console.log(label);
     setLabel(label);
     handleClose();
   };
@@ -66,7 +69,15 @@ const LabelControl = ({ label, setLabel }) => {
               fontWeight: 'normal',
               '&:hover': { backgroundColor: 'rgba(0, 0, 0, 0.04)' },
             })}
-            startIcon={<LocalOfferIcon sx={{ color: colors[label.color] }} />}
+            startIcon={
+              <LocalOfferIcon
+                sx={{
+                  color: label.color
+                    ? colors[label.color as keyof typeof colors]
+                    : 'grey',
+                }}
+              />
+            }
           >
             {label.name}
           </Button>
@@ -88,19 +99,22 @@ const LabelControl = ({ label, setLabel }) => {
         <List>
           <ListHeader>Label</ListHeader>
           <Divider />
-          {labels.map((label) => {
-            const { name, color, id } = label;
-            return (
-              <ListItem key={id} sx={{ p: 0 }}>
-                <ListItemButton onClick={() => handleClick(label)}>
-                  <ListItemIcon>
-                    <LocalOfferIcon sx={{ color: colors[color] }} />
-                  </ListItemIcon>
-                  <ListItemText>{name}</ListItemText>
-                </ListItemButton>
-              </ListItem>
-            );
-          })}
+          {labels.map((label) => (
+            <ListItem key={label.id} sx={{ p: 0 }}>
+              <ListItemButton onClick={() => handleClick(label)}>
+                <ListItemIcon>
+                  <LocalOfferIcon
+                    sx={{
+                      color: label.color
+                        ? colors[label.color as keyof typeof colors]
+                        : 'grey',
+                    }}
+                  />
+                </ListItemIcon>
+                <ListItemText>{label.name}</ListItemText>
+              </ListItemButton>
+            </ListItem>
+          ))}
           <Divider />
           <ListItem key={id} sx={{ p: 0 }}>
             <ListItemButton onClick={clearLabel}>
@@ -115,10 +129,3 @@ const LabelControl = ({ label, setLabel }) => {
     </Box>
   );
 };
-
-LabelControl.propTypes = {
-  label: PropTypes.object,
-  setLabel: PropTypes.func.isRequired,
-};
-
-export default LabelControl;

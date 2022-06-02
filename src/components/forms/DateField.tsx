@@ -1,8 +1,5 @@
 import React from 'react';
 
-// proptypes
-import PropTypes from 'prop-types';
-
 // mui
 import {
   List,
@@ -17,7 +14,7 @@ import {
   Divider,
   Tooltip,
 } from '@mui/material';
-import DatePicker from '@mui/lab/DatePicker';
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 
 // mui icons
 import TodayIcon from '@mui/icons-material/Today';
@@ -34,8 +31,14 @@ import { displayDate } from '../../utils/date';
 // hooks
 import { usePopover } from '../../hooks/usePopover';
 
+type ItemProps = {
+  title: string;
+  icon: JSX.Element;
+  onClick: () => void;
+};
+
 // components
-const DateListItem = ({ title, icon, onClick }) => (
+const DateListItem: React.FC<ItemProps> = ({ title, icon, onClick }) => (
   <ListItem sx={{ p: 0 }}>
     <ListItemButton onClick={onClick}>
       <ListItemIcon>{icon}</ListItemIcon>
@@ -44,20 +47,19 @@ const DateListItem = ({ title, icon, onClick }) => (
   </ListItem>
 );
 
+type Props = {
+  date: Date | undefined;
+  setDate: React.Dispatch<React.SetStateAction<Date | undefined>>;
+};
+
 /**
  * A form control to handle picking a date.
- * @param {number} date - A number representing the date in milliseconds Unix time.
- * @param {function} setDate - A setter for the date.
  */
-const DueDateControl = ({ date, setDate }) => {
+export const DateField: React.FC<Props> = ({ date, setDate }) => {
   const [anchor, handleOpen, handleClose, open] = usePopover();
 
-  const handleDateChange = (newDate) => {
-    newDate === undefined ? setDate(undefined) : setDate(newDate.getTime());
-  };
-
-  const handleClick = (newDate) => {
-    handleDateChange(newDate);
+  const handleClick = (newDate: Date | undefined) => {
+    setDate(newDate);
     handleClose();
   };
 
@@ -66,7 +68,7 @@ const DueDateControl = ({ date, setDate }) => {
     <Box>
       <Tooltip title="Set Due Date" aria-label="Set due date">
         <Button onClick={handleOpen} variant="outlined">
-          {displayDate(date)}
+          {date ? displayDate(date) : 'Schedule'}
         </Button>
       </Tooltip>
       <Popover
@@ -81,7 +83,9 @@ const DueDateControl = ({ date, setDate }) => {
             label="Due Date"
             value={date}
             onChange={(newValue) => {
-              handleDateChange(newValue);
+              if (newValue) {
+                setDate(new Date(newValue));
+              }
             }}
             onAccept={handleClose}
             renderInput={(params) => (
@@ -110,7 +114,7 @@ const DueDateControl = ({ date, setDate }) => {
             <DateListItem
               title="No Date"
               icon={<DoNotDisturbAltIcon />}
-              onClick={() => handleClick(null)}
+              onClick={() => handleClick(undefined)}
             />
           </List>
         </Box>
@@ -118,10 +122,3 @@ const DueDateControl = ({ date, setDate }) => {
     </Box>
   );
 };
-
-DueDateControl.propTypes = {
-  date: PropTypes.number,
-  setDate: PropTypes.func.isRequired,
-};
-
-export default DueDateControl;
