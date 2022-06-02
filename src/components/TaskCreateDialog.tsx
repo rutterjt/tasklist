@@ -6,11 +6,10 @@ import AddIcon from '@mui/icons-material/Add';
 
 // components
 import CustomDialog from './CustomDialog';
-import TaskForm from './forms/TaskForm';
 import WarningDialog from './WarningDialog';
+import { CreateTask } from './forms/CreateTask';
 
 // hooks
-import { useTaskCreate } from '../hooks/useTaskCreate';
 import { usePopup } from '../hooks/usePopup';
 
 /**
@@ -20,26 +19,14 @@ import { usePopup } from '../hooks/usePopup';
  *
  * Also renders a warning dialog when the user attempts to close the form without saving.
  */
-const TaskCreateDialog = () => {
-  const { data, setter, submit, isEmpty, isValid, close } = useTaskCreate();
-  const [formOpen, openForm, closeForm, tryCloseForm] = usePopup();
+export const TaskCreateDialog: React.FC = () => {
+  const [formOpen, openForm, closeForm] = usePopup();
   const [warningOpen, openWarning, closeWarning] = usePopup();
 
   // form error checking
-  const confirmClose = () => {
-    close();
+  const close = () => {
     closeForm();
     closeWarning();
-  };
-
-  const tryClose = () => tryCloseForm(isEmpty, confirmClose, openWarning);
-
-  // submit
-  const handleSubmit = () => {
-    if (isValid()) {
-      submit();
-      confirmClose();
-    }
   };
 
   return (
@@ -56,20 +43,15 @@ const TaskCreateDialog = () => {
           <AddIcon />
         </IconButton>
       </Tooltip>
-      <CustomDialog open={formOpen} onClose={tryClose}>
-        <TaskForm
-          data={data}
-          setter={setter}
-          onSubmit={handleSubmit}
-          closeForm={tryClose}
-        />
+      <CustomDialog open={formOpen} onClose={openWarning}>
+        <CreateTask onClose={close} onDiscard={openWarning} />
       </CustomDialog>
       <WarningDialog
         open={warningOpen}
         title="Discard Changes"
         body="Are you sure you want to discard your work? This cannot be undone"
         handleCancel={closeWarning}
-        handleConfirm={confirmClose}
+        handleConfirm={close}
         confirmLabel={'Discard'}
         cancelLabel={'Cancel'}
       />
