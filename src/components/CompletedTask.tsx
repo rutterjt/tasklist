@@ -1,8 +1,5 @@
 import React, { useState } from 'react';
 
-// proptypes
-import PropTypes from 'prop-types';
-
 // mui
 import {
   ListItem,
@@ -14,30 +11,34 @@ import {
 
 // store
 import { useStore } from '../store/useStore';
-import { RESTORE_TASK } from '../store/actions';
 
 // components
 import TaskDeleteControl from './TaskListItem/TaskDeleteControl';
 import TaskPrimaryInfo from './TaskListItem/./TaskPrimaryInfo';
 import TaskSecondaryInfo from './TaskListItem/./TaskSecondaryInfo';
 
+import type { TaskType } from '../types';
+
+type Props = {
+  task: TaskType;
+};
+
 /**
  * A modified TaskListItem, rendered by the CompletedTaskList to represent a task that has been deleted.
- * @param {object} task - A task object.
  */
-const CompletedTask = ({ task }) => {
+export const CompletedTask: React.FC<Props> = ({ task }) => {
   // store
   const { dispatch } = useStore();
   const [checked, setChecked] = useState(true);
 
   // destructuring task properties
-  const { name, description, priority, due, id } = task;
+  const { name, description, priority, due, id, label } = task;
 
-  const restoreCreator = (id) => {
-    return { type: RESTORE_TASK, payload: id };
+  const restoreCreator = (id: string) => {
+    return { type: 'RESTORE_TASK', payload: id };
   };
 
-  const restoreTask = (id) => {
+  const restoreTask = (id: string) => {
     setChecked(false);
     dispatch(restoreCreator(id));
   };
@@ -64,6 +65,7 @@ const CompletedTask = ({ task }) => {
                 description={description}
                 due={due}
                 priority={priority}
+                label={label}
               />
             }
           />
@@ -72,20 +74,6 @@ const CompletedTask = ({ task }) => {
       <Divider component="li" sx={{ ml: 7 }} />
     </>
   );
-};
-
-CompletedTask.defaultProps = {
-  task: {
-    name: '',
-    id: '',
-  },
-};
-
-CompletedTask.propTypes = {
-  task: PropTypes.shape({
-    name: PropTypes.string.isRequired,
-    id: PropTypes.string.isRequired,
-  }),
 };
 
 export default CompletedTask;
