@@ -1,58 +1,39 @@
 import React from 'react';
 
-// proptypes
-import PropTypes from 'prop-types';
-
 // mui
 import { Box, Button } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 
 // components
-import TaskForm from './forms/TaskForm';
+import { CreateTask } from './forms/CreateTask';
 import WarningDialog from './WarningDialog';
 
 // hooks
-import { useTaskCreate } from '../hooks/useTaskCreate';
 import { usePopup } from '../hooks/usePopup';
+
+type Props = {
+  defaultItem?: any;
+};
 
 /**
  * Renders a button that, when pressed, causes a Task creation form to be rendered as a dropdown.
  *
  * Also renders a warning dialog when the user attempts to close the form without saving.
- * @param {object} [defaultItem] - Default item data. Passed to the underlying Task form.
  */
-const TaskCreateDropdown = ({ defaultItem }) => {
-  const { data, setter, submit, close, isValid, isEmpty } = useTaskCreate();
-  const [formOpen, openForm, closeForm, tryCloseForm] = usePopup(false);
+export const TaskCreateDropdown: React.FC<Props> = ({ defaultItem }) => {
+  const [formOpen, openForm, closeForm] = usePopup(false);
   const [warningOpen, openWarning, closeWarning] = usePopup(false);
 
   // closes the entire ui
-  const confirmClose = () => {
+  const close = () => {
     closeForm();
     closeWarning();
-    close();
   };
-
-  // submits the form
-  const handleSubmit = () => {
-    if (isValid()) {
-      submit();
-      confirmClose();
-    }
-  };
-
-  // attempts to close the ui, running
-  const tryClose = () => tryCloseForm(isEmpty, confirmClose, openWarning);
 
   return (
     <Box sx={{ mt: 2 }}>
       {formOpen ? (
-        <TaskForm
-          data={data}
-          setter={setter}
-          onSubmit={handleSubmit}
-          closeForm={tryClose}
-        />
+        <CreateTask onClose={close} onDiscard={openWarning} />
       ) : (
         <Button variant="text" onClick={openForm} startIcon={<AddIcon />}>
           Add task
@@ -63,20 +44,12 @@ const TaskCreateDropdown = ({ defaultItem }) => {
         title="Discard Changes"
         body="Are you sure you want to discard your work? This cannot be undone"
         handleCancel={closeWarning}
-        handleConfirm={confirmClose}
+        handleConfirm={close}
         confirmLabel={'Discard'}
         cancelLabel={'Cancel'}
       />
     </Box>
   );
-};
-
-TaskCreateDropdown.defaultProps = {
-  defaultItem: {},
-};
-
-TaskCreateDropdown.propTypes = {
-  defaultItem: PropTypes.object,
 };
 
 export default TaskCreateDropdown;
