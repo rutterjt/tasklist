@@ -1,13 +1,15 @@
 import React from 'react';
 
-// proptypes
-import PropTypes from 'prop-types';
-
 // components
 import ShortChip from './ShortChip';
 
 // date
 import { displayDate } from '../utils/date';
+
+type Props = {
+  date: Date;
+  noLabel?: string;
+};
 
 /**
  * Renders a MUI Chip component to display a date.
@@ -15,14 +17,14 @@ import { displayDate } from '../utils/date';
  * Parse's the date value and formats it as 'Today', 'Tomorrow', or else the full date in 'mm/dd/yyyy' format.
  *
  * If no date is provided, it will display a custom text.
- *
- * @param {number} [date] - A date as a number representing milliseconds Unix time.
- * @param {string} [noLabel='Unscheduled'] - (Optional) the text to display if no date is provided. Defaults to 'Unscheduled'
  */
-const DateChip = ({ date, noLabel = 'Unscheduled' }) => {
+export const DateChip: React.FC<Props> = ({
+  date,
+  noLabel = 'Unscheduled',
+}) => {
   const label = displayDate(date, noLabel);
   const chipColor = displayDate(date, noLabel, 'Past Due');
-  let color = '';
+  let color = undefined as 'success' | 'primary' | 'error' | undefined;
   switch (chipColor) {
     case 'Today':
       color = 'success';
@@ -37,16 +39,9 @@ const DateChip = ({ date, noLabel = 'Unscheduled' }) => {
       return <ShortChip label={label} variant="outlined" />;
   }
 
-  return <ShortChip color={color} label={label} variant="outlined" />;
-};
-
-DateChip.defaultProps = {
-  noLabel: 'Unscheduled',
-};
-
-DateChip.propTypes = {
-  date: PropTypes.number,
-  noLabel: PropTypes.string,
+  return (
+    <ShortChip color={color || undefined} label={label} variant="outlined" />
+  );
 };
 
 export default DateChip;
