@@ -15,7 +15,14 @@ import {
 const none = () => false;
 const all = () => true;
 
-export const navItems = [
+export type NavItemType = {
+  title: string;
+  to: string;
+  listCallback: any;
+  icon: JSX.Element;
+};
+
+export const navItems: NavItemType[] = [
   {
     title: 'All Tasks',
     to: '/',
@@ -48,7 +55,7 @@ export const navItems = [
   },
 ];
 
-export const completed = [
+export const completed: NavItemType[] = [
   {
     title: 'Completed',
     to: '/completed',

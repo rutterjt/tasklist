@@ -1,8 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
 
-// proptypes
-import PropTypes from 'prop-types';
-
 // mui
 import {
   ListItem,
@@ -25,14 +22,17 @@ import { DELETE_TASK } from '../../store/actions';
 // hooks
 import { usePopup } from '../../hooks/usePopup';
 
+import { TaskType } from '../../types';
+
+type Props = {
+  handleDelete: (id: string) => void;
+  task: TaskType;
+};
+
 /**
  * Renders a task's data as a MUI ListItem.
- *
- * Renders components that display the task data, open a modal box to update the task data, and handle deleting the task.
- * @param {object} task - The task object.
- * @param {function} handleDelete - Code to run when a task is deleted (e.g., opening a notification with an option to undo).
  */
-const TaskListItem = ({ handleDelete, task }) => {
+export const TaskListItem: React.FC<Props> = ({ handleDelete, task }) => {
   const { dispatch } = useStore();
   // checkbox state: when true, the item is deleted
   const [checked, setChecked] = useState(false);
@@ -42,12 +42,12 @@ const TaskListItem = ({ handleDelete, task }) => {
   const { name, id } = task;
 
   // deleting items
-  const deleteCreator = (id) => {
+  const deleteCreator = (id: string) => {
     return { type: DELETE_TASK, payload: id };
   };
 
   const deleteTask = useCallback(
-    (id) => {
+    (id: string) => {
       handleDelete(id);
       dispatch(deleteCreator(id));
     },
@@ -56,7 +56,7 @@ const TaskListItem = ({ handleDelete, task }) => {
 
   // creates 500ms lag between clicking checkbox and deleting item.
   useEffect(() => {
-    let deleteTimeout;
+    let deleteTimeout: any;
     if (checked) {
       deleteTimeout = setTimeout(() => deleteTask(id), 500);
     } else {
@@ -98,21 +98,6 @@ const TaskListItem = ({ handleDelete, task }) => {
       <Divider component="li" sx={{ ml: 7 }} />
     </>
   );
-};
-
-TaskListItem.defaultProps = {
-  task: {
-    name: '',
-    id: '',
-  },
-};
-
-TaskListItem.propTypes = {
-  task: PropTypes.shape({
-    name: PropTypes.string.isRequired,
-    id: PropTypes.string.isRequired,
-  }).isRequired,
-  handleDelete: PropTypes.func.isRequired,
 };
 
 export default TaskListItem;
