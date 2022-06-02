@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 
 /**
  * Manages state to open and close a popover box.
@@ -12,25 +12,27 @@ import { useState } from 'react';
  * handleClose: closes the popover.
  *
  * popoverOpen: boolean value for whether the popover is currently open
- *
- * @param {object}  [defaultValue=null] - Default value of the anchor.
- *
  */
-export const usePopover = (defaultValue = null) => {
+export const usePopover = (defaultValue = null as Element | null) => {
   const [anchor, setAnchor] = useState(defaultValue);
 
   /**
    * Opens the popover by setting the value of the anchor to the current click target.
-   *
-   * @param {object} e - An even object.
    */
-  const handleOpen = (e) => {
-    setAnchor(e.currentTarget);
+  const handleOpen = (e: React.SyntheticEvent) => {
+    if (e.currentTarget) {
+      setAnchor(e.currentTarget);
+    }
   };
 
   const handleClose = () => {
     setAnchor(null);
   };
 
-  return [anchor, handleOpen, handleClose, !!anchor];
+  return [anchor, handleOpen, handleClose, !!anchor] as [
+    typeof anchor,
+    typeof handleOpen,
+    typeof handleClose,
+    boolean
+  ];
 };
