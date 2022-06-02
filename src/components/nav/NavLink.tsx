@@ -1,8 +1,5 @@
 import React from 'react';
 
-// proptypes
-import PropTypes from 'prop-types';
-
 // routing
 import { useLocation } from 'react-router-dom';
 
@@ -12,12 +9,14 @@ import { ListItemButton } from '@mui/material';
 // hooks
 import { useRenderLink } from '../../hooks/useRenderLink';
 
+type Props = {
+  to: string;
+};
+
 /**
  * Renders a React Router link as a MUI ListItemButton, for use as a navigation link.
- * @param {string} to - The link href, passed to the <Link> component.
- * @param {any} children - Any NavItem elements that should be rendered inside the Link.
  */
-const NavLink = ({ to, children }) => {
+export const NavLink: React.FC<Props> = ({ to, children }) => {
   const { pathname } = useLocation();
   const renderLink = useRenderLink(to);
 
@@ -26,11 +25,6 @@ const NavLink = ({ to, children }) => {
       {children}
     </ListItemButton>
   );
-};
-
-NavLink.propTypes = {
-  to: PropTypes.string.isRequired,
-  children: PropTypes.node.isRequired,
 };
 
 export default NavLink;

@@ -15,7 +15,7 @@ import NavList from './NavList';
 import { useStore } from '../../store/useStore';
 import { TOGGLE_NAV } from '../../store/actions';
 
-const NavDrawer = ({ children }) => {
+const NavDrawer: React.FC = ({ children }) => {
   const { dispatch, navOpen } = useStore();
   const toggleNav = () => dispatch({ type: TOGGLE_NAV });
 
@@ -57,19 +57,17 @@ const NavDrawer = ({ children }) => {
 /**
  * Renders the site navigation.
  */
-const Nav = () => {
-  return (
-    <NavDrawer>
-      <Box>
-        <Spacebar />
-        <NavList navList={navItems} />
-        <Divider />
-        <NavLabelsList />
-        <Divider />
-        <NavList navList={completed} />
-      </Box>
-    </NavDrawer>
-  );
-};
+export const Nav: React.FC = () => (
+  <NavDrawer>
+    <Box>
+      <Spacebar />
+      <NavList navList={navItems} />
+      <Divider />
+      <NavLabelsList />
+      <Divider />
+      <NavList navList={completed} />
+    </Box>
+  </NavDrawer>
+);
 
 export default Nav;

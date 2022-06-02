@@ -7,13 +7,17 @@ import AddIcon from '@mui/icons-material/Add';
 // components
 import CollapseList from '../CollapseList';
 import NavLabelItem from './NavLabelItem';
-import LabelCreateForm from '../forms/LabelCreateForm';
 import CustomDialog from '../CustomDialog';
+import { CreateLabel } from '../forms/CreateLabel';
 
 // store
 import { useStore } from '../../store/useStore';
 
-const AddLabelButton = ({ onClick }) => (
+type ButtonProps = {
+  onClick: () => void;
+};
+
+const AddLabelButton: React.FC<ButtonProps> = ({ onClick }) => (
   <Tooltip title="New Label">
     <IconButton edge="end" aria-label="new label" onClick={onClick}>
       <AddIcon />
@@ -24,7 +28,7 @@ const AddLabelButton = ({ onClick }) => (
 /**
  * A modified NavList for rendering NavLabels.
  */
-const NavLabelsList = () => {
+export const NavLabelsList = () => {
   const { labels } = useStore();
   const [editing, setEditing] = useState(false);
 
@@ -54,7 +58,7 @@ const NavLabelsList = () => {
         )}
       </CollapseList>
       <CustomDialog open={editing} onClose={handleClose}>
-        <LabelCreateForm closeForm={handleClose} />
+        <CreateLabel onDiscard={handleClose} onClose={handleClose} />
       </CustomDialog>
     </>
   );

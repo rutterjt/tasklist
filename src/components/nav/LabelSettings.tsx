@@ -1,8 +1,5 @@
 import React from 'react';
 
-// proptypes
-import PropTypes from 'prop-types';
-
 // mui
 import {
   Box,
@@ -22,7 +19,6 @@ import DeleteIcon from '@mui/icons-material/Delete';
 
 // store
 import { useStore } from '../../store/useStore';
-import { DELETE_LABEL } from '../../store/actions';
 
 // hooks
 import { usePopup } from '../../hooks/usePopup';
@@ -31,18 +27,23 @@ import { usePopover } from '../../hooks/usePopover';
 // components
 import WarningDialog from '../WarningDialog';
 import CustomDialog from '../CustomDialog';
-import LabelUpdateForm from '../forms/LabelUpdateForm';
+import { UpdateLabel } from '../forms/UpdateLabel';
+import { LabelType } from '../../types';
+
+type Props = {
+  id: string;
+};
 
 /**
  * Renders the UI for editing labels.
  *
  * Initially renders a button that, when pressed, renders a PopOver with options to edit or delete the label.
  *
- * @param {string} id - The id of the label to update.
  */
-const LabelSettings = ({ id }) => {
+export const LabelSettings: React.FC<Props> = ({ id }) => {
   const { labels, dispatch } = useStore();
-  const label = labels.find((label) => label.id === id) || {};
+  const label: LabelType | undefined =
+    labels.find((label) => label.id === id) || undefined;
 
   const [warningOpen, openWarning, closeWarning] = usePopup(false);
   const [editorOpen, openEditor, closeEditor] = usePopup(false);
@@ -55,15 +56,15 @@ const LabelSettings = ({ id }) => {
     closeSettings();
   };
 
-  // store
-  const deleteCreator = () => ({
-    type: DELETE_LABEL,
-    payload: { label },
-  });
-
-  const deleteLabel = () => dispatch(deleteCreator());
+  const deleteLabel = () =>
+    dispatch({
+      type: 'DELETE_LABEL',
+      payload: { label },
+    });
 
   const htmlID = settingsOpen ? 'priority-popup' : undefined;
+
+  if (!label) return null;
 
   return (
     <Box>
@@ -99,11 +100,15 @@ const LabelSettings = ({ id }) => {
           </ListItem>
         </List>
       </Popover>
-      <CustomDialog open={editorOpen} onClose={confirmClose}>
-        <LabelUpdateForm label={label} closeForm={confirmClose} />
+      <CustomDialog open={!!editorOpen} onClose={confirmClose}>
+        <UpdateLabel
+          label={label}
+          onDiscard={openWarning}
+          onClose={confirmClose}
+        />
       </CustomDialog>
       <WarningDialog
-        open={warningOpen}
+        open={!!warningOpen}
         title="Delete Label?"
         body="Warning: this cannot be undone."
         handleConfirm={deleteLabel}
@@ -112,10 +117,6 @@ const LabelSettings = ({ id }) => {
       />
     </Box>
   );
-};
-
-LabelSettings.propTypes = {
-  id: PropTypes.string.isRequired,
 };
 
 export default LabelSettings;
