@@ -23,7 +23,7 @@ import Nav from './components/nav/Nav';
 import SaveToStorage from './components/SaveToStorage';
 import PageChange from './components/PageChange';
 
-const App = () => (
+export const App = () => (
   <Router>
     <Box sx={{ display: 'flex' }}>
       <SaveToStorage />
