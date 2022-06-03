@@ -27,7 +27,7 @@ type Props = {
 export const ColorField: React.FC<Props> = ({ color, setColor }) => {
   const handleChange = (e: SelectChangeEvent) => {
     const testColor = e.target.value;
-    if (isColor(testColor)) {
+    if (isColor(testColor) || testColor === '') {
       setColor(testColor);
     }
   };
@@ -53,12 +53,12 @@ export const ColorField: React.FC<Props> = ({ color, setColor }) => {
         }}
       >
         <MenuItem value={''}>No color</MenuItem>
-        {Object.keys(colors).map((key, index) => (
-          <MenuItem key={index} value={key}>
+        {Object.keys(colors).map((color, index) => (
+          <MenuItem key={index} value={color}>
             <SquareRoundedIcon
-              sx={{ color: colors[key as keyof typeof colors], mr: 2 }}
+              sx={{ color: colors[color as keyof typeof colors], mr: 2 }}
             />{' '}
-            {capitalize(key)}
+            {capitalize(color)}
           </MenuItem>
         ))}
       </Select>
