@@ -1,4 +1,5 @@
 import React, { useReducer } from 'react';
+import { LabelType, TaskType } from '../types';
 
 import { StateType, ActionType, defaultState, reducer } from './reducer';
 
@@ -11,10 +12,24 @@ export const StoreContext = React.createContext<ContextType>({
   dispatch: () => null,
 });
 
-export const StoreProvider: React.FC = ({ children }) => {
+type Props = {
+  testDefaultState?: {
+    list?: TaskType[];
+    labels?: LabelType[];
+    deleted?: TaskType[];
+    navOpen?: false;
+    sortBy?: string;
+  };
+};
+
+export const StoreProvider: React.FC<Props> = ({
+  testDefaultState,
+  children,
+}) => {
   const [state, dispatch] = useReducer(reducer, defaultState);
+  const defaults = { ...state, ...testDefaultState };
   return (
-    <StoreContext.Provider value={{ dispatch, ...state }}>
+    <StoreContext.Provider value={{ dispatch, ...defaults }}>
       {children}
     </StoreContext.Provider>
   );
