@@ -39,6 +39,20 @@ describe('TaskForm', () => {
     screen.getByText('Cancel');
     screen.getByText('Add Task');
   });
+  it('renders an empty form', () => {
+    render(Component);
+    expect(screen.getByLabelText(/task/i)).toHaveValue('');
+    // description field
+    expect(screen.getByLabelText(/description/i)).toHaveValue('');
+    // due date
+    expect(screen.getByLabelText(/set due date/i)).toHaveTextContent(
+      /schedule/i
+    );
+    // label
+    expect(screen.getByLabelText(/set label/i)).toHaveTextContent('');
+    // priority
+    screen.getByLabelText('Set Priority, priority is currently 4');
+  });
   it('correctly renders default data', () => {
     render(ComponentWithDefaults);
     // all fields should display the passed-in default data
