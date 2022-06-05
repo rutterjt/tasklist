@@ -73,6 +73,7 @@ export const DateField: React.FC<Props> = ({ date, setDate }) => {
       </Tooltip>
       <Popover
         id={id}
+        data-testid={id}
         open={open}
         anchorEl={anchor}
         onClose={handleClose}

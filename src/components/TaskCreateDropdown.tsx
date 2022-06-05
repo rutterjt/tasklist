@@ -36,7 +36,7 @@ export const TaskCreateDropdown: React.FC<Props> = ({ defaultItem }) => {
         <CreateTask onClose={close} onDiscard={openWarning} />
       ) : (
         <Button variant="text" onClick={openForm} startIcon={<AddIcon />}>
-          Add task
+          New task
         </Button>
       )}
       <WarningDialog

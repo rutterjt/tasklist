@@ -45,7 +45,6 @@ export const LabelField: React.FC<Props> = ({ label, setLabel }) => {
   const { labels } = useStore();
 
   const handleClick = (label: LabelType) => {
-    console.log(label);
     setLabel(label);
     handleClose();
   };
@@ -62,6 +61,7 @@ export const LabelField: React.FC<Props> = ({ label, setLabel }) => {
       {label ? (
         <Tooltip title="Update Label">
           <Button
+            aria-label="Update Label"
             onClick={handleOpen}
             sx={(theme) => ({
               color: theme.palette.text.primary,
@@ -91,6 +91,7 @@ export const LabelField: React.FC<Props> = ({ label, setLabel }) => {
       )}
       <Popover
         id={id}
+        data-testid={id}
         open={open}
         anchorEl={anchor}
         onClose={handleClose}
