@@ -24,9 +24,9 @@ A lightweight, intuitive, open source to-do list app.
 
 ## Description
 
-Todoist is an open source to-do list web application, built with TypeScript, React, and Material UI.
+TaskList is an open source to-do list web application, built with TypeScript, React, and Material UI.
 
-Todoist supports creating, updating, and deleting tasks, which can be tagged with labels, due dates, and a priority level.
+TaskList supports creating, updating, and deleting tasks, which can be tagged and filtered by labels, due dates, and priority level.
 
 <img src="./github/main.png" alt="Preview of TaskList" width="600px" />
 
