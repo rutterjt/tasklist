@@ -32,6 +32,14 @@ TaskList supports creating, updating, and deleting tasks, which can be tagged an
 
 <br />
 
+![Preview of creating a new task](./github/form.png)
+
+<br />
+
+![Preview of setting a due date](./github/due-date-dropdown.png)
+
+<br />
+
 ## Live Demo
 
 Preview a live demo: [https://tasklist-rutterjt.netlify.app/](https://tasklist-rutterjt.netlify.app/)
